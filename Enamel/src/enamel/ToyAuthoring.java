@@ -8,5 +8,6 @@ public class ToyAuthoring {
     	    
     	    //Lab1 Task
     	    System.out.println("Team 9: push2");
+    	    System.out.println("Hello World");
     }
 }
