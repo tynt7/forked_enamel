@@ -1,3 +1,4 @@
+//Tyler was here
 package enamel;
 
 import java.text.SimpleDateFormat;
@@ -8,7 +9,6 @@ import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-//Tyler was here
 /**
 * This class provides abstract and concrete methods for simulating a braille cell.
 * <p>
