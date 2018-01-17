@@ -1,4 +1,4 @@
-//Tyler was here
+
 package enamel;
 
 import java.text.SimpleDateFormat;
