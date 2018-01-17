@@ -55,7 +55,7 @@ public class VisualPlayer extends Player {
 	JPanel centerPanel = new JPanel();
 	JRadioButton[] pins = new JRadioButton[8];
 	int[] pinIndex = {0, 2, 4, 1, 3, 5, 6, 7};
-	private boolean displayed = false;
+	private boolean displayed = true;
 
 	
 	/**
