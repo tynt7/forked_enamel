@@ -19,6 +19,8 @@ public class ToyAuthoring {
 		ScenarioParser s = new ScenarioParser(true);
 		s.setScenarioFile(fc.getSelectedFile().getPath());
 
-		
+		System.out.println("Hello");
+		System.out.println("Hello2");
+		System.out.println("Hello3");
 	}
 }
