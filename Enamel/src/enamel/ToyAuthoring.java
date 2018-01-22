@@ -18,5 +18,6 @@ public class ToyAuthoring {
 		s.setScenarioFile(fc.getSelectedFile().getPath());
 
 		System.out.println("Hello");
+		System.out.println("Hello2");
 	}
 }
