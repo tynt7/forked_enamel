@@ -14,6 +14,8 @@ public class ToyAuthoring {
 		if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
 			
 		}
+		System.out.print("Testing Conflict1");
+		System.out.print("Testing Conflict2");
 		ScenarioParser s = new ScenarioParser(true);
 		s.setScenarioFile(fc.getSelectedFile().getPath());
 
