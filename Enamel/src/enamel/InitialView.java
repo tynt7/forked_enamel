@@ -17,10 +17,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import enamel.ToyAuthoring;
 import java.awt.Color;
+import java.awt.Font;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
 
 public class InitialView {
 
-	private JFrame frame;
+	private JFrame frmAuthoringApp;
 
 	/**
 	 * Launch the application.
@@ -30,7 +33,7 @@ public class InitialView {
 			public void run() {
 				try {
 					InitialView window = new InitialView();
-					window.frame.setVisible(true);
+					window.frmAuthoringApp.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,25 +52,32 @@ public class InitialView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 175, 275);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);;
+		frmAuthoringApp = new JFrame();
+		frmAuthoringApp.setTitle("Authoring App");
+		frmAuthoringApp.setBackground(new Color(240, 240, 240));
+		frmAuthoringApp.getContentPane().setBackground(Color.WHITE);
+		frmAuthoringApp.setBounds(150, 150, 275, 375);
+		frmAuthoringApp.setResizable(false); // fix window dimensions 
+		
+		frmAuthoringApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAuthoringApp.getContentPane().setLayout(null);;
 		
 		JLabel lblNewLabel = new JLabel("AUTHORING APP");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 21));
 		lblNewLabel.setForeground(new Color(0, 0, 205));
-		lblNewLabel.setBounds(28, 35, 112, 15);
-		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setBounds(45, 11, 185, 70);
+		frmAuthoringApp.getContentPane().add(lblNewLabel);
 		
 		JButton newButton = new JButton("New");
+		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		newButton.setBackground(new Color(255, 69, 0));
 		newButton.setForeground(new Color(248, 248, 255));
 		newButton.setToolTipText("Create New Scenario");
-		newButton.setBounds(45, 90, 75, 25);
-		frame.getContentPane().add(newButton);
-		newButton.setAlignmentY(20);
+		newButton.setBounds(85, 90, 85, 50);
+		frmAuthoringApp.getContentPane().add(newButton);
 		
 		JButton btnEdit = new JButton("Edit");
+		btnEdit.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnEdit.setForeground(new Color(248, 248, 255));
 		btnEdit.setBackground(new Color(218, 165, 32));
 		btnEdit.setToolTipText("Edit a Scenario");
@@ -75,10 +85,11 @@ public class InitialView {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnEdit.setBounds(45, 120, 75, 25);
-		frame.getContentPane().add(btnEdit);
+		btnEdit.setBounds(85, 150, 85, 50);
+		frmAuthoringApp.getContentPane().add(btnEdit);
 		
 		JButton testButton = new JButton("Test");
+		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		testButton.setBackground(new Color(0, 128, 0));
 		testButton.setForeground(new Color(248, 248, 255));
 		testButton.setToolTipText("Test a Scenario");
@@ -101,19 +112,21 @@ public class InitialView {
 				s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");*/			
 			}
 		});
-		testButton.setBounds(45, 150, 75, 25);
-		frame.getContentPane().add(testButton);
+		testButton.setBounds(85, 210, 85, 50);
+		frmAuthoringApp.getContentPane().add(testButton);
 		
 		JButton exitButton = new JButton("Exit");
+		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		exitButton.setForeground(new Color(248, 248, 255));
 		exitButton.setBackground(new Color(178, 34, 34));
 		exitButton.setToolTipText("Exit the App");
-		exitButton.setBounds(45, 180, 75, 25);
-		frame.getContentPane().add(exitButton);
+		exitButton.setBounds(85, 270, 85, 50);
+		frmAuthoringApp.getContentPane().add(exitButton);
+		frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton, btnEdit, testButton, exitButton}));
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-			    frame.dispose();
+				frmAuthoringApp.setVisible(false);
+			    frmAuthoringApp.dispose();
 				System.exit(0);
 			}
 		});
