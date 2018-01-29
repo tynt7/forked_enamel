@@ -69,6 +69,12 @@ public class InitialView {
 		frmAuthoringApp.getContentPane().add(lblNewLabel);
 		
 		JButton newButton = new JButton("New");
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScenarioForm sf = new ScenarioForm();
+				sf.displayForm();
+			}
+		});
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		newButton.setBackground(new Color(255, 69, 0));
 		newButton.setForeground(new Color(248, 248, 255));
@@ -95,6 +101,9 @@ public class InitialView {
 		testButton.setToolTipText("Test a Scenario");
 		testButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//ToyAuthoring ta = new ToyAuthoring();
+				//ta.launchToyAuthoring();
+				//ta.main(null);
 				/*frame.dispose();
 				JButton open = new JButton();
 
