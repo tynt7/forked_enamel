@@ -30,6 +30,9 @@ import java.awt.ItemSelectable;
 
 import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ScenarioForm {
 
@@ -72,16 +75,16 @@ public class ScenarioForm {
 		sCreatorFrame.setBounds(100, 100, 504, 612);
 		sCreatorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		sCreatorFrame.getContentPane().setLayout(gridBagLayout);
 		
 		JLabel lblNewLabel = new JLabel("Create a Scenario for your Students");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 3;
+		gbc_lblNewLabel.gridx = 6;
 		gbc_lblNewLabel.gridy = 0;
 		sCreatorFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 		
@@ -89,7 +92,7 @@ public class ScenarioForm {
 		GridBagConstraints gbc_lblNumberOfCells = new GridBagConstraints();
 		gbc_lblNumberOfCells.ipadx = 16;
 		gbc_lblNumberOfCells.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumberOfCells.gridx = 2;
+		gbc_lblNumberOfCells.gridx = 4;
 		gbc_lblNumberOfCells.gridy = 2;
 		sCreatorFrame.getContentPane().add(lblNumberOfCells, gbc_lblNumberOfCells);
 		
@@ -101,11 +104,9 @@ public class ScenarioForm {
 		gbc_buttonComboBox.ipadx = 30;
 		gbc_buttonComboBox.gridwidth = 10;
 		gbc_buttonComboBox.fill = GridBagConstraints.VERTICAL;
-		gbc_buttonComboBox.gridx = 4;
+		gbc_buttonComboBox.gridx = 5;
 		gbc_buttonComboBox.gridy = 2;
 		sCreatorFrame.getContentPane().add(buttonComboBox, gbc_buttonComboBox);
-		JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
-		lblNumberOfButtons.setLabelFor(buttonComboBox);
 		//int temp = buttonComboBox.getSelectedIndex();
 		//numButtons = Integer.parseInt(input[temp]);
 		//buttonComboBox.addItemListener(aListener);;
@@ -119,26 +120,50 @@ public class ScenarioForm {
 		        System.out.println("Selected: " + selectedString(is));
 		      }
 		    });
+		JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
+		lblNumberOfButtons.setLabelFor(buttonComboBox);
 		//buttonComboBox.addItemListener(itemListener);
 		    
 		GridBagConstraints gbc_lblNumberOfButtons = new GridBagConstraints();
 		gbc_lblNumberOfButtons.ipadx = 16;
 		gbc_lblNumberOfButtons.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumberOfButtons.gridx = 2;
+		gbc_lblNumberOfButtons.gridx = 4;
 		gbc_lblNumberOfButtons.gridy = 3;
 		sCreatorFrame.getContentPane().add(lblNumberOfButtons, gbc_lblNumberOfButtons);
 		JComboBox cellComboBox = new JComboBox();
 		lblNumberOfCells.setLabelFor(cellComboBox);
-		
+
 		cellComboBox.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"}));
 		GridBagConstraints gbc_cellComboBox = new GridBagConstraints();
 		gbc_cellComboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_cellComboBox.ipadx = 30;
 		gbc_cellComboBox.gridwidth = 10;
 		gbc_cellComboBox.fill = GridBagConstraints.VERTICAL;
-		gbc_cellComboBox.gridx = 4;
+		gbc_cellComboBox.gridx = 5;
 		gbc_cellComboBox.gridy = 3;
 		sCreatorFrame.getContentPane().add(cellComboBox, gbc_cellComboBox);
+		
+		JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
+		btnSaveAndCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnSaveAndCreate.setForeground(new Color(255, 255, 255));
+		btnSaveAndCreate.setBackground(new Color(154, 205, 50));
+		GridBagConstraints gbc_btnSaveAndCreate = new GridBagConstraints();
+		gbc_btnSaveAndCreate.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSaveAndCreate.gridx = 6;
+		gbc_btnSaveAndCreate.gridy = 17;
+		sCreatorFrame.getContentPane().add(btnSaveAndCreate, gbc_btnSaveAndCreate);
+		
+		JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
+		btnExitWithoutSaving.setForeground(new Color(255, 255, 255));
+		btnExitWithoutSaving.setBackground(new Color(178, 34, 34));
+		GridBagConstraints gbc_btnExitWithoutSaving = new GridBagConstraints();
+		gbc_btnExitWithoutSaving.insets = new Insets(0, 0, 5, 5);
+		gbc_btnExitWithoutSaving.gridx = 6;
+		gbc_btnExitWithoutSaving.gridy = 18;
+		sCreatorFrame.getContentPane().add(btnExitWithoutSaving, gbc_btnExitWithoutSaving);
 		cellComboBox.addItemListener(new ItemListener() {
 		      public void itemStateChanged(ItemEvent itemEvent) {
 		        int state = itemEvent.getStateChange();
@@ -148,8 +173,9 @@ public class ScenarioForm {
 		        numCells = Integer.parseInt(selectedString(is).toString());
 		        System.out.println("Selected: " + selectedString(is));
 		      }
-		    });
+		    });		
 		sCreatorFrame.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{sCreatorFrame.getContentPane(), lblNewLabel, lblNumberOfCells, buttonComboBox, lblNumberOfButtons, cellComboBox}));
+
 	}
 	
 	static private String selectedString(ItemSelectable is) {
