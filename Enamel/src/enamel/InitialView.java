@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import enamel.ToyAuthoring;
 import java.awt.Color;
 import java.awt.Font;
-import org.eclipse.wb.swing.FocusTraversalOnArray;
+//import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 
 public class InitialView {
@@ -57,17 +57,18 @@ public class InitialView {
 		frmAuthoringApp.setBackground(new Color(240, 240, 240));
 		frmAuthoringApp.getContentPane().setBackground(Color.WHITE);
 		frmAuthoringApp.setBounds(150, 150, 275, 375);
-		frmAuthoringApp.setResizable(false); // fix window dimensions 
-		
+		frmAuthoringApp.setResizable(false); // fix window dimensions
+
 		frmAuthoringApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAuthoringApp.getContentPane().setLayout(null);;
-		
+		frmAuthoringApp.getContentPane().setLayout(null);
+		;
+
 		JLabel lblNewLabel = new JLabel("AUTHORING APP");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 21));
 		lblNewLabel.setForeground(new Color(0, 0, 205));
 		lblNewLabel.setBounds(45, 11, 185, 70);
 		frmAuthoringApp.getContentPane().add(lblNewLabel);
-		
+
 		JButton newButton = new JButton("New");
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -81,7 +82,7 @@ public class InitialView {
 		newButton.setToolTipText("Create New Scenario");
 		newButton.setBounds(85, 90, 85, 50);
 		frmAuthoringApp.getContentPane().add(newButton);
-		
+
 		JButton btnEdit = new JButton("Edit");
 		btnEdit.setFont(new Font("Tahoma", Font.BOLD, 16));
 		btnEdit.setForeground(new Color(248, 248, 255));
@@ -93,7 +94,7 @@ public class InitialView {
 		});
 		btnEdit.setBounds(85, 150, 85, 50);
 		frmAuthoringApp.getContentPane().add(btnEdit);
-		
+
 		JButton testButton = new JButton("Test");
 		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		testButton.setBackground(new Color(0, 128, 0));
@@ -101,29 +102,32 @@ public class InitialView {
 		testButton.setToolTipText("Test a Scenario");
 		testButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//ToyAuthoring ta = new ToyAuthoring();
-				//ta.launchToyAuthoring();
-				//ta.main(null);
-				/*frame.dispose();
-				JButton open = new JButton();
-
-				JFileChooser fc = new JFileChooser();
-				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
-				fc.setDialogTitle("Please Choose File to Open");
-				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
-					
-				}
-				ScenarioParser s = new ScenarioParser(true);
-				s.setScenarioFile(fc.getSelectedFile().getPath());*/
-				//ToyAuthoring.runFileChhoser();
-				/*ScenarioParser s = new ScenarioParser(true);
-				s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");*/			
+				// ToyAuthoring ta = new ToyAuthoring();
+				// ta.launchToyAuthoring();
+				// ta.main(null);
+				/*
+				 * frame.dispose(); JButton open = new JButton();
+				 * 
+				 * JFileChooser fc = new JFileChooser();
+				 * fc.setCurrentDirectory(new
+				 * java.io.File("./FactoryScenarios"));
+				 * fc.setDialogTitle("Please Choose File to Open");
+				 * fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				 * if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+				 * 
+				 * } ScenarioParser s = new ScenarioParser(true);
+				 * s.setScenarioFile(fc.getSelectedFile().getPath());
+				 */
+				// ToyAuthoring.runFileChhoser();
+				/*
+				 * ScenarioParser s = new ScenarioParser(true);
+				 * s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+				 */
 			}
 		});
 		testButton.setBounds(85, 210, 85, 50);
 		frmAuthoringApp.getContentPane().add(testButton);
-		
+
 		JButton exitButton = new JButton("Exit");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		exitButton.setForeground(new Color(248, 248, 255));
@@ -131,11 +135,13 @@ public class InitialView {
 		exitButton.setToolTipText("Exit the App");
 		exitButton.setBounds(85, 270, 85, 50);
 		frmAuthoringApp.getContentPane().add(exitButton);
-		frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton, btnEdit, testButton, exitButton}));
+		// frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new
+		// Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton,
+		// btnEdit, testButton, exitButton}));
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmAuthoringApp.setVisible(false);
-			    frmAuthoringApp.dispose();
+				frmAuthoringApp.dispose();
 				System.exit(0);
 			}
 		});
