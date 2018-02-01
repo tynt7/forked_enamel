@@ -20,7 +20,7 @@ import java.awt.Color;
 import java.awt.Font;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
-
+//initial
 public class InitialView {
 
 	private JFrame frmAuthoringApp;

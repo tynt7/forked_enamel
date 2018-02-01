@@ -18,6 +18,7 @@ public class ToyAuthoring {
 		s.setScenarioFile(fc.getSelectedFile().getPath());
 	}
 
+	//method
 	public static void launchToyAuthoring() {
 		JButton open = new JButton();
 		JFileChooser fc = new JFileChooser();
