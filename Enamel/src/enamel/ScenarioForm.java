@@ -296,7 +296,7 @@ public class ScenarioForm {
 		btnExitWithoutSaving.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// sCreatorFrame.setVisible(false);
-				int option = JOptionPane.showConfirmDialog(null, "Are you sure", "Confirm", JOptionPane.YES_NO_OPTION,
+				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.YES_OPTION) {
 					sCreatorFrame.dispose();
@@ -326,7 +326,7 @@ public class ScenarioForm {
 
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
-			int option = JOptionPane.showConfirmDialog(null, "Are you sure", "Confirm", JOptionPane.YES_NO_OPTION,
+			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE);
 			if (option == JOptionPane.YES_OPTION) {
 				// System.exit( 0 );
