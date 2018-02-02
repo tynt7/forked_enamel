@@ -95,7 +95,8 @@ public class InitialView {
 		btnEdit.setBounds(85, 150, 85, 50);
 		frmAuthoringApp.getContentPane().add(btnEdit);
 
-		JButton testButton = new JButton("Test");
+		//**************************************************** Test Button
+		JButton testButton = new JButton("Test"); 
 		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		testButton.setBackground(new Color(0, 128, 0));
 		testButton.setForeground(new Color(248, 248, 255));
@@ -105,24 +106,25 @@ public class InitialView {
 				// ToyAuthoring ta = new ToyAuthoring();
 				// ta.launchToyAuthoring();
 				// ta.main(null);
-				/*
-				 * frame.dispose(); JButton open = new JButton();
-				 * 
-				 * JFileChooser fc = new JFileChooser();
-				 * fc.setCurrentDirectory(new
-				 * java.io.File("./FactoryScenarios"));
-				 * fc.setDialogTitle("Please Choose File to Open");
-				 * fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				 * if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
-				 * 
-				 * } ScenarioParser s = new ScenarioParser(true);
-				 * s.setScenarioFile(fc.getSelectedFile().getPath());
-				 */
+				
+				// frame.dispose(); 
+				/* JButton open = new JButton();
+				 
+				 JFileChooser fc = new JFileChooser();
+				 fc.setCurrentDirectory(new
+				 java.io.File("./FactoryScenarios"));
+				 fc.setDialogTitle("Please Choose File to Open");
+				 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				 if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+				 
+				 } ScenarioParser s = new ScenarioParser(true);
+				 s.setScenarioFile(fc.getSelectedFile().getPath());*/
+				 
 				// ToyAuthoring.runFileChhoser();
-				/*
-				 * ScenarioParser s = new ScenarioParser(true);
-				 * s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
-				 */
+				
+				 ScenarioParser s = new ScenarioParser(true);
+				 s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+				 
 			}
 		});
 		testButton.setBounds(85, 210, 85, 50);

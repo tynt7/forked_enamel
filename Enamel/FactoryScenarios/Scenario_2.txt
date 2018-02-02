@@ -1,9 +1,10 @@
-Cell 1
+Cell 2
 Button 4
 
 Orientation questions. Questions with two pins
 /~disp-cell-clear:0
 /~disp-cell-pins:0 10100000
+/~disp-cell-pins:1 10101000
 Here's the first question:
 What pins are up right now? Are they the pins 1 and 3, or are they the pins 4 and 6?
 Press the button 1 for pins 1 and 3, or press button 2 for pins 4 and 6.
