@@ -13,6 +13,9 @@ public class Card {
 	private String cardName; // card1 card2 card3 
 	private String type;
 	private ArrayList<DataButton> bList;
+	private String text;
+	private ArrayList<BrailleCell> cells;
+	private String sound;
 	
 	public Card(int id, String name, String type){
 		this.id = id;
@@ -31,5 +34,34 @@ public class Card {
 	
 	public String getType(){
 		return this.type;
+	}
+	
+	public String getText() {
+		return this.text;
+	}
+	
+	public ArrayList<DataButton> getButtonList() {
+		return this.bList;
+	}
+	
+	public void addText(String newText) {
+		if (text == null) {
+			text = newText;
+		}
+		else {
+			text += "\n" + newText;
+		}
+	}
+	
+	public void setSound(String newSound) {
+		this.sound = newSound;
+	}
+	
+	public void setBList(ArrayList<DataButton> newList) {
+		this.bList = newList;
+	}
+	
+	public void setCells(ArrayList<BrailleCell> newList) {
+		this.cells = newList;
 	}
 }
