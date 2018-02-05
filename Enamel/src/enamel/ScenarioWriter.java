@@ -15,7 +15,7 @@ public class ScenarioWriter {
 		path = filePath;
 	}
 	
-	//constructor form editing file
+	//constructor for editing file
 	public ScenarioWriter (String filePath, boolean appendVal) {
 		path = filePath;
 		append = appendVal;
