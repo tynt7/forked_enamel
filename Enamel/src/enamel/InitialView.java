@@ -21,6 +21,7 @@ import java.awt.Font;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 //initial
+//fixed colors
 public class InitialView {
 
 	private JFrame frmAuthoringApp;
