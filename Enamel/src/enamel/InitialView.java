@@ -79,27 +79,34 @@ public class InitialView {
 		});
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		newButton.setBackground(new Color(255, 69, 0));
+		newButton.setContentAreaFilled(false);
+        newButton.setOpaque(true);
+		
 		newButton.setForeground(new Color(248, 248, 255));
 		newButton.setToolTipText("Create New Scenario");
 		newButton.setBounds(85, 90, 85, 50);
 		frmAuthoringApp.getContentPane().add(newButton);
 
-		JButton btnEdit = new JButton("Edit");
-		btnEdit.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEdit.setForeground(new Color(248, 248, 255));
-		btnEdit.setBackground(new Color(218, 165, 32));
-		btnEdit.setToolTipText("Edit a Scenario");
-		btnEdit.addActionListener(new ActionListener() {
+		JButton editButton = new JButton("Edit");
+		editButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		editButton.setForeground(new Color(248, 248, 255));
+		editButton.setContentAreaFilled(false);
+        editButton.setOpaque(true);
+		editButton.setBackground(new Color(218, 165, 32));
+		editButton.setToolTipText("Edit a Scenario");
+		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnEdit.setBounds(85, 150, 85, 50);
-		frmAuthoringApp.getContentPane().add(btnEdit);
+		editButton.setBounds(85, 150, 85, 50);
+		frmAuthoringApp.getContentPane().add(editButton);
 
 		//**************************************************** Test Button
 		JButton testButton = new JButton("Test"); 
 		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		testButton.setBackground(new Color(0, 128, 0));
+		testButton.setContentAreaFilled(false);
+        testButton.setOpaque(true);
 		testButton.setForeground(new Color(248, 248, 255));
 		testButton.setToolTipText("Test a Scenario");
 		testButton.addActionListener(new ActionListener() {
@@ -152,6 +159,8 @@ public class InitialView {
 		JButton exitButton = new JButton("Exit");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		exitButton.setForeground(new Color(248, 248, 255));
+		exitButton.setContentAreaFilled(false);
+        exitButton.setOpaque(true);
 		exitButton.setBackground(new Color(178, 34, 34));
 		exitButton.setToolTipText("Exit the App");
 		exitButton.setBounds(85, 270, 85, 50);
