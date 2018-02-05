@@ -39,6 +39,7 @@ public class InitialView {
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -122,8 +123,26 @@ public class InitialView {
 				 
 				// ToyAuthoring.runFileChhoser();
 				
-				 ScenarioParser s = new ScenarioParser(true);
-				 s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+//				 ScenarioParser s = new ScenarioParser(true);
+//				 s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+				new Thread(new Runnable() {
+			         public void run() {
+			           /*ScenarioParser s = new ScenarioParser(true);
+			           s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");*/
+			        	 JButton open = new JButton();
+						 
+						 JFileChooser fc = new JFileChooser();
+						 fc.setCurrentDirectory(new
+						 java.io.File("./FactoryScenarios"));
+						 fc.setDialogTitle("Please Choose File to Open");
+						 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						 if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+						 
+						 } ScenarioParser s = new ScenarioParser(true);
+						 s.setScenarioFile(fc.getSelectedFile().getPath());
+			           }
+			     }).start();
+
 				 
 			}
 		});
