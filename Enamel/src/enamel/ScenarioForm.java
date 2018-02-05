@@ -42,6 +42,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 //form
 //fixed colors
+
 public class ScenarioForm {
 
 	private JFrame sCreatorFrame;
