@@ -22,7 +22,6 @@ import java.awt.Font;
 import java.awt.Component;
 //initial
 //fixed colors
-
 public class InitialView {
 
 	private JFrame frmAuthoringApp;
