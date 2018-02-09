@@ -11,6 +11,7 @@ import net.miginfocom.swing.MigLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 
+//A basic GUI
 public class AuthoringViewer extends JFrame {
 	private JLabel prompt;
 	private JLabel b1L;
