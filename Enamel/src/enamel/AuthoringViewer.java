@@ -52,6 +52,8 @@ public class AuthoringViewer extends JFrame {
 		letterInput.setColumns(10);
 		
 		JButton exit = new JButton("X");
+		exit.setForeground(Color.BLACK);
+		exit.setBackground(Color.WHITE);
 		exit.setBounds(20, 296, 50, 50);
 		getContentPane().add(exit);
 		
