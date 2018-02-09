@@ -36,6 +36,7 @@ public class AuthoringViewer extends JFrame {
 	
 	public AuthoringViewer(ActionListener listener) {
 		super("File Creator");
+		setResizable(false);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
