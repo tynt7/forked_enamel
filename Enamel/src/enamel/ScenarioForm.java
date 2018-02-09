@@ -41,6 +41,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 //form
+//fixed colorss
 public class ScenarioForm {
 
 	private JFrame sCreatorFrame;
@@ -283,6 +284,8 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(btnBrowse, gbc_btnBrowse);
 		
 		btnSaveAndCreate.setForeground(new Color(255, 255, 255));
+		btnSaveAndCreate.setContentAreaFilled(false);
+        btnSaveAndCreate.setOpaque(true);
 		btnSaveAndCreate.setBackground(new Color(154, 205, 50));
 		GridBagConstraints gbc_btnSaveAndCreate = new GridBagConstraints();
 		gbc_btnSaveAndCreate.insets = new Insets(0, 0, 5, 5);
@@ -292,6 +295,8 @@ public class ScenarioForm {
 
 		JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
 		btnExitWithoutSaving.setForeground(new Color(255, 255, 255));
+		btnExitWithoutSaving.setContentAreaFilled(false);
+        btnExitWithoutSaving.setOpaque(true);
 		btnExitWithoutSaving.setBackground(new Color(178, 34, 34));
 		btnExitWithoutSaving.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
