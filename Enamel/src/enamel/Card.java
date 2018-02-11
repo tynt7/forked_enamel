@@ -40,6 +40,10 @@ public class Card {
 		return this.text;
 	}
 	
+	public ArrayList<BrailleCell> getCells() {
+		return this.cells;
+	}
+	
 	public ArrayList<DataButton> getButtonList() {
 		return this.bList;
 	}
