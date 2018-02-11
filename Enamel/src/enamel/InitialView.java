@@ -99,6 +99,26 @@ public class InitialView {
 		editButton.setToolTipText("Edit a Scenario");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new Thread(new Runnable() {
+					public void run() {
+						/*
+						 * ScenarioParser s = new ScenarioParser(true);
+						 * s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+						 */
+						JButton open = new JButton();
+
+						JFileChooser fc = new JFileChooser();
+						fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
+						fc.setDialogTitle("Please Choose File to Open");
+						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+
+						}
+						FileToCardsParser f = new FileToCardsParser();
+						f.setFile(fc.getSelectedFile().getPath());
+						AuthoringViewer av = new AuthoringViewer(new ActionListener() {public void actionPerformed(ActionEvent e2) {}});
+					}
+				}).start();
 			}
 		});
 		editButton.setBounds(85, 150, 85, 50);
@@ -142,8 +162,7 @@ public class InitialView {
 			        	 JButton open = new JButton();
 						 
 						 JFileChooser fc = new JFileChooser();
-						 fc.setCurrentDirectory(new
-						 java.io.File("./FactoryScenarios"));
+						 fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
 						 fc.setDialogTitle("Please Choose File to Open");
 						 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 						 if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {

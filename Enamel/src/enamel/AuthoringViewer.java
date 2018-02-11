@@ -43,7 +43,7 @@ public class AuthoringViewer extends JFrame {
 		
 		textField = new JTextField();
 		textField.setBounds(23, 150, 130, 26);
-		getContentPane().add(letterInput);
+		getContentPane().add(textField);
 		textField.setColumns(10);
 		
 		letterInput = new JTextField();
@@ -148,14 +148,14 @@ public class AuthoringViewer extends JFrame {
 		JToggleButton three = new JToggleButton("3");
 		bttnList.add(three);
 		
-		JToggleButton toggleButton = new JToggleButton("4");
-		bttnList.add(toggleButton);
+		JToggleButton four = new JToggleButton("4");
+		bttnList.add(four);
 		
-		JToggleButton toggleButton_1 = new JToggleButton("5");
-		bttnList.add(toggleButton_1);
+		JToggleButton five = new JToggleButton("5");
+		bttnList.add(five);
 		
-		JToggleButton toggleButton_2 = new JToggleButton("6");
-		bttnList.add(toggleButton_2);
+		JToggleButton six = new JToggleButton("6");
+		bttnList.add(six);
 		
 		JLabel currCard = new JLabel("currCard");
 		currCard.setBounds(20, 12, 61, 16);
