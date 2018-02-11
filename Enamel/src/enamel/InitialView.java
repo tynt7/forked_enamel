@@ -20,6 +20,7 @@ import java.awt.Color;
 import java.awt.Font;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import javax.swing.UIManager;
 //initial
 //fixed colors
 public class InitialView {
@@ -57,7 +58,7 @@ public class InitialView {
 		frmAuthoringApp = new JFrame();
 		frmAuthoringApp.setTitle("Authoring App");
 		frmAuthoringApp.setBackground(new Color(240, 240, 240));
-		frmAuthoringApp.getContentPane().setBackground(Color.WHITE);
+		frmAuthoringApp.getContentPane().setBackground(UIManager.getColor("Button.light"));
 		frmAuthoringApp.setBounds(150, 150, 275, 375);
 		frmAuthoringApp.setResizable(false); // fix window dimensions
 
@@ -82,6 +83,7 @@ public class InitialView {
 		newButton.setBackground(Color.WHITE);
 		newButton.setContentAreaFilled(false);
         newButton.setOpaque(true);
+        
 		
 		newButton.setForeground(Color.BLACK);
 		newButton.setToolTipText("Create New Scenario");
