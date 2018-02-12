@@ -1,7 +1,9 @@
-package enamel;
+package enamel.testCases;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+
+import enamel.FileToCardsParser;
 
 public class TestFileToCardsParser {
 

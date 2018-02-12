@@ -58,7 +58,7 @@ public class InitialView {
 		frmAuthoringApp = new JFrame();
 		frmAuthoringApp.setTitle("Authoring App");
 		frmAuthoringApp.setBackground(new Color(240, 240, 240));
-		frmAuthoringApp.getContentPane().setBackground(UIManager.getColor("Button.light"));
+		frmAuthoringApp.getContentPane().setBackground(Color.WHITE);
 		frmAuthoringApp.setBounds(150, 150, 275, 375);
 		frmAuthoringApp.setResizable(false); // fix window dimensions
 
@@ -68,7 +68,7 @@ public class InitialView {
 
 		JLabel lblNewLabel = new JLabel("AUTHORING APP");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 21));
-		lblNewLabel.setForeground(new Color(0, 0, 205));
+		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setBounds(45, 11, 185, 70);
 		frmAuthoringApp.getContentPane().add(lblNewLabel);
 
@@ -116,7 +116,7 @@ public class InitialView {
 						}
 						FileToCardsParser f = new FileToCardsParser();
 						f.setFile(fc.getSelectedFile().getPath());
-						AuthoringViewer av = new AuthoringViewer(new ActionListener() {public void actionPerformed(ActionEvent e2) {}});
+						//AuthoringViewer av = new AuthoringViewer(new ActionListener() {public void actionPerformed(ActionEvent e2) {}});
 					}
 				}).start();
 			}

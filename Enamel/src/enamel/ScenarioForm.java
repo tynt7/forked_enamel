@@ -203,6 +203,9 @@ public class ScenarioForm {
 		JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
 		btnSaveAndCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AuthoringViewer aw = new AuthoringViewer();
+				aw.displayForm();
+				sCreatorFrame.dispose();
 			}
 		});
 
@@ -303,7 +306,7 @@ public class ScenarioForm {
 		JButton btnSave = new JButton("Save");
 		panel.add(btnSave);
 		
-		btnSaveAndCreate.setForeground(new Color(255, 255, 255));
+		btnSaveAndCreate.setForeground(Color.BLACK);
 		btnSaveAndCreate.setContentAreaFilled(false);
         btnSaveAndCreate.setOpaque(true);
 		btnSaveAndCreate.setBackground(new Color(154, 205, 50));
@@ -314,13 +317,13 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(btnSaveAndCreate, gbc_btnSaveAndCreate);
 
 		JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
-		btnExitWithoutSaving.setForeground(new Color(255, 255, 255));
+		btnExitWithoutSaving.setForeground(Color.BLACK);
 		btnExitWithoutSaving.setContentAreaFilled(false);
         btnExitWithoutSaving.setOpaque(true);
 		btnExitWithoutSaving.setBackground(new Color(178, 34, 34));
 		btnExitWithoutSaving.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// sCreatorFrame.setVisible(false);
+				sCreatorFrame.setVisible(false);
 				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.YES_OPTION) {
