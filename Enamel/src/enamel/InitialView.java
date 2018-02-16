@@ -20,7 +20,9 @@ import java.awt.Color;
 import java.awt.Font;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
-
+import javax.swing.UIManager;
+//initial
+//fixed colors
 public class InitialView {
 
 	private JFrame frmAuthoringApp;
@@ -39,6 +41,7 @@ public class InitialView {
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -65,7 +68,7 @@ public class InitialView {
 
 		JLabel lblNewLabel = new JLabel("AUTHORING APP");
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 21));
-		lblNewLabel.setForeground(new Color(0, 0, 205));
+		lblNewLabel.setForeground(Color.BLACK);
 		lblNewLabel.setBounds(45, 11, 185, 70);
 		frmAuthoringApp.getContentPane().add(lblNewLabel);
 
@@ -77,52 +80,99 @@ public class InitialView {
 			}
 		});
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		newButton.setBackground(new Color(255, 69, 0));
-		newButton.setForeground(new Color(248, 248, 255));
+		newButton.setBackground(Color.WHITE);
+		newButton.setContentAreaFilled(false);
+        newButton.setOpaque(true);
+        
+		
+		newButton.setForeground(Color.BLACK);
 		newButton.setToolTipText("Create New Scenario");
 		newButton.setBounds(85, 90, 85, 50);
 		frmAuthoringApp.getContentPane().add(newButton);
 
-		JButton btnEdit = new JButton("Edit");
-		btnEdit.setFont(new Font("Tahoma", Font.BOLD, 16));
-		btnEdit.setForeground(new Color(248, 248, 255));
-		btnEdit.setBackground(new Color(218, 165, 32));
-		btnEdit.setToolTipText("Edit a Scenario");
-		btnEdit.addActionListener(new ActionListener() {
+		JButton editButton = new JButton("Edit");
+		editButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		editButton.setForeground(Color.BLACK);
+		editButton.setContentAreaFilled(false);
+        editButton.setOpaque(true);
+		editButton.setBackground(Color.WHITE);
+		editButton.setToolTipText("Edit a Scenario");
+		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new Thread(new Runnable() {
+					public void run() {
+						/*
+						 * ScenarioParser s = new ScenarioParser(true);
+						 * s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+						 */
+						JButton open = new JButton();
+
+						JFileChooser fc = new JFileChooser();
+						fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
+						fc.setDialogTitle("Please Choose File to Open");
+						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+
+						}
+						FileToCardsParser f = new FileToCardsParser();
+						f.setFile(fc.getSelectedFile().getPath());
+						//AuthoringViewer av = new AuthoringViewer(new ActionListener() {public void actionPerformed(ActionEvent e2) {}});
+					}
+				}).start();
 			}
 		});
-		btnEdit.setBounds(85, 150, 85, 50);
-		frmAuthoringApp.getContentPane().add(btnEdit);
+		editButton.setBounds(85, 150, 85, 50);
+		frmAuthoringApp.getContentPane().add(editButton);
 
-		JButton testButton = new JButton("Test");
+		//**************************************************** Test Button
+		JButton testButton = new JButton("Test"); 
 		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		testButton.setBackground(new Color(0, 128, 0));
-		testButton.setForeground(new Color(248, 248, 255));
+		testButton.setBackground(Color.WHITE);
+		testButton.setContentAreaFilled(false);
+        testButton.setOpaque(true);
+		testButton.setForeground(Color.BLACK);
 		testButton.setToolTipText("Test a Scenario");
 		testButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ToyAuthoring ta = new ToyAuthoring();
 				// ta.launchToyAuthoring();
 				// ta.main(null);
-				/*
-				 * frame.dispose(); JButton open = new JButton();
-				 * 
-				 * JFileChooser fc = new JFileChooser();
-				 * fc.setCurrentDirectory(new
-				 * java.io.File("./FactoryScenarios"));
-				 * fc.setDialogTitle("Please Choose File to Open");
-				 * fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				 * if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
-				 * 
-				 * } ScenarioParser s = new ScenarioParser(true);
-				 * s.setScenarioFile(fc.getSelectedFile().getPath());
-				 */
+				
+				// frame.dispose(); 
+				/* JButton open = new JButton();
+				 
+				 JFileChooser fc = new JFileChooser();
+				 fc.setCurrentDirectory(new
+				 java.io.File("./FactoryScenarios"));
+				 fc.setDialogTitle("Please Choose File to Open");
+				 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				 if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+				 
+				 } ScenarioParser s = new ScenarioParser(true);
+				 s.setScenarioFile(fc.getSelectedFile().getPath());*/
+				 
 				// ToyAuthoring.runFileChhoser();
-				/*
-				 * ScenarioParser s = new ScenarioParser(true);
-				 * s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
-				 */
+				
+//				 ScenarioParser s = new ScenarioParser(true);
+//				 s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+				new Thread(new Runnable() {
+			         public void run() {
+			           /*ScenarioParser s = new ScenarioParser(true);
+			           s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");*/
+			        	 JButton open = new JButton();
+						 
+						 JFileChooser fc = new JFileChooser();
+						 fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
+						 fc.setDialogTitle("Please Choose File to Open");
+						 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						 if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+						 
+						 } ScenarioParser s = new ScenarioParser(true);
+						 s.setScenarioFile(fc.getSelectedFile().getPath());
+			           }
+			     }).start();
+
+				 
 			}
 		});
 		testButton.setBounds(85, 210, 85, 50);
@@ -130,8 +180,10 @@ public class InitialView {
 
 		JButton exitButton = new JButton("Exit");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		exitButton.setForeground(new Color(248, 248, 255));
-		exitButton.setBackground(new Color(178, 34, 34));
+		exitButton.setForeground(Color.BLACK);
+		exitButton.setContentAreaFilled(false);
+        exitButton.setOpaque(true);
+		exitButton.setBackground(Color.WHITE);
 		exitButton.setToolTipText("Exit the App");
 		exitButton.setBounds(85, 270, 85, 50);
 		frmAuthoringApp.getContentPane().add(exitButton);

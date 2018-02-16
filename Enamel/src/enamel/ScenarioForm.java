@@ -40,7 +40,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
-
+import javax.swing.JPanel;
+//form
+//fixed colorss
 public class ScenarioForm {
 
 	private JFrame sCreatorFrame;
@@ -85,14 +87,14 @@ public class ScenarioForm {
 		sCreatorFrame.setResizable(false);
 		sCreatorFrame.setBackground(new Color(255, 255, 255));
 		sCreatorFrame.setTitle("Scenario Creator");
-		sCreatorFrame.setBounds(100, 100, 504, 612);
+		sCreatorFrame.setBounds(100, 100, 1000, 612);
 		sCreatorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);// DISPOSE_ON_CLOSE);
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] { 10, 10, 0, 0, 0, 0, 0, 0, 0, 0 };
 		gridBagLayout.rowHeights = new int[] { 5, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0,
 				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
 				0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
 		sCreatorFrame.getContentPane().setLayout(gridBagLayout);
 		sCreatorFrame.addWindowListener(new confirmClose()); // pop up before
@@ -103,7 +105,7 @@ public class ScenarioForm {
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.gridwidth = 2;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 3;
+		gbc_lblNewLabel.gridx = 5;
 		gbc_lblNewLabel.gridy = 1;
 		sCreatorFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 
@@ -201,6 +203,9 @@ public class ScenarioForm {
 		JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
 		btnSaveAndCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AuthoringViewer aw = new AuthoringViewer();
+				aw.displayForm();
+				sCreatorFrame.dispose();
 			}
 		});
 
@@ -282,7 +287,28 @@ public class ScenarioForm {
 		gbc_btnBrowse.gridy = 11;
 		sCreatorFrame.getContentPane().add(btnBrowse, gbc_btnBrowse);
 		
-		btnSaveAndCreate.setForeground(new Color(255, 255, 255));
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.gridheight = 3;
+		gbc_panel.gridwidth = 2;
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.BOTH;
+		gbc_panel.gridx = 4;
+		gbc_panel.gridy = 12;
+		sCreatorFrame.getContentPane().add(panel, gbc_panel);
+		
+		JButton btnRecordAudio = new JButton("Record Audio");
+		panel.add(btnRecordAudio);
+		
+		JButton btnStopRecording = new JButton("Stop Recording");
+		panel.add(btnStopRecording);
+		
+		JButton btnSave = new JButton("Save");
+		panel.add(btnSave);
+		
+		btnSaveAndCreate.setForeground(Color.BLACK);
+		btnSaveAndCreate.setContentAreaFilled(false);
+        btnSaveAndCreate.setOpaque(true);
 		btnSaveAndCreate.setBackground(new Color(154, 205, 50));
 		GridBagConstraints gbc_btnSaveAndCreate = new GridBagConstraints();
 		gbc_btnSaveAndCreate.insets = new Insets(0, 0, 5, 5);
@@ -291,11 +317,13 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(btnSaveAndCreate, gbc_btnSaveAndCreate);
 
 		JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
-		btnExitWithoutSaving.setForeground(new Color(255, 255, 255));
+		btnExitWithoutSaving.setForeground(Color.BLACK);
+		btnExitWithoutSaving.setContentAreaFilled(false);
+        btnExitWithoutSaving.setOpaque(true);
 		btnExitWithoutSaving.setBackground(new Color(178, 34, 34));
 		btnExitWithoutSaving.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// sCreatorFrame.setVisible(false);
+				sCreatorFrame.setVisible(false);
 				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.YES_OPTION) {
