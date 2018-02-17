@@ -116,11 +116,11 @@ public class InitialView {
 						}
 						FileToCardsParser f = new FileToCardsParser();
 						f.setFile(fc.getSelectedFile().getPath());
-						AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons()); //new ActionListener() {public void actionPerformed(ActionEvent e2) {}});
+						AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons(), f.getCards(), f.getInitial()); //new ActionListener() {public void actionPerformed(ActionEvent e2) {}});
 						av.setPromptText(f.getCards().get(0).getText());
 						av.setCurrCellPins(f.getCards().get(0).getCells().get(0));
 						av.setButtonText(f.getCards().get(0).getButtonList().get(0).getText());
-						av.setCardList(f.getCards());
+						av.setCardList();
 					}
 				}).start();
 			}

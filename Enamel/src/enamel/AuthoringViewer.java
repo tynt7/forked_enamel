@@ -64,12 +64,14 @@ public class AuthoringViewer {
 	private JRadioButton pSix;
 	private JEditorPane buttonEditor;
 	private JList list;
-	private DefaultListModel listModel;
+	private DefaultListModel<String> listModel;
 	
 	
 	private int currButton;
 	private int currCell;
 	private int currCard;
+	private ArrayList<Card> cards;
+	private String initialPrompt;
 	// non zero
 
 	/**
@@ -93,13 +95,15 @@ public class AuthoringViewer {
 	/**
 	 * Create the application.
 	 */
-	public AuthoringViewer(int numCells, int numButtons) {
+	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt) {
 		this.numButtons = numButtons;
+		this.initialPrompt = initialPrompt;
 		this.numCells = numCells;
+		this.cards = new ArrayList<Card>(cards);
 		initialize();
-		this.currButton = 1;
-		this.currCell = 1;
-		this.currCard = 1;
+		this.currButton = 0;
+		this.currCell = 0;
+		this.currCard = 0;
 	}
 
 	/**
@@ -143,31 +147,61 @@ public class AuthoringViewer {
 		
 		if (this.numButtons >= 1) {
 			JButton button = new JButton("1");
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showButtonText(0);
+				}
+			});
 			button.setBounds(20, 20, 80, 30);
 			buttonPanel.add(button);
 		}
 		if (this.numButtons >= 2) {
 			JButton button_1 = new JButton("2");
+			button_1.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showButtonText(1);
+				}
+			});
 			button_1.setBounds(110, 20, 80, 30);
 			buttonPanel.add(button_1);
 		}
 		if (this.numButtons >= 3) {
 			JButton button_2 = new JButton("3");
+			button_2.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showButtonText(2);
+				}
+			});
 			button_2.setBounds(200, 20, 75, 30);
 			buttonPanel.add(button_2);
 		}
 		if (this.numButtons >= 4) {
 			JButton button_3 = new JButton("4");
+			button_3.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showButtonText(3);
+				}
+			});
 			button_3.setBounds(290, 20, 75, 30);
 			buttonPanel.add(button_3);
 		}
 		if (this.numButtons >= 5) {
 			JButton button_4 = new JButton("5");
+			button_4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showButtonText(4);
+				}
+			});
 			button_4.setBounds(380, 20, 75, 30);
 			buttonPanel.add(button_4);
 		}
 		if (this.numButtons >= 6) {
 			JButton button_5 = new JButton("6");
+			button_5.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					showButtonText(5);
+				}
+			});
 			button_5.setBounds(470, 20, 75, 30);
 			buttonPanel.add(button_5);
 		}
@@ -233,6 +267,11 @@ public class AuthoringViewer {
 			public void actionPerformed(ActionEvent e) {
 				functionView fw = new functionView();
 				fw.displayForm();
+				String pins = "";
+				for (int i = 0; i < 8; i++) {
+					pins += fw.getCell().getPinState(i) ? "1" : "0";
+				}
+				setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton+1) + ": " + pins);
 			}
 		});
 		btnFunction.setBounds(823, 356, 117, 29);
@@ -262,8 +301,15 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnSave);
 		
 		JButton btnTest = new JButton("Test");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt, "Bye");
+				a.createBody();
+			}
+		});
 		btnTest.setBounds(140, 525, 50, 50);
 		aViewFrame.getContentPane().add(btnTest);
+		
 		
 		buttonEditor = new JEditorPane();
 		buttonEditor.setBounds(250, 400, 561, 70);
@@ -341,10 +387,24 @@ public class AuthoringViewer {
 		buttonEditor.setText(text);
 	}
 	
-	public void setCardList(ArrayList<Card> cardList) {
-		for (Card cards : cardList) {
+	public void setCardList() {
+		for (Card cards : this.cards) {
 			listModel.addElement(cards.getName());
 		}
-		
+	}
+	
+	public void showButtonText(int buttonNum) { //ButtonNum 0-5
+		if (currButton != buttonNum) {
+			try {
+				String replace = cards.get(currCard).getButtonList().get(buttonNum).getText();
+				cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
+				currButton = buttonNum;
+				this.setButtonText(replace);
+			} catch (Exception e) {
+				cards.get(currCard).getButtonList().add(new DataButton(buttonNum));
+				currButton = buttonNum;
+				this.setButtonText("");
+			}
+		}
 	}
 }

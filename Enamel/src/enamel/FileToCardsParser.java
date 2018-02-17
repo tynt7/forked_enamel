@@ -140,6 +140,9 @@ public class FileToCardsParser {
 							cells.add(currCell);
 						}
 					}
+					else {
+						currButton.addText("\n/Pins on " + fileLine.charAt(17) + ": " + fileLine.substring(19));
+					}
 
 				} else if (fileLine.length() >= 14 && fileLine.substring(0, 14).equals("/~disp-string:")) {
 					if (!inButton) {
@@ -155,6 +158,9 @@ public class FileToCardsParser {
 						} catch (Exception e) {
 							System.out.println("Not a Char");
 						}
+					}
+					else {
+						//currButton.addText("\n/Pins on " + fileLine.charAt(17) + ": " + fileLine.substring(19));
 					}
 
 				} else if (fileLine.length() >= 8 && fileLine.substring(0, 8).equals("/~sound:")) {
@@ -234,6 +240,11 @@ public class FileToCardsParser {
 
 	public ArrayList<Card> getCards() {
 		return this.cards;
+	}
+	
+	
+	public String getInitial() {
+		return this.initialPrompt;
 	}
 
 }
