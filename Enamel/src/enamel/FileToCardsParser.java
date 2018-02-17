@@ -31,10 +31,11 @@ public class FileToCardsParser {
                         String fileLine;
                         checkNumLines(scenarioFile);
                         checkButtonsAndCells();
-                        parse();
+                        
                 } catch (Exception e) {
                         System.out.println("Incorrect File Name");
                 }
+                parse();
         }
 
         public void checkNumLines(String scenarioFile) {
@@ -94,8 +95,10 @@ public class FileToCardsParser {
                 DataButton currButton = new DataButton(buttonNum);
                 BrailleCell currCell = new BrailleCell();
                 while (fileScanner.hasNextLine()) {
+                	
                         currLineNum++;
                         fileLine = fileScanner.nextLine();
+                        System.out.println(fileLine);
                         if (fileLine.replace(" ", "").equals("")) continue;
                         //System.out.println(fileLine);
                         //System.out.println(fileLine.equals("/~disp-cell-clear:" + (numCells-1)));
@@ -116,7 +119,8 @@ public class FileToCardsParser {
                                         inButton = false;
                                         currCard.setBList(new ArrayList<DataButton>(buttons));
                                         buttons.clear();
-                                        currCard.setCells(cells);
+                                        currCard.setCells(new ArrayList<BrailleCell>(cells));
+                                        cells.clear();
                                         cards.add(currCard);
                                         currCard = new Card(cardNum - 1, "card"+ cardNum, "notSure");
                                 }
@@ -124,12 +128,34 @@ public class FileToCardsParser {
                                 // else if (fileLine.length() >= 18 && fileLine.substring(0,
                                 // 18).equals("/~disp-cell-clear:")) continue;
                                 else if (fileLine.length() >= 17 && fileLine.substring(0, 17).equals("/~disp-cell-pins:")) {
-                                        currCell.setPins(fileLine.substring(19));
-                                        try {
-                                                cells.set(Character.getNumericValue(fileLine.charAt(17)), currCell);
-                                        } catch (Exception e) {
-                                                cells.add(currCell);
+                                        if (!inButton) {
+                                        	currCell = new BrailleCell();
+                                        	currCell.setPins(fileLine.substring(19));
+                                            try {
+                                                    cells.set(Character.getNumericValue(fileLine.charAt(17)), currCell);
+                                            } catch (Exception e) {
+                                                    cells.add(currCell);
+                                            }
                                         }
+                                		
+                                } else if (fileLine.length() >= 14 && fileLine.substring(0, 14).equals("/~disp-string:")) {
+                                		if (!inButton) {
+                                			try {
+                                				currCell = new BrailleCell();
+                                        		currCell.displayCharacter(fileLine.charAt(14)); 
+                                        		try {
+                                                    cells.set(Character.getNumericValue(fileLine.charAt(17)), currCell);
+                                        		} catch (Exception e) {
+                                                    cells.add(currCell);
+                                        		}
+                                        		
+                                        	} catch (Exception e) {
+                                        		System.out.println("Not a Char");
+                                        	}
+                                		}
+                                	
+                                	
+                                	
                                 } else if (fileLine.length() >= 8 && fileLine.substring(0, 8).equals("/~sound:")) {
                                         if (inButton) {
                                                 currButton.setAudio(scenarioFilePath + File.separator + "AudioFiles" + File.separator
@@ -188,9 +214,9 @@ public class FileToCardsParser {
 
                         System.out.println("\n\n\n");
                 }
-                for (int i = 0; i < cards.size(); i++) {
+                for (int i = 0; i < cards.size()-1; i++) {
                 	for (int j = 0; j < 8; j++) {
-                		System.out.print(cards.get(i).getCells().get(0).getPinState(j));
+                		System.out.print(cards.get(i).getCells().get(0).getPinState(j) ? "1" : "0");
                 	}
                 	System.out.println();
                 }
