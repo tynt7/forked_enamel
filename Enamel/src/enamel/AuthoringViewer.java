@@ -21,19 +21,26 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import java.awt.GridBagConstraints;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 import java.awt.Insets;
 import java.awt.ItemSelectable;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.JPanel;
 import javax.swing.JEditorPane;
 import javax.swing.JRadioButton;
@@ -48,11 +55,28 @@ public class AuthoringViewer {
 	private JTextField txtCardName;
 	private JTextField txtAudiofilenamemp;
 	private JTextField textField;
+	private JEditorPane editorPane;
+	private JRadioButton pOne;
+	private JRadioButton pTwo;
+	private JRadioButton pThree;
+	private JRadioButton pFour;
+	private JRadioButton pFive;
+	private JRadioButton pSix;
+	private JEditorPane buttonEditor;
+	private JList list;
+	private DefaultListModel listModel;
+	
+	
+	private int currButton;
+	private int currCell;
+	private int currCard;
 	// non zero
 
 	/**
 	 * Launch the application.
 	 */
+	
+	/*
 	public static void displayForm() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -64,13 +88,18 @@ public class AuthoringViewer {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the application.
 	 */
-	public AuthoringViewer() {
+	public AuthoringViewer(int numCells, int numButtons) {
+		this.numButtons = numButtons;
+		this.numCells = numCells;
 		initialize();
+		this.currButton = 1;
+		this.currCell = 1;
+		this.currCard = 1;
 	}
 
 	/**
@@ -81,7 +110,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().setBackground(Color.GRAY);
 		aViewFrame.getContentPane().setLayout(null);
 		
-		JLabel lblCurrcard = new JLabel("1/n");
+		JLabel lblCurrcard = new JLabel("1/" + this.numCells);
 		lblCurrcard.setBounds(148, 10, 55, 16);
 		aViewFrame.getContentPane().add(lblCurrcard);
 		
@@ -99,7 +128,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(txtCardName);
 		txtCardName.setColumns(10);
 		
-		JEditorPane editorPane = new JEditorPane();
+		editorPane = new JEditorPane();
 		editorPane.setBounds(250, 30, 478, 128);
 		aViewFrame.getContentPane().add(editorPane);
 		
@@ -112,29 +141,36 @@ public class AuthoringViewer {
 		label.setBounds(53, 19, 0, 0);
 		buttonPanel.add(label);
 		
-		JButton button = new JButton("1");
-		button.setBounds(20, 20, 80, 30);
-		buttonPanel.add(button);
-		
-		JButton button_1 = new JButton("2");
-		button_1.setBounds(110, 20, 80, 30);
-		buttonPanel.add(button_1);
-		
-		JButton button_2 = new JButton("3");
-		button_2.setBounds(200, 20, 75, 30);
-		buttonPanel.add(button_2);
-		
-		JButton button_3 = new JButton("4");
-		button_3.setBounds(290, 20, 75, 30);
-		buttonPanel.add(button_3);
-		
-		JButton button_4 = new JButton("5");
-		button_4.setBounds(380, 20, 75, 30);
-		buttonPanel.add(button_4);
-		
-		JButton button_5 = new JButton("6");
-		button_5.setBounds(470, 20, 75, 30);
-		buttonPanel.add(button_5);
+		if (this.numButtons >= 1) {
+			JButton button = new JButton("1");
+			button.setBounds(20, 20, 80, 30);
+			buttonPanel.add(button);
+		}
+		if (this.numButtons >= 2) {
+			JButton button_1 = new JButton("2");
+			button_1.setBounds(110, 20, 80, 30);
+			buttonPanel.add(button_1);
+		}
+		if (this.numButtons >= 3) {
+			JButton button_2 = new JButton("3");
+			button_2.setBounds(200, 20, 75, 30);
+			buttonPanel.add(button_2);
+		}
+		if (this.numButtons >= 4) {
+			JButton button_3 = new JButton("4");
+			button_3.setBounds(290, 20, 75, 30);
+			buttonPanel.add(button_3);
+		}
+		if (this.numButtons >= 5) {
+			JButton button_4 = new JButton("5");
+			button_4.setBounds(380, 20, 75, 30);
+			buttonPanel.add(button_4);
+		}
+		if (this.numButtons >= 6) {
+			JButton button_5 = new JButton("6");
+			button_5.setBounds(470, 20, 75, 30);
+			buttonPanel.add(button_5);
+		}
 		
 		JLabel lblButtons = new JLabel("BUTTONS");
 		lblButtons.setBounds(250, 300, 61, 16);
@@ -155,27 +191,27 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(cellPanel);
 		cellPanel.setLayout(null);
 		
-		JRadioButton pOne = new JRadioButton("");
+		pOne = new JRadioButton("");
 		pOne.setBounds(6, 6, 28, 23);
 		cellPanel.add(pOne);
 		
-		JRadioButton pFour = new JRadioButton("");
+		pFour = new JRadioButton("");
 		pFour.setBounds(46, 6, 28, 23);
 		cellPanel.add(pFour);
 		
-		JRadioButton pTwo = new JRadioButton("");
+		pTwo = new JRadioButton("");
 		pTwo.setBounds(6, 41, 28, 23);
 		cellPanel.add(pTwo);
 		
-		JRadioButton pFive = new JRadioButton("");
+		pFive = new JRadioButton("");
 		pFive.setBounds(46, 41, 28, 23);
 		cellPanel.add(pFive);
 		
-		JRadioButton pThree = new JRadioButton("");
+		pThree = new JRadioButton("");
 		pThree.setBounds(6, 76, 28, 23);
 		cellPanel.add(pThree);
 		
-		JRadioButton pSix = new JRadioButton("");
+		pSix = new JRadioButton("");
 		pSix.setBounds(46, 76, 28, 23);
 		cellPanel.add(pSix);
 		
@@ -229,7 +265,7 @@ public class AuthoringViewer {
 		btnTest.setBounds(140, 525, 50, 50);
 		aViewFrame.getContentPane().add(btnTest);
 		
-		JEditorPane buttonEditor = new JEditorPane();
+		buttonEditor = new JEditorPane();
 		buttonEditor.setBounds(250, 400, 561, 70);
 		aViewFrame.getContentPane().add(buttonEditor);
 		
@@ -241,9 +277,18 @@ public class AuthoringViewer {
 		button_7.setBounds(164, 80, 20, 20);
 		aViewFrame.getContentPane().add(button_7);
 		
-		JList list = new JList();
+		listModel = new DefaultListModel();
+		list = new JList(listModel);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setLayoutOrientation(JList.VERTICAL);
+		list.setVisibleRowCount(-1);
 		list.setBounds(750, 30, 234, 128);
+		JScrollPane listScroller = new JScrollPane(list);
+        listScroller.setPreferredSize(new Dimension(250, 80));
+        listScroller.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+        aViewFrame.getContentPane().add(listScroller);
 		aViewFrame.getContentPane().add(list);
+		
 		
 		JButton btnR = new JButton("R");
 		btnR.setBounds(458, 224, 20, 20);
@@ -263,7 +308,7 @@ public class AuthoringViewer {
 		aViewFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		aViewFrame.addWindowListener(new confirmClose());
 
-
+		aViewFrame.setVisible(true);
 	}
 
 	private class confirmClose extends WindowAdapter {
@@ -277,5 +322,29 @@ public class AuthoringViewer {
 				// do nothing
 			}
 		}
+	}
+	
+	public void setPromptText(String text) {
+		editorPane.setText(text);
+	}
+	
+	public void setCurrCellPins(BrailleCell cell) {
+		pOne.setSelected(cell.getPinState(0));
+		pTwo.setSelected(cell.getPinState(1));
+		pThree.setSelected(cell.getPinState(2));
+		pFour.setSelected(cell.getPinState(3));
+		pFive.setSelected(cell.getPinState(4));
+		pSix.setSelected(cell.getPinState(5));
+	}
+	
+	public void setButtonText(String text) {
+		buttonEditor.setText(text);
+	}
+	
+	public void setCardList(ArrayList<Card> cardList) {
+		for (Card cards : cardList) {
+			listModel.addElement(cards.getName());
+		}
+		
 	}
 }

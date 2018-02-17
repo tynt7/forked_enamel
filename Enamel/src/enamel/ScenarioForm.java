@@ -203,8 +203,8 @@ public class ScenarioForm {
 		JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
 		btnSaveAndCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AuthoringViewer aw = new AuthoringViewer();
-				aw.displayForm();
+				AuthoringViewer aw = new AuthoringViewer(5, 5);
+				//aw.displayForm();
 				sCreatorFrame.dispose();
 			}
 		});
