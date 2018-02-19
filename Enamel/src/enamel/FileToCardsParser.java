@@ -58,7 +58,7 @@ public class FileToCardsParser {
 		} catch (Exception e) {
 			System.out.println("Something went wrong");
 		}
-		
+
 		System.out.println(start);
 
 	}
@@ -87,7 +87,7 @@ public class FileToCardsParser {
 		int buttonNum = 1;
 		int currLineNum = 2;
 		while (currLineNum < start - 1 && fileScanner.hasNextLine()) {
-			
+
 			this.initialPrompt += fileScanner.nextLine();
 			currLineNum++;
 
@@ -135,8 +135,7 @@ public class FileToCardsParser {
 						} catch (Exception e) {
 							cells.add(currCell);
 						}
-					}
-					else {
+					} else {
 						currButton.addText("\n/Pins on " + fileLine.charAt(17) + ": " + fileLine.substring(19));
 					}
 
@@ -154,9 +153,8 @@ public class FileToCardsParser {
 						} catch (Exception e) {
 							System.out.println("Not a Char");
 						}
-					}
-					else {
-						
+					} else {
+
 					}
 
 				} else if (fileLine.length() >= 8 && fileLine.substring(0, 8).equals("/~sound:")) {
@@ -219,24 +217,23 @@ public class FileToCardsParser {
 	public ArrayList<Card> getCards() {
 		return this.cards;
 	}
-	
-	
+
 	public String getInitial() {
 		return this.initialPrompt;
 	}
-	
+
 	public String getEnding() {
 		return this.endingPrompt;
 	}
-	
+
 	public void checkLast() {
-		Card temp = cards.get(cards.size()-1);
-		if ( temp.getCells().isEmpty() ) {
+		Card temp = cards.get(cards.size() - 1);
+		if (temp.getCells().isEmpty()) {
 			this.endingPrompt = temp.getText();
 			cards.remove(temp);
 		}
 	}
-	
+
 	public void print() {
 		System.out.println(cards.size());
 		for (int i = 0; i < cards.size(); i++) {
@@ -254,12 +251,12 @@ public class FileToCardsParser {
 		for (int i = 0; i < cards.size(); i++) {
 			System.out.println(i);
 			for (int j = 0; j < 8; j++) {
-				
-				if ( !cards.get(i).getCells().isEmpty() ) {
-					
+
+				if (!cards.get(i).getCells().isEmpty()) {
+
 					System.out.print(cards.get(i).getCells().get(0).getPinState(j) ? "1" : "0");
 				}
-				
+
 			}
 			System.out.println();
 		}

@@ -49,6 +49,7 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import java.lang.Object;
 
+@SuppressWarnings({ "unused", "rawtypes" })
 public class AuthoringViewer {
 
 	private JFrame aViewFrame;
@@ -98,9 +99,10 @@ public class AuthoringViewer {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		aViewFrame = new JFrame();
-		aViewFrame.getContentPane().setBackground(Color.GRAY);
+		aViewFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
 		aViewFrame.getContentPane().setLayout(null);
 
 		JLabel lblCurrcard = new JLabel("1/" + this.numCells);
@@ -135,7 +137,7 @@ public class AuthoringViewer {
 		label.setBounds(53, 19, 0, 0);
 		buttonPanel.add(label);
 
-		//determine how many buttons to display
+		// determine how many buttons to display
 		if (this.numButtons >= 1) {
 			JButton button = new JButton("1");
 			button.addActionListener(new ActionListener() {
@@ -253,7 +255,7 @@ public class AuthoringViewer {
 		btnAudio.setBounds(823, 319, 117, 29);
 		aViewFrame.getContentPane().add(btnAudio);
 
-		
+		// Change the state of pin
 		JButton btnRaisePins = new JButton("Raise Pins");
 		btnRaisePins.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -261,7 +263,7 @@ public class AuthoringViewer {
 				boolean checkNumber = true;
 				for (int i = 0; i < inputValue.length(); i++) {
 					System.out.println(i);
-					if ( inputValue.charAt(i) != '0' && inputValue.charAt(i) != '1' ) {
+					if (inputValue.charAt(i) != '0' && inputValue.charAt(i) != '1') {
 						System.out.println("hi");
 						checkNumber = false;
 					}
@@ -269,19 +271,19 @@ public class AuthoringViewer {
 				System.out.println(inputValue.length() + " " + inputValue);
 				if (inputValue.length() == 8 && checkNumber) {
 					setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + inputValue);
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				else {
-					JOptionPane.showMessageDialog(null, "Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert", JOptionPane.ERROR_MESSAGE);
-				}
-				
+
 			}
-			
 
 		});
 		btnRaisePins.setBounds(823, 356, 117, 29);
 		aViewFrame.getContentPane().add(btnRaisePins);
 
-		//exit the editor window
+		// exit the editor window
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -297,7 +299,7 @@ public class AuthoringViewer {
 		btnExit.setBounds(20, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnExit);
 
-		//save the current card and write it to a file
+		// save the current card and write it to a file
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -328,7 +330,7 @@ public class AuthoringViewer {
 		btnSave.setBounds(100, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnSave);
 
-		//test running the scenario currently being worked on
+		// test running the scenario currently being worked on
 		JButton btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -361,11 +363,11 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnTest);
 
 		buttonEditor = new JEditorPane();
-		
+
 		JScrollPane buttonPane = new JScrollPane(buttonEditor);
 		buttonPane.setBounds(250, 400, 561, 113);
 		aViewFrame.getContentPane().add(buttonPane);
-		
+
 		JButton button_6 = new JButton("<");
 		button_6.setBounds(20, 80, 38, 26);
 		aViewFrame.getContentPane().add(button_6);
@@ -384,7 +386,7 @@ public class AuthoringViewer {
 		listScroller.setPreferredSize(new Dimension(250, 80));
 		listScroller.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
 		aViewFrame.getContentPane().add(listScroller);
-		aViewFrame.getContentPane().add(list);
+		//aViewFrame.getContentPane().add(list);
 
 		JButton btnR = new JButton("R");
 		btnR.setBounds(458, 224, 35, 20);
@@ -397,18 +399,18 @@ public class AuthoringViewer {
 		JButton btnD = new JButton("D");
 		btnD.setBounds(528, 224, 35, 20);
 		aViewFrame.getContentPane().add(btnD);
-		
+
 		JButton btnNextCard = new JButton("Next Card");
 		btnNextCard.setBounds(823, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnNextCard);
-		
+
 		JButton btnPreviousCard = new JButton("Previous Card");
 		btnPreviousCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+
 			}
 		});
-		
+
 		btnPreviousCard.setBounds(694, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnPreviousCard);
 		aViewFrame.setResizable(false);
@@ -478,7 +480,7 @@ public class AuthoringViewer {
 	public void updatePrompt() {
 		cards.get(currCard).setText(editorPane.getText());
 	}
-	
+
 	public static void updatePins(String s) {
 		testPins = s;
 	}
