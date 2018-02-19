@@ -49,7 +49,7 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import java.lang.Object;
 
-@SuppressWarnings({ "unused", "rawtypes" })
+@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 public class AuthoringViewer {
 
 	private JFrame aViewFrame;
@@ -99,7 +99,6 @@ public class AuthoringViewer {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	@SuppressWarnings("unchecked")
 	private void initialize() {
 		aViewFrame = new JFrame();
 		aViewFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
