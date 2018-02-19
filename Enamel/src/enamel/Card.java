@@ -2,6 +2,7 @@ package enamel;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public class Card {
 	// actions has attributes: 
 	// Name: String 
@@ -74,3 +75,4 @@ public class Card {
 		this.cells = newList;
 	}
 }
+

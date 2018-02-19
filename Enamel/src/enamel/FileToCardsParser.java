@@ -28,7 +28,6 @@ public class FileToCardsParser {
 			fileScanner = new Scanner(f);
 			String absolutePath = f.getAbsolutePath();
 			scenarioFilePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
-			String fileLine;
 			checkNumLines(scenarioFile);
 			checkButtonsAndCells();
 
@@ -54,10 +53,12 @@ public class FileToCardsParser {
 					initialFound = true;
 				}
 			}
+			numLineChecker.close();
 			System.out.println(numLines);
 		} catch (Exception e) {
 			System.out.println("Something went wrong");
 		}
+
 		System.out.println(start);
 
 	}
@@ -83,11 +84,10 @@ public class FileToCardsParser {
 		boolean inButton = false;
 		String fileLine;
 		int cardNum = 1;
-		int cellNum = 1;
 		int buttonNum = 1;
 		int currLineNum = 2;
 		while (currLineNum < start - 1 && fileScanner.hasNextLine()) {
-			
+
 			this.initialPrompt += fileScanner.nextLine();
 			currLineNum++;
 
@@ -105,9 +105,6 @@ public class FileToCardsParser {
 			System.out.println(fileLine);
 			if (fileLine.replace(" ", "").equals(""))
 				continue;
-			// System.out.println(fileLine);
-			// System.out.println(fileLine.equals("/~disp-cell-clear:" + (numCells-1)));
-			// System.out.println(!inButton);
 			if (fileLine.length() >= 2 && fileLine.substring(0, 2).equals("/~")) {
 				if (currLineNum == numLines) {
 					buttons.clear();
@@ -117,10 +114,7 @@ public class FileToCardsParser {
 					cardNum++;
 					currCard = new Card(cardNum - 1, "card" + cardNum, "notSure");
 				}
-				if (fileLine.equals("/~NEXTT") ||
-				// ( fileLine.equals("/~disp-cell-clear:" + (numCells-1)) &&
-				// !inButton) ) {
-						fileLine.equals("/~reset-buttons")) {
+				if (fileLine.equals("/~NEXTT") || fileLine.equals("/~reset-buttons")) {
 					cardNum++;
 					buttons.add(new DataButton(currButton));
 					inButton = false;
@@ -132,8 +126,6 @@ public class FileToCardsParser {
 					currCard = new Card(cardNum - 1, "card" + cardNum, "notSure");
 				}
 
-				// else if (fileLine.length() >= 18 && fileLine.substring(0,
-				// 18).equals("/~disp-cell-clear:")) continue;
 				else if (fileLine.length() >= 17 && fileLine.substring(0, 17).equals("/~disp-cell-pins:")) {
 					if (!inButton) {
 						currCell = new BrailleCell();
@@ -143,8 +135,7 @@ public class FileToCardsParser {
 						} catch (Exception e) {
 							cells.add(currCell);
 						}
-					}
-					else {
+					} else {
 						currButton.addText("\n/Pins on " + fileLine.charAt(17) + ": " + fileLine.substring(19));
 					}
 
@@ -162,9 +153,8 @@ public class FileToCardsParser {
 						} catch (Exception e) {
 							System.out.println("Not a Char");
 						}
-					}
-					else {
-						//currButton.addText("\n/Pins on " + fileLine.charAt(17) + ": " + fileLine.substring(19));
+					} else {
+
 					}
 
 				} else if (fileLine.length() >= 8 && fileLine.substring(0, 8).equals("/~sound:")) {
@@ -227,24 +217,23 @@ public class FileToCardsParser {
 	public ArrayList<Card> getCards() {
 		return this.cards;
 	}
-	
-	
+
 	public String getInitial() {
 		return this.initialPrompt;
 	}
-	
+
 	public String getEnding() {
 		return this.endingPrompt;
 	}
-	
+
 	public void checkLast() {
-		Card temp = cards.get(cards.size()-1);
-		if ( temp.getCells().isEmpty() ) {
+		Card temp = cards.get(cards.size() - 1);
+		if (temp.getCells().isEmpty()) {
 			this.endingPrompt = temp.getText();
 			cards.remove(temp);
 		}
 	}
-	
+
 	public void print() {
 		System.out.println(cards.size());
 		for (int i = 0; i < cards.size(); i++) {
@@ -262,12 +251,12 @@ public class FileToCardsParser {
 		for (int i = 0; i < cards.size(); i++) {
 			System.out.println(i);
 			for (int j = 0; j < 8; j++) {
-				
-				if ( !cards.get(i).getCells().isEmpty() ) {
-					
+
+				if (!cards.get(i).getCells().isEmpty()) {
+
 					System.out.print(cards.get(i).getCells().get(0).getPinState(j) ? "1" : "0");
 				}
-				
+
 			}
 			System.out.println();
 		}

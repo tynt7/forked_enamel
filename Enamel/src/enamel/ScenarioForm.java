@@ -42,8 +42,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JPanel;
-//form
-//fixed colorss
+import java.awt.GridLayout;
+
+@SuppressWarnings({"unused", "rawtypes"})
 public class ScenarioForm {
 
 	private JFrame sCreatorFrame;
@@ -52,8 +53,6 @@ public class ScenarioForm {
 	private int numButtons = 1; // assuming 1 selected by default. i.e. always
 	private JTextField titleTextField;
 	private JTextField audioFileTextField;
-	private JTextField questionTextField;
-	private JTextField optionsTextField;
 	// non zero
 
 	/**
@@ -82,198 +81,123 @@ public class ScenarioForm {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		sCreatorFrame = new JFrame();
-		sCreatorFrame.getContentPane().setBackground(new Color(240, 240, 240));
+		sCreatorFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
 		sCreatorFrame.setResizable(false);
 		sCreatorFrame.setBackground(new Color(255, 255, 255));
 		sCreatorFrame.setTitle("Scenario Creator");
-		sCreatorFrame.setBounds(100, 100, 1000, 612);
-		sCreatorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);// DISPOSE_ON_CLOSE);
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] { 10, 10, 0, 0, 0, 0, 0, 0, 0, 0 };
-		gridBagLayout.rowHeights = new int[] { 5, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0 };
-		gridBagLayout.columnWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0,
-				Double.MIN_VALUE };
-		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
-				0.0, 0.0, 1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE };
-		sCreatorFrame.getContentPane().setLayout(gridBagLayout);
-		sCreatorFrame.addWindowListener(new confirmClose()); // pop up before
-		// exit
+		sCreatorFrame.setBounds(100, 100, 467, 412);
+		sCreatorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		sCreatorFrame.addWindowListener(new confirmClose());
+				sCreatorFrame.getContentPane().setLayout(null);
+				// exit
 
-		JLabel lblNewLabel = new JLabel("Create a Scenario for your Students");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.gridwidth = 2;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 5;
-		gbc_lblNewLabel.gridy = 1;
-		sCreatorFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
-
-		JLabel lblNumberOfCells = new JLabel("Number of Cells");
-		GridBagConstraints gbc_lblNumberOfCells = new GridBagConstraints();
-		gbc_lblNumberOfCells.anchor = GridBagConstraints.WEST;
-		gbc_lblNumberOfCells.ipadx = 16;
-		gbc_lblNumberOfCells.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumberOfCells.gridx = 2;
-		gbc_lblNumberOfCells.gridy = 3;
-		sCreatorFrame.getContentPane().add(lblNumberOfCells, gbc_lblNumberOfCells);
-
-		JComboBox buttonComboBox = new JComboBox();
-		// String[] input = new String[] {"1", "2", "3", "4", "5", "6", "7",
-		// "8", "9", "10"};
-		buttonComboBox
-				.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-		GridBagConstraints gbc_buttonComboBox = new GridBagConstraints();
-		gbc_buttonComboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_buttonComboBox.ipadx = 30;
-		gbc_buttonComboBox.gridwidth = 2;
-		gbc_buttonComboBox.fill = GridBagConstraints.VERTICAL;
-		gbc_buttonComboBox.gridx = 4;
-		gbc_buttonComboBox.gridy = 3;
-		sCreatorFrame.getContentPane().add(buttonComboBox, gbc_buttonComboBox);
-		// int temp = buttonComboBox.getSelectedIndex();
-		// numButtons = Integer.parseInt(input[temp]);
-		// buttonComboBox.addItemListener(aListener);;
-		buttonComboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent itemEvent) {
-				int state = itemEvent.getStateChange();
-				// System.out.println((state == ItemEvent.SELECTED) ? "Selected"
-				// : "Deselected");
-				// System.out.println("Item: " + itemEvent.getItem());
-				ItemSelectable is = itemEvent.getItemSelectable();
-				numButtons = Integer.parseInt(selectedString(is).toString());
-				System.out.println("Selected: " + selectedString(is));
-			}
-		});
-		JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
-		// buttonComboBox.addItemListener(itemListener);
-		lblNumberOfButtons.setLabelFor(buttonComboBox);
-
-		GridBagConstraints gbc_lblNumberOfButtons = new GridBagConstraints();
-		gbc_lblNumberOfButtons.anchor = GridBagConstraints.WEST;
-		gbc_lblNumberOfButtons.ipadx = 16;
-		gbc_lblNumberOfButtons.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNumberOfButtons.gridx = 2;
-		gbc_lblNumberOfButtons.gridy = 4;
-		sCreatorFrame.getContentPane().add(lblNumberOfButtons, gbc_lblNumberOfButtons);
-		JComboBox cellComboBox = new JComboBox();
-		lblNumberOfCells.setLabelFor(cellComboBox);
-
-		cellComboBox
-				.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-		GridBagConstraints gbc_cellComboBox = new GridBagConstraints();
-		gbc_cellComboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_cellComboBox.ipadx = 30;
-		gbc_cellComboBox.gridwidth = 2;
-		gbc_cellComboBox.fill = GridBagConstraints.VERTICAL;
-		gbc_cellComboBox.gridx = 4;
-		gbc_cellComboBox.gridy = 4;
-		sCreatorFrame.getContentPane().add(cellComboBox, gbc_cellComboBox);
-
-		cellComboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent itemEvent) {
-				int state = itemEvent.getStateChange();
-				// System.out.println((state == ItemEvent.SELECTED) ? "Selected"
-				// : "Deselected");
-				// System.out.println("Item: " + itemEvent.getItem());
-				ItemSelectable is = itemEvent.getItemSelectable();
-				numCells = Integer.parseInt(selectedString(is).toString());
-				System.out.println("Selected: " + selectedString(is));
-			}
-		});
-
-		JLabel lblScenarioTitle = new JLabel("Scenario Title");
-		GridBagConstraints gbc_lblScenarioTitle = new GridBagConstraints();
-		gbc_lblScenarioTitle.anchor = GridBagConstraints.WEST;
-		gbc_lblScenarioTitle.insets = new Insets(0, 0, 5, 5);
-		gbc_lblScenarioTitle.gridx = 2;
-		gbc_lblScenarioTitle.gridy = 5;
-		sCreatorFrame.getContentPane().add(lblScenarioTitle, gbc_lblScenarioTitle);
-
-		titleTextField = new JTextField();
-		GridBagConstraints gbc_titleTextField = new GridBagConstraints();
-		gbc_titleTextField.gridwidth = 2;
-		gbc_titleTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_titleTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_titleTextField.gridx = 4;
-		gbc_titleTextField.gridy = 5;
-		sCreatorFrame.getContentPane().add(titleTextField, gbc_titleTextField);
-		titleTextField.setColumns(10);
-
-		JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
-		btnSaveAndCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<Card> cards =  new ArrayList<Card>();
-				Card temp = new Card(1, "Card 1", "");
-				cards.add(temp);
-				AuthoringViewer aw = new AuthoringViewer(5, 5, cards, "Hi", "Bye");
-				//aw.displayForm();
-				sCreatorFrame.dispose();
-			}
-		});
-
-		JLabel lblDescription = new JLabel("Task Description");
-		GridBagConstraints gbc_lblDescription = new GridBagConstraints();
-		gbc_lblDescription.anchor = GridBagConstraints.WEST;
-		gbc_lblDescription.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDescription.gridx = 2;
-		gbc_lblDescription.gridy = 6;
-		sCreatorFrame.getContentPane().add(lblDescription, gbc_lblDescription);
+				JLabel lblNewLabel = new JLabel("Create a Scenario for your Students");
+				lblNewLabel.setBounds(103, 20, 236, 18);
+				lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
+				sCreatorFrame.getContentPane().add(lblNewLabel);
+				
+				JLabel label = new JLabel("");
+				label.setBounds(254, 18, 0, 0);
+				sCreatorFrame.getContentPane().add(label);
+				
+				JLabel label_1 = new JLabel("");
+				label_1.setBounds(259, 18, 0, 0);
+				sCreatorFrame.getContentPane().add(label_1);
+				
+				JLabel label_2 = new JLabel("");
+				label_2.setBounds(264, 18, 0, 0);
+				sCreatorFrame.getContentPane().add(label_2);
 		
-		JLabel lblQuestion = new JLabel("Question:");
-		GridBagConstraints gbc_lblQuestion = new GridBagConstraints();
-		gbc_lblQuestion.anchor = GridBagConstraints.WEST;
-		gbc_lblQuestion.insets = new Insets(0, 0, 5, 5);
-		gbc_lblQuestion.gridx = 2;
-		gbc_lblQuestion.gridy = 8;
-		sCreatorFrame.getContentPane().add(lblQuestion, gbc_lblQuestion);
+				JLabel lblNumberOfCells = new JLabel("Number of Cells");
+				lblNumberOfCells.setBounds(116, 77, 102, 16);
+				sCreatorFrame.getContentPane().add(lblNumberOfCells);
+				
+				JLabel label_3 = new JLabel("");
+				label_3.setBounds(376, 18, 0, 0);
+				sCreatorFrame.getContentPane().add(label_3);
+				
+						JComboBox comboCellBox = new JComboBox();
+						comboCellBox.setBounds(254, 76, 64, 21);
+						comboCellBox
+								.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+						sCreatorFrame.getContentPane().add(comboCellBox);
+						
+						comboCellBox.addItemListener(new ItemListener() {
+							public void itemStateChanged(ItemEvent itemEvent) {
+								int state = itemEvent.getStateChange();
+								ItemSelectable is = itemEvent.getItemSelectable();
+								numButtons = Integer.parseInt(selectedString(is).toString());
+								System.out.println("Selected: " + selectedString(is));
+							}
+						});
+				JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
+				lblNumberOfButtons.setBounds(116, 111, 119, 16);
+				sCreatorFrame.getContentPane().add(lblNumberOfButtons);
+						lblNumberOfCells.setLabelFor(comboCellBox);
+						JComboBox comboButtonBox = new JComboBox();
+						comboButtonBox.setBounds(254, 105, 64, 27);
+						comboButtonBox.setBackground(new Color(238, 238, 238));
+						
+								comboButtonBox
+										.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
+								sCreatorFrame.getContentPane().add(comboButtonBox);
+								
+										comboButtonBox.addItemListener(new ItemListener() {
+											public void itemStateChanged(ItemEvent itemEvent) {
+												int state = itemEvent.getStateChange();
+												ItemSelectable is = itemEvent.getItemSelectable();
+												numCells = Integer.parseInt(selectedString(is).toString());
+												System.out.println("Selected: " + selectedString(is));
+											}
+										});
+						
+						JLabel label_4 = new JLabel("");
+						label_4.setBounds(212, 50, 0, 0);
+						sCreatorFrame.getContentPane().add(label_4);
+				
+						JLabel lblScenarioTitle = new JLabel("Scenario Title");
+						lblScenarioTitle.setBounds(116, 140, 85, 16);
+						sCreatorFrame.getContentPane().add(lblScenarioTitle);
+				
+				JLabel label_5 = new JLabel("");
+				label_5.setBounds(307, 50, 0, 0);
+				sCreatorFrame.getContentPane().add(label_5);
 		
-		questionTextField = new JTextField();
-		GridBagConstraints gbc_questionTextField = new GridBagConstraints();
-		gbc_questionTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_questionTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_questionTextField.gridx = 4;
-		gbc_questionTextField.gridy = 8;
-		sCreatorFrame.getContentPane().add(questionTextField, gbc_questionTextField);
-		questionTextField.setColumns(10);
+				titleTextField = new JTextField();
+				titleTextField.setBounds(246, 135, 130, 26);
+				sCreatorFrame.getContentPane().add(titleTextField);
+				titleTextField.setColumns(10);
 		
-		JLabel lblOptions = new JLabel("Options:");
-		GridBagConstraints gbc_lblOptions = new GridBagConstraints();
-		gbc_lblOptions.anchor = GridBagConstraints.WEST;
-		gbc_lblOptions.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOptions.gridx = 2;
-		gbc_lblOptions.gridy = 9;
-		sCreatorFrame.getContentPane().add(lblOptions, gbc_lblOptions);
-		
-		optionsTextField = new JTextField();
-		GridBagConstraints gbc_optionsTextField = new GridBagConstraints();
-		gbc_optionsTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_optionsTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_optionsTextField.gridx = 4;
-		gbc_optionsTextField.gridy = 9;
-		sCreatorFrame.getContentPane().add(optionsTextField, gbc_optionsTextField);
-		optionsTextField.setColumns(10);
+		JLabel label_6 = new JLabel("");
+		label_6.setBounds(447, 50, 0, 0);
+		sCreatorFrame.getContentPane().add(label_6);
 		
 		JLabel lblAddAudioFile = new JLabel("Add Audio File");
-		GridBagConstraints gbc_lblAddAudioFile = new GridBagConstraints();
-		gbc_lblAddAudioFile.anchor = GridBagConstraints.WEST;
-		gbc_lblAddAudioFile.insets = new Insets(0, 0, 5, 5);
-		gbc_lblAddAudioFile.gridx = 2;
-		gbc_lblAddAudioFile.gridy = 11;
-		sCreatorFrame.getContentPane().add(lblAddAudioFile, gbc_lblAddAudioFile);
+		lblAddAudioFile.setBounds(73, 223, 92, 16);
+		sCreatorFrame.getContentPane().add(lblAddAudioFile);
+		
+		JLabel label_7 = new JLabel("");
+		label_7.setBounds(160, 83, 0, 0);
+		sCreatorFrame.getContentPane().add(label_7);
 		
 		audioFileTextField = new JTextField();
+		audioFileTextField.setBounds(175, 218, 130, 26);
 		audioFileTextField.setColumns(10);
-		GridBagConstraints gbc_audioFileTextField = new GridBagConstraints();
-		gbc_audioFileTextField.gridwidth = 2;
-		gbc_audioFileTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_audioFileTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_audioFileTextField.gridx = 4;
-		gbc_audioFileTextField.gridy = 11;
-		sCreatorFrame.getContentPane().add(audioFileTextField, gbc_audioFileTextField);
+		sCreatorFrame.getContentPane().add(audioFileTextField);
+		
+		JLabel label_8 = new JLabel("");
+		label_8.setBounds(300, 83, 0, 0);
+		sCreatorFrame.getContentPane().add(label_8);
+		
+		JLabel label_9 = new JLabel("");
+		label_9.setBounds(305, 83, 0, 0);
+		sCreatorFrame.getContentPane().add(label_9);
 		
 		JButton btnBrowse = new JButton("Browse");
+		btnBrowse.setBounds(320, 217, 88, 29);
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
@@ -285,21 +209,16 @@ public class ScenarioForm {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnBrowse = new GridBagConstraints();
-		gbc_btnBrowse.insets = new Insets(0, 0, 5, 5);
-		gbc_btnBrowse.gridx = 6;
-		gbc_btnBrowse.gridy = 11;
-		sCreatorFrame.getContentPane().add(btnBrowse, gbc_btnBrowse);
+		sCreatorFrame.getContentPane().add(btnBrowse);
+		
+		JLabel label_10 = new JLabel("");
+		label_10.setBounds(403, 83, 0, 0);
+		sCreatorFrame.getContentPane().add(label_10);
 		
 		JPanel panel = new JPanel();
-		GridBagConstraints gbc_panel = new GridBagConstraints();
-		gbc_panel.gridheight = 3;
-		gbc_panel.gridwidth = 2;
-		gbc_panel.insets = new Insets(0, 0, 5, 5);
-		gbc_panel.fill = GridBagConstraints.BOTH;
-		gbc_panel.gridx = 4;
-		gbc_panel.gridy = 12;
-		sCreatorFrame.getContentPane().add(panel, gbc_panel);
+		panel.setBounds(47, 251, 362, 39);
+		panel.setBackground(UIManager.getColor("CheckBox.background"));
+		sCreatorFrame.getContentPane().add(panel);
 		
 		JButton btnRecordAudio = new JButton("Record Audio");
 		panel.add(btnRecordAudio);
@@ -310,44 +229,87 @@ public class ScenarioForm {
 		JButton btnSave = new JButton("Save");
 		panel.add(btnSave);
 		
-		btnSaveAndCreate.setForeground(Color.BLACK);
-		btnSaveAndCreate.setContentAreaFilled(false);
-        btnSaveAndCreate.setOpaque(true);
-		btnSaveAndCreate.setBackground(new Color(154, 205, 50));
-		GridBagConstraints gbc_btnSaveAndCreate = new GridBagConstraints();
-		gbc_btnSaveAndCreate.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSaveAndCreate.gridx = 4;
-		gbc_btnSaveAndCreate.gridy = 18;
-		sCreatorFrame.getContentPane().add(btnSaveAndCreate, gbc_btnSaveAndCreate);
-
-		JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
-		btnExitWithoutSaving.setForeground(Color.BLACK);
-		btnExitWithoutSaving.setContentAreaFilled(false);
-        btnExitWithoutSaving.setOpaque(true);
-		btnExitWithoutSaving.setBackground(new Color(178, 34, 34));
-		btnExitWithoutSaving.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				sCreatorFrame.setVisible(false);
-				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE);
-				if (option == JOptionPane.YES_OPTION) {
-					sCreatorFrame.dispose();
-				} else {
-					// do nothing
-				}
-			}
-		});
-		GridBagConstraints gbc_btnExitWithoutSaving = new GridBagConstraints();
-		gbc_btnExitWithoutSaving.insets = new Insets(0, 0, 5, 5);
-		gbc_btnExitWithoutSaving.gridx = 4;
-		gbc_btnExitWithoutSaving.gridy = 19;
-		sCreatorFrame.getContentPane().add(btnExitWithoutSaving, gbc_btnExitWithoutSaving);
-		/*
-		 * sCreatorFrame .setFocusTraversalPolicy(new FocusTraversalOnArray(new
-		 * Component[] { sCreatorFrame.getContentPane(), lblNewLabel,
-		 * lblNumberOfCells, buttonComboBox, lblNumberOfButtons, cellComboBox
-		 * }));
-		 */
+		JLabel label_11 = new JLabel("");
+		label_11.setBounds(404, 122, 0, 0);
+		sCreatorFrame.getContentPane().add(label_11);
+		
+		JLabel label_12 = new JLabel("");
+		label_12.setBounds(409, 122, 0, 0);
+		sCreatorFrame.getContentPane().add(label_12);
+		
+		JLabel label_13 = new JLabel("");
+		label_13.setBounds(414, 122, 0, 0);
+		sCreatorFrame.getContentPane().add(label_13);
+		
+		JLabel label_14 = new JLabel("");
+		label_14.setBounds(419, 122, 0, 0);
+		sCreatorFrame.getContentPane().add(label_14);
+		
+		JLabel label_15 = new JLabel("");
+		label_15.setBounds(424, 122, 0, 0);
+		sCreatorFrame.getContentPane().add(label_15);
+		
+		JLabel label_16 = new JLabel("");
+		label_16.setBounds(429, 122, 0, 0);
+		sCreatorFrame.getContentPane().add(label_16);
+		
+				JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
+				btnSaveAndCreate.setBounds(21, 355, 222, 29);
+				btnSaveAndCreate.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						ArrayList<Card> cards =  new ArrayList<Card>();
+						Card temp = new Card(1, "Card 1", "");
+						cards.add(temp);
+						AuthoringViewer aw = new AuthoringViewer(1, comboButtonBox.getSelectedIndex()+1, cards, "Hi", "Bye");
+						sCreatorFrame.dispose();
+					}
+				});
+				
+				btnSaveAndCreate.setForeground(Color.BLACK);
+				btnSaveAndCreate.setContentAreaFilled(false);
+				btnSaveAndCreate.setOpaque(true);
+				btnSaveAndCreate.setBackground(UIManager.getColor("CheckBox.background"));
+				sCreatorFrame.getContentPane().add(btnSaveAndCreate);
+		
+		JLabel label_17 = new JLabel("");
+		label_17.setBounds(251, 161, 0, 0);
+		sCreatorFrame.getContentPane().add(label_17);
+		
+		JLabel label_18 = new JLabel("");
+		label_18.setBounds(256, 161, 0, 0);
+		sCreatorFrame.getContentPane().add(label_18);
+		
+		JLabel label_19 = new JLabel("");
+		label_19.setBounds(261, 161, 0, 0);
+		sCreatorFrame.getContentPane().add(label_19);
+		
+				JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
+				btnExitWithoutSaving.setBounds(263, 355, 166, 29);
+				btnExitWithoutSaving.setForeground(Color.BLACK);
+				btnExitWithoutSaving.setContentAreaFilled(false);
+				btnExitWithoutSaving.setOpaque(true);
+				btnExitWithoutSaving.setBackground(UIManager.getColor("CheckBox.background"));
+				btnExitWithoutSaving.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						sCreatorFrame.setVisible(false);
+						int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE);
+						if (option == JOptionPane.YES_OPTION) {
+							sCreatorFrame.dispose();
+						} else {
+							// do nothing
+						}
+					}
+				});
+				sCreatorFrame.getContentPane().add(btnExitWithoutSaving);
+		
+		JLabel label_20 = new JLabel("");
+		label_20.setBounds(437, 161, 0, 0);
+		sCreatorFrame.getContentPane().add(label_20);
+		
+		JLabel label_21 = new JLabel("");
+		label_21.setBounds(442, 161, 0, 0);
+		sCreatorFrame.getContentPane().add(label_21);
 
 	}
 
@@ -361,7 +323,6 @@ public class ScenarioForm {
 			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
 					JOptionPane.QUESTION_MESSAGE);
 			if (option == JOptionPane.YES_OPTION) {
-				// System.exit( 0 );
 				sCreatorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			} else {
 				// do nothing
