@@ -21,6 +21,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -46,12 +47,13 @@ import javax.swing.JEditorPane;
 import javax.swing.JRadioButton;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
+import java.lang.Object;
 
 public class AuthoringViewer {
 
 	private JFrame aViewFrame;
 	private int numCells = 1;
-	private int numButtons = 1; 
+	private int numButtons = 1;
 	private JTextField txtCardName;
 	private JTextField txtAudiofilenamemp;
 	private JTextField textField;
@@ -65,41 +67,39 @@ public class AuthoringViewer {
 	private JEditorPane buttonEditor;
 	private JList list;
 	private DefaultListModel<String> listModel;
-	
-	
+	private static String testPins;
+
 	private int currButton;
 	private int currCell;
 	private int currCard;
 	private ArrayList<Card> cards;
 	private String initialPrompt;
+	private String endingPrompt;
+	private String path;
 	// non zero
 
 	/**
 	 * Launch the application.
 	 */
-	
+
 	/*
-	public static void displayForm() {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AuthoringViewer window = new AuthoringViewer();
-					window.aViewFrame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
+	 * public static void displayForm() { EventQueue.invokeLater(new Runnable() {
+	 * public void run() { try { AuthoringViewer window = new AuthoringViewer();
+	 * window.aViewFrame.setVisible(true); } catch (Exception e) {
+	 * e.printStackTrace(); } } }); }
+	 */
 
 	/**
 	 * Create the application.
 	 */
-	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt) {
+	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt,
+			String endingPrompt) {
 		this.numButtons = numButtons;
 		this.initialPrompt = initialPrompt;
+		this.endingPrompt = endingPrompt;
 		this.numCells = numCells;
 		this.cards = new ArrayList<Card>(cards);
+		this.path = "";
 		initialize();
 		this.currButton = 0;
 		this.currCell = 0;
@@ -113,38 +113,38 @@ public class AuthoringViewer {
 		aViewFrame = new JFrame();
 		aViewFrame.getContentPane().setBackground(Color.GRAY);
 		aViewFrame.getContentPane().setLayout(null);
-		
+
 		JLabel lblCurrcard = new JLabel("1/" + this.numCells);
 		lblCurrcard.setBounds(148, 10, 55, 16);
 		aViewFrame.getContentPane().add(lblCurrcard);
-		
+
 		JLabel lblPrompt = new JLabel("PROMPT");
 		lblPrompt.setBounds(250, 10, 61, 16);
 		aViewFrame.getContentPane().add(lblPrompt);
-		
+
 		JLabel lblOrder = new JLabel("ORDER");
 		lblOrder.setBounds(750, 10, 61, 16);
 		aViewFrame.getContentPane().add(lblOrder);
-		
+
 		txtCardName = new JTextField();
 		txtCardName.setText("Card Name");
 		txtCardName.setBounds(6, 5, 130, 26);
 		aViewFrame.getContentPane().add(txtCardName);
 		txtCardName.setColumns(10);
-		
+
 		editorPane = new JEditorPane();
 		editorPane.setBounds(250, 30, 478, 128);
 		aViewFrame.getContentPane().add(editorPane);
-		
+
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBounds(250, 320, 561, 65);
 		aViewFrame.getContentPane().add(buttonPanel);
 		buttonPanel.setLayout(null);
-		
+
 		JLabel label = new JLabel("");
 		label.setBounds(53, 19, 0, 0);
 		buttonPanel.add(label);
-		
+
 		if (this.numButtons >= 1) {
 			JButton button = new JButton("1");
 			button.addActionListener(new ActionListener() {
@@ -205,83 +205,118 @@ public class AuthoringViewer {
 			button_5.setBounds(470, 20, 75, 30);
 			buttonPanel.add(button_5);
 		}
-		
+
 		JLabel lblButtons = new JLabel("BUTTONS");
 		lblButtons.setBounds(250, 300, 61, 16);
 		aViewFrame.getContentPane().add(lblButtons);
-		
+
 		JLabel lblAudio = new JLabel("AUDIO");
 		lblAudio.setBounds(250, 200, 61, 16);
 		aViewFrame.getContentPane().add(lblAudio);
-		
+
 		txtAudiofilenamemp = new JTextField();
 		txtAudiofilenamemp.setText("AudioFileName.mp3");
 		txtAudiofilenamemp.setBounds(250, 220, 209, 26);
 		aViewFrame.getContentPane().add(txtAudiofilenamemp);
 		txtAudiofilenamemp.setColumns(10);
-		
+
 		JPanel cellPanel = new JPanel();
 		cellPanel.setBounds(70, 38, 82, 105);
 		aViewFrame.getContentPane().add(cellPanel);
 		cellPanel.setLayout(null);
-		
+
 		pOne = new JRadioButton("");
 		pOne.setBounds(6, 6, 28, 23);
 		cellPanel.add(pOne);
-		
+
 		pFour = new JRadioButton("");
 		pFour.setBounds(46, 6, 28, 23);
 		cellPanel.add(pFour);
-		
+
 		pTwo = new JRadioButton("");
 		pTwo.setBounds(6, 41, 28, 23);
 		cellPanel.add(pTwo);
-		
+
 		pFive = new JRadioButton("");
 		pFive.setBounds(46, 41, 28, 23);
 		cellPanel.add(pFive);
-		
+
 		pThree = new JRadioButton("");
 		pThree.setBounds(6, 76, 28, 23);
 		cellPanel.add(pThree);
-		
+
 		pSix = new JRadioButton("");
 		pSix.setBounds(46, 76, 28, 23);
 		cellPanel.add(pSix);
-		
+
 		textField = new JTextField();
 		textField.setBounds(73, 155, 130, 26);
 		aViewFrame.getContentPane().add(textField);
 		textField.setColumns(10);
-		
+
 		JLabel lblLetter = new JLabel("Letter:");
 		lblLetter.setBounds(20, 160, 55, 16);
 		aViewFrame.getContentPane().add(lblLetter);
-		
+
 		JButton btnAudio = new JButton("Audio");
 		btnAudio.setBounds(823, 319, 117, 29);
 		aViewFrame.getContentPane().add(btnAudio);
-		
-		JButton btnFunction = new JButton("Function");
-		btnFunction.addActionListener(new ActionListener() {
+
+		JButton btnRaisePins = new JButton("Raise Pins");
+		btnRaisePins.addActionListener(new ActionListener() {
+			// String pins;
 			public void actionPerformed(ActionEvent e) {
-				functionView fw = new functionView();
-				fw.displayForm();
-				String pins = "";
-				for (int i = 0; i < 8; i++) {
-					pins += fw.getCell().getPinState(i) ? "1" : "0";
+//				BrailleCell cell = new BrailleCell();
+//				new Thread(new Runnable() {
+//					public void join() {
+//						functionView fw = new functionView(cell);
+//						//fw.displayForm();
+//					}
+//					public void run() {
+//						join();
+//					}
+//				}).start();
+//				
+//				// wait
+//				
+//				String pins = ""; 
+//				for (int i = 0; i < 8; i++) { 
+//					pins += cell.getPinState(i) ? "1" : "0"; 
+//				}
+//				
+//				setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + pins);// fw.returnPins());
+				
+//				functionView fv = new functionView(); 
+//				setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + testPins);
+				String inputValue = JOptionPane.showInputDialog("Please input which pins to raise");
+				boolean checkNumber = true;
+				for (int i = 0; i < inputValue.length(); i++) {
+					System.out.println(i);
+					if ( inputValue.charAt(i) != '0' && inputValue.charAt(i) != '1' ) {
+						System.out.println("hi");
+						checkNumber = false;
+					}
 				}
-				setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton+1) + ": " + pins);
+				System.out.println(inputValue.length() + " " + inputValue);
+				if (inputValue.length() == 8 && checkNumber) {
+					setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + inputValue);
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert", JOptionPane.ERROR_MESSAGE);
+				}
+				
 			}
+			
+
 		});
-		btnFunction.setBounds(823, 356, 117, 29);
-		aViewFrame.getContentPane().add(btnFunction);
-		
+		btnRaisePins.setBounds(823, 356, 117, 29);
+		aViewFrame.getContentPane().add(btnRaisePins);
+
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
-						JOptionPane.QUESTION_MESSAGE);
+				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
+						"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.YES_OPTION) {
 					aViewFrame.dispose();
 				} else {
@@ -291,38 +326,85 @@ public class AuthoringViewer {
 		});
 		btnExit.setBounds(20, 525, 50, 50);
 		aViewFrame.getContentPane().add(btnExit);
-		
+
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JButton save = new JButton();
+				JFileChooser fc = new JFileChooser();
+				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
+				fc.setDialogTitle("Please Save The File");
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				if (fc.showSaveDialog(save) == JFileChooser.APPROVE_OPTION) {
+					System.out.println(fc.getSelectedFile().getPath());
+					path = fc.getSelectedFile().getPath();
+					updateButton();
+					updatePrompt();
+					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
+							endingPrompt);
+					a.createBody();
+					ScenarioWriter sW = new ScenarioWriter(path);
+					try {
+						sW.write(a.getText());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+
 			}
 		});
 		btnSave.setBounds(80, 525, 50, 50);
 		aViewFrame.getContentPane().add(btnSave);
-		
+
 		JButton btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt, "Bye");
-				a.createBody();
+				if (path.equals("")) {
+					JOptionPane.showMessageDialog(null, "Please save first", "Alert", JOptionPane.ERROR_MESSAGE);
+				} else {
+					System.out.println(cards.get(0).getButtonList().get(0).getText());
+					System.out.println("hi");
+					updateButton();
+					updatePrompt();
+					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
+							endingPrompt);
+					a.createBody();
+					ScenarioWriter sW = new ScenarioWriter(path);
+					try {
+						sW.write(a.getText());
+						// ScenarioParser s = new ScenarioParser(true);
+						// s.setScenarioFile(path);
+
+						new Thread(new Runnable() {
+							public void run() {
+								ScenarioParser s = new ScenarioParser(true);
+								s.setScenarioFile(path);
+							}
+						}).start();
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						System.out.println("failed to print");
+					}
+				}
+
 			}
 		});
 		btnTest.setBounds(140, 525, 50, 50);
 		aViewFrame.getContentPane().add(btnTest);
-		
-		
+
 		buttonEditor = new JEditorPane();
 		buttonEditor.setBounds(250, 400, 561, 70);
 		aViewFrame.getContentPane().add(buttonEditor);
-		
+
 		JButton button_6 = new JButton("<");
 		button_6.setBounds(38, 80, 20, 20);
 		aViewFrame.getContentPane().add(button_6);
-		
+
 		JButton button_7 = new JButton(">");
 		button_7.setBounds(164, 80, 20, 20);
 		aViewFrame.getContentPane().add(button_7);
-		
+
 		listModel = new DefaultListModel();
 		list = new JList(listModel);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -330,20 +412,19 @@ public class AuthoringViewer {
 		list.setVisibleRowCount(-1);
 		list.setBounds(750, 30, 234, 128);
 		JScrollPane listScroller = new JScrollPane(list);
-        listScroller.setPreferredSize(new Dimension(250, 80));
-        listScroller.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
-        aViewFrame.getContentPane().add(listScroller);
+		listScroller.setPreferredSize(new Dimension(250, 80));
+		listScroller.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
+		aViewFrame.getContentPane().add(listScroller);
 		aViewFrame.getContentPane().add(list);
-		
-		
+
 		JButton btnR = new JButton("R");
 		btnR.setBounds(458, 224, 20, 20);
 		aViewFrame.getContentPane().add(btnR);
-		
+
 		JButton btnI = new JButton("I");
 		btnI.setBounds(482, 224, 20, 20);
 		aViewFrame.getContentPane().add(btnI);
-		
+
 		JButton btnD = new JButton("D");
 		btnD.setBounds(506, 224, 20, 20);
 		aViewFrame.getContentPane().add(btnD);
@@ -359,8 +440,8 @@ public class AuthoringViewer {
 
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
-			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE);
+			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
+					"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (option == JOptionPane.YES_OPTION) {
 				// System.exit( 0 );
 				aViewFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -369,11 +450,11 @@ public class AuthoringViewer {
 			}
 		}
 	}
-	
+
 	public void setPromptText(String text) {
 		editorPane.setText(text);
 	}
-	
+
 	public void setCurrCellPins(BrailleCell cell) {
 		pOne.setSelected(cell.getPinState(0));
 		pTwo.setSelected(cell.getPinState(1));
@@ -382,18 +463,18 @@ public class AuthoringViewer {
 		pFive.setSelected(cell.getPinState(4));
 		pSix.setSelected(cell.getPinState(5));
 	}
-	
+
 	public void setButtonText(String text) {
 		buttonEditor.setText(text);
 	}
-	
+
 	public void setCardList() {
 		for (Card cards : this.cards) {
 			listModel.addElement(cards.getName());
 		}
 	}
-	
-	public void showButtonText(int buttonNum) { //ButtonNum 0-5
+
+	public void showButtonText(int buttonNum) { // ButtonNum 0-5
 		if (currButton != buttonNum) {
 			try {
 				String replace = cards.get(currCard).getButtonList().get(buttonNum).getText();
@@ -406,5 +487,17 @@ public class AuthoringViewer {
 				this.setButtonText("");
 			}
 		}
+	}
+
+	public void updateButton() {
+		cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
+	}
+
+	public void updatePrompt() {
+		cards.get(currCard).setText(editorPane.getText());
+	}
+	
+	public static void updatePins(String s) {
+		testPins = s;
 	}
 }

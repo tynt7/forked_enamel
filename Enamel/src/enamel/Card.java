@@ -57,6 +57,10 @@ public class Card {
 		}
 	}
 	
+	public void setText(String text) {
+		this.text = text;
+	}
+	
 	public void setSound(String newSound) {
 		this.sound = newSound;
 	}

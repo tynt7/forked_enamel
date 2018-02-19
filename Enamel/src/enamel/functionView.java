@@ -46,37 +46,38 @@ import javax.swing.JCheckBox;
 		private int numButtons = 1; 
 		private BrailleCell cell;
 		private boolean saveState;
+		public static final String pins ="";
 		// non zero
 
 		/**
 		 * Launch the application.
 		 */
-		public static void displayForm() {
-			EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						functionView window = new functionView();
-						window.funcFrame.setVisible(true);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		}
+//		public static void displayForm() {
+//			EventQueue.invokeLater(new Runnable() {
+//				public void run() {
+//					try {
+//						functionView window = new functionView();
+//						window.funcFrame.setVisible(true);
+//					} catch (Exception e) {
+//						e.printStackTrace();
+//					}
+//				}
+//			});
+//		}
 
 		/**
 		 * Create the application.
 		 */
-		public functionView() {
-			initialize();
+		public functionView() {//BrailleCell cell2) {
+			initialize();//cell2);
 		}
 
 		/**
 		 * Initialize the contents of the frame.
 		 */
-		private void initialize() {
-			saveState = false;
-			cell = new BrailleCell();
+		private void initialize() {//BrailleCell cell2) {
+			//saveState = false;
+			//cell = //cell2;
 			funcFrame = new JFrame();
 			funcFrame.getContentPane().setBackground(Color.GRAY);
 			funcFrame.getContentPane().setLayout(null);
@@ -149,6 +150,7 @@ import javax.swing.JCheckBox;
 			JButton btnCancel = new JButton("Cancel");
 			btnCancel.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					saveState = false;
 					funcFrame.dispose();
 				}
 			});
@@ -159,16 +161,23 @@ import javax.swing.JCheckBox;
 			btnSave.setBounds(163, 318, 117, 29);
 			btnSave.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					String pins = pin1Box.isSelected() ? "1" : "0";
-					pins += pin2Box.isSelected() ? "1" : "0";
-					pins += pin3Box.isSelected() ? "1" : "0";
-					pins += pin4Box.isSelected() ? "1" : "0";
-					pins += pin5Box.isSelected() ? "1" : "0";
-					pins += pin6Box.isSelected() ? "1" : "0";
-					pins += "00";
-					cell.setPins(pins);
+					if(!saveState) {
+					String	pinsS = pin1Box.isSelected() ? "1" : "0";
+					
+					pinsS += pin2Box.isSelected() ? "1" : "0";
+					pinsS += pin3Box.isSelected() ? "1" : "0";
+					pinsS += pin4Box.isSelected() ? "1" : "0";
+					pinsS += pin5Box.isSelected() ? "1" : "0";
+					pinsS += pin6Box.isSelected() ? "1" : "0";
+					pinsS += "00";
+					System.out.println("pins"+pinsS);
+					//setPins(pinsS);
+					//cell.setPins(pins);
+					pins.concat(pinsS);
 					funcFrame.dispose();
 					saveState = true;
+					AuthoringViewer.updatePins(pins);
+					}
 				}
 			});
 			
@@ -179,7 +188,7 @@ import javax.swing.JCheckBox;
 			funcFrame.setBounds(100, 100, 300, 400);
 			funcFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			funcFrame.addWindowListener(new confirmClose());
-
+			funcFrame.setVisible(true);
 		}
 
 		private class confirmClose extends WindowAdapter {
@@ -201,5 +210,12 @@ import javax.swing.JCheckBox;
 		
 		public boolean getSaveState() {
 			return this.saveState;
+		}
+		
+//		public void setPins(String s) {
+//			pins = s;
+//		}
+		public static String returnPins() {
+			return pins;
 		}
 	}

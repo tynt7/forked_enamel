@@ -10,6 +10,7 @@ public class FileToCardsParser {
 	private ArrayList<Card> cards;
 	private String scenarioFilePath;
 	private String initialPrompt;
+	private String endingPrompt;
 	private int numButtons;
 	private int numCells;
 	private int numLines;
@@ -18,6 +19,7 @@ public class FileToCardsParser {
 	public FileToCardsParser() {
 		cards = new ArrayList<Card>();
 		this.initialPrompt = "";
+		this.endingPrompt = "";
 	}
 
 	public void setFile(String scenarioFile) {
@@ -34,6 +36,8 @@ public class FileToCardsParser {
 			System.out.println("Incorrect File Name");
 		}
 		parse();
+		checkLast();
+		print();
 	}
 
 	public void checkNumLines(String scenarioFile) {
@@ -208,25 +212,7 @@ public class FileToCardsParser {
 				}
 			}
 		}
-		System.out.println(cards.size());
-		for (int i = 0; i < cards.size(); i++) {
-			System.out.println("In card " + i + ":\n" + cards.get(i).getText() + "\n\n");
-			ArrayList<DataButton> buttonList = cards.get(i).getButtonList();
-			if (buttonList.size() > 0) {
-				for (int j = 0; j < buttonList.size(); j++) {
-					System.out.println("In Button" + j + ":" + buttonList.get(j).getID() + "\n"
-							+ buttonList.get(j).getText() + "\n");
-				}
-			}
-
-			System.out.println("\n\n\n");
-		}
-		for (int i = 0; i < cards.size() - 1; i++) {
-			for (int j = 0; j < 8; j++) {
-				System.out.print(cards.get(i).getCells().get(0).getPinState(j) ? "1" : "0");
-			}
-			System.out.println();
-		}
+		print();
 
 	}
 
@@ -245,6 +231,46 @@ public class FileToCardsParser {
 	
 	public String getInitial() {
 		return this.initialPrompt;
+	}
+	
+	public String getEnding() {
+		return this.endingPrompt;
+	}
+	
+	public void checkLast() {
+		Card temp = cards.get(cards.size()-1);
+		if ( temp.getCells().isEmpty() ) {
+			this.endingPrompt = temp.getText();
+			cards.remove(temp);
+		}
+	}
+	
+	public void print() {
+		System.out.println(cards.size());
+		for (int i = 0; i < cards.size(); i++) {
+			System.out.println("In card " + i + ":\n" + cards.get(i).getText() + "\n\n");
+			ArrayList<DataButton> buttonList = cards.get(i).getButtonList();
+			if (buttonList.size() > 0) {
+				for (int j = 0; j < buttonList.size(); j++) {
+					System.out.println("In Button" + j + ":" + buttonList.get(j).getID() + "\n"
+							+ buttonList.get(j).getText() + "\n");
+				}
+			}
+
+			System.out.println("\n\n\n");
+		}
+		for (int i = 0; i < cards.size(); i++) {
+			System.out.println(i);
+			for (int j = 0; j < 8; j++) {
+				
+				if ( !cards.get(i).getCells().isEmpty() ) {
+					
+					System.out.print(cards.get(i).getCells().get(0).getPinState(j) ? "1" : "0");
+				}
+				
+			}
+			System.out.println();
+		}
 	}
 
 }
