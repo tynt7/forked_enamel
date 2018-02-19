@@ -26,6 +26,8 @@ public class RecorderFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 
+	private Boolean isRecording;
+
 	/**
 	 * Launch the application.
 	 */
@@ -48,11 +50,12 @@ public class RecorderFrame {
 	public RecorderFrame() {
 		initialize();
 	}
-	
+
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		// settings for the frame
 		recorderFrame = new JFrame();
 		recorderFrame.setResizable(false);
 		recorderFrame.setTitle("Audio Recorder");
@@ -62,18 +65,21 @@ public class RecorderFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		recorderFrame.setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		recorderFrame.addWindowListener(new confirmClose()); // pop up before
 		// exit
 
+		// JTextArea for instructions
 		JTextArea txtrPressrecordTo = new JTextArea();
 		txtrPressrecordTo.setEditable(false);
 		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		txtrPressrecordTo.setBounds(10, 5, 747, 120);
-		txtrPressrecordTo.setText(
-				" -     Press \"RECORD NEW\" to start recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates the record time\r\n -     You may choose to \"DISCARD\" recording ");
+		txtrPressrecordTo.setText(" -     Press \"RECORD NEW\" to start recording\r\n"
+				+ " -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n"
+				+ " -     \"TIMER\" indicates the record time\r\n" + " -     You may choose to \"DISCARD\" recording ");
 		contentPane.add(txtrPressrecordTo);
 
+		// Button for starting a new recording
 		JButton recordNewButton = new JButton("RECORD NEW");
 		recordNewButton.setForeground(Color.BLUE);
 		recordNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -84,17 +90,20 @@ public class RecorderFrame {
 		recordNewButton.setBounds(27, 138, 137, 46);
 		contentPane.add(recordNewButton);
 
+		// Button for stopping and then saving the current recoding
 		JButton stopRecordingButton = new JButton("STOP & SAVE");
 		stopRecordingButton.setForeground(Color.RED);
 		stopRecordingButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		stopRecordingButton.setBounds(179, 138, 137, 46);
 		contentPane.add(stopRecordingButton);
 
+		// Label for record timer
 		JLabel lblTimer = new JLabel("TIMER:");
 		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblTimer.setBounds(342, 140, 70, 44);
 		contentPane.add(lblTimer);
 
+		// textField to display the record time
 		textField = new JTextField();
 		textField.setForeground(Color.BLUE);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -104,10 +113,13 @@ public class RecorderFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 	}
+
+	// Class with method to display confirmation dialog box when user tries to
+	// close the JFrame
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
-			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE);
+			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
+					"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (option == JOptionPane.YES_OPTION) {
 				// System.exit( 0 );
 				recorderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
