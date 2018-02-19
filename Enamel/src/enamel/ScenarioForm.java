@@ -118,7 +118,6 @@ public class ScenarioForm {
 				JLabel label_3 = new JLabel("");
 				label_3.setBounds(376, 18, 0, 0);
 				sCreatorFrame.getContentPane().add(label_3);
-				//lblNumberOfButtons.setLabelFor(comboButtonBox);
 				
 						JComboBox comboCellBox = new JComboBox();
 						comboCellBox.setBounds(254, 76, 64, 21);
