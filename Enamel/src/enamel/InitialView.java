@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 public class InitialView {
 
 	private JFrame frmAuthoringApp;
+	private Thread starterCodeThread;//thread to run visual player
 
 	/**
 	 * Launch the application.
@@ -163,7 +164,7 @@ public class InitialView {
 			         public void run() {*/
 			           /*ScenarioParser s = new ScenarioParser(true);
 			           s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");*/
-				Thread starterCodeThread = new Thread("Starter Code Thread") {
+				starterCodeThread = new Thread("Starter Code Thread") {
 				    public void run(){    
 						JButton open = new JButton();
 						 
@@ -178,9 +179,11 @@ public class InitialView {
 			           }
 			     };//).start();
 			     starterCodeThread.start();
-				 
 			}
+		     
+			
 		});
+	   
 		testButton.setBounds(85, 210, 85, 50);
 		frmAuthoringApp.getContentPane().add(testButton);
 
