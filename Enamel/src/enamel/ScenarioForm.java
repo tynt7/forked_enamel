@@ -52,8 +52,6 @@ public class ScenarioForm {
 	private int numButtons = 1; // assuming 1 selected by default. i.e. always
 	private JTextField titleTextField;
 	private JTextField audioFileTextField;
-	private JTextField questionTextField;
-	private JTextField optionsTextField;
 	// non zero
 
 	/**
@@ -84,7 +82,7 @@ public class ScenarioForm {
 	 */
 	private void initialize() {
 		sCreatorFrame = new JFrame();
-		sCreatorFrame.getContentPane().setBackground(new Color(240, 240, 240));
+		sCreatorFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
 		sCreatorFrame.setResizable(false);
 		sCreatorFrame.setBackground(new Color(255, 255, 255));
 		sCreatorFrame.setTitle("Scenario Creator");
@@ -106,7 +104,7 @@ public class ScenarioForm {
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.gridwidth = 2;
 		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 5;
+		gbc_lblNewLabel.gridx = 4;
 		gbc_lblNewLabel.gridy = 1;
 		sCreatorFrame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
 
@@ -212,48 +210,6 @@ public class ScenarioForm {
 				sCreatorFrame.dispose();
 			}
 		});
-
-		JLabel lblDescription = new JLabel("Task Description");
-		GridBagConstraints gbc_lblDescription = new GridBagConstraints();
-		gbc_lblDescription.anchor = GridBagConstraints.WEST;
-		gbc_lblDescription.insets = new Insets(0, 0, 5, 5);
-		gbc_lblDescription.gridx = 2;
-		gbc_lblDescription.gridy = 6;
-		sCreatorFrame.getContentPane().add(lblDescription, gbc_lblDescription);
-		
-		JLabel lblQuestion = new JLabel("Question:");
-		GridBagConstraints gbc_lblQuestion = new GridBagConstraints();
-		gbc_lblQuestion.anchor = GridBagConstraints.WEST;
-		gbc_lblQuestion.insets = new Insets(0, 0, 5, 5);
-		gbc_lblQuestion.gridx = 2;
-		gbc_lblQuestion.gridy = 8;
-		sCreatorFrame.getContentPane().add(lblQuestion, gbc_lblQuestion);
-		
-		questionTextField = new JTextField();
-		GridBagConstraints gbc_questionTextField = new GridBagConstraints();
-		gbc_questionTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_questionTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_questionTextField.gridx = 4;
-		gbc_questionTextField.gridy = 8;
-		sCreatorFrame.getContentPane().add(questionTextField, gbc_questionTextField);
-		questionTextField.setColumns(10);
-		
-		JLabel lblOptions = new JLabel("Options:");
-		GridBagConstraints gbc_lblOptions = new GridBagConstraints();
-		gbc_lblOptions.anchor = GridBagConstraints.WEST;
-		gbc_lblOptions.insets = new Insets(0, 0, 5, 5);
-		gbc_lblOptions.gridx = 2;
-		gbc_lblOptions.gridy = 9;
-		sCreatorFrame.getContentPane().add(lblOptions, gbc_lblOptions);
-		
-		optionsTextField = new JTextField();
-		GridBagConstraints gbc_optionsTextField = new GridBagConstraints();
-		gbc_optionsTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_optionsTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_optionsTextField.gridx = 4;
-		gbc_optionsTextField.gridy = 9;
-		sCreatorFrame.getContentPane().add(optionsTextField, gbc_optionsTextField);
-		optionsTextField.setColumns(10);
 		
 		JLabel lblAddAudioFile = new JLabel("Add Audio File");
 		GridBagConstraints gbc_lblAddAudioFile = new GridBagConstraints();
@@ -292,6 +248,7 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(btnBrowse, gbc_btnBrowse);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(UIManager.getColor("CheckBox.background"));
 		GridBagConstraints gbc_panel = new GridBagConstraints();
 		gbc_panel.gridheight = 3;
 		gbc_panel.gridwidth = 2;
@@ -313,7 +270,7 @@ public class ScenarioForm {
 		btnSaveAndCreate.setForeground(Color.BLACK);
 		btnSaveAndCreate.setContentAreaFilled(false);
         btnSaveAndCreate.setOpaque(true);
-		btnSaveAndCreate.setBackground(new Color(154, 205, 50));
+		btnSaveAndCreate.setBackground(UIManager.getColor("CheckBox.background"));
 		GridBagConstraints gbc_btnSaveAndCreate = new GridBagConstraints();
 		gbc_btnSaveAndCreate.insets = new Insets(0, 0, 5, 5);
 		gbc_btnSaveAndCreate.gridx = 4;
@@ -324,7 +281,7 @@ public class ScenarioForm {
 		btnExitWithoutSaving.setForeground(Color.BLACK);
 		btnExitWithoutSaving.setContentAreaFilled(false);
         btnExitWithoutSaving.setOpaque(true);
-		btnExitWithoutSaving.setBackground(new Color(178, 34, 34));
+		btnExitWithoutSaving.setBackground(UIManager.getColor("CheckBox.background"));
 		btnExitWithoutSaving.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sCreatorFrame.setVisible(false);
