@@ -23,6 +23,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import java.awt.GridBagLayout;
@@ -203,8 +204,11 @@ public class ScenarioForm {
 		JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
 		btnSaveAndCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AuthoringViewer aw = new AuthoringViewer();
-				aw.displayForm();
+				ArrayList<Card> cards =  new ArrayList<Card>();
+				Card temp = new Card(1, "Card 1", "");
+				cards.add(temp);
+				AuthoringViewer aw = new AuthoringViewer(5, 5, cards, " Hi");
+				//aw.displayForm();
 				sCreatorFrame.dispose();
 			}
 		});

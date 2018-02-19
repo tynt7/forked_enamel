@@ -15,6 +15,7 @@ public class DataButton {
 	public DataButton(int id) {
 		this.bID = id;
 		this.audioFile = "";
+		this.text = "";
 	}
 	
 	public DataButton(DataButton other) {
@@ -32,7 +33,7 @@ public class DataButton {
 	}
 	
 	public void addText(String newText) {
-		if (text == null) {
+		if (text.equals("")) {
 			text = newText;
 		}
 		else {
@@ -42,6 +43,10 @@ public class DataButton {
 	
 	public void setAudio(String audioPath) {
 		this.audioFile = audioPath;
+	}
+	
+	public void setText(String newText) {
+		this.text = newText;
 	}
 	
 	public String getAudio() {

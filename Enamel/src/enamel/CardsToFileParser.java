@@ -95,7 +95,15 @@ public class CardsToFileParser {
 				}
 				result += "\n/~sound:" + audioPath.substring(slashPos + 1);
 			}
-			result += "\n" + buttons.get(i).getText();
+			String[] arr = buttons.get(i).getText().split("\n");
+			for (int j = 0; j < arr.length; j++) {
+				if (arr[j].substring(0, 9).equals("/Pins on ") && arr[j].length() == 20) {
+					result += "\n/~disp-cell-pins:" + arr[j].charAt(9) + " " + arr[j].substring(12);
+				}
+				else {
+					result += "\n" + arr[j];
+				}
+			}
 			result += "\n/~skip:NEXTT";
 		}
 		result += "\n\n/~NEXTT";

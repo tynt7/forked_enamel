@@ -44,6 +44,8 @@ import javax.swing.JCheckBox;
 		private JFrame funcFrame;
 		private int numCells = 1;
 		private int numButtons = 1; 
+		private BrailleCell cell;
+		private boolean saveState;
 		// non zero
 
 		/**
@@ -73,6 +75,8 @@ import javax.swing.JCheckBox;
 		 * Initialize the contents of the frame.
 		 */
 		private void initialize() {
+			saveState = false;
+			cell = new BrailleCell();
 			funcFrame = new JFrame();
 			funcFrame.getContentPane().setBackground(Color.GRAY);
 			funcFrame.getContentPane().setLayout(null);
@@ -98,25 +102,25 @@ import javax.swing.JCheckBox;
 			pin1Box.setBounds(6, 6, 28, 23);
 			panel.add(pin1Box);
 			
-			JCheckBox checkBox = new JCheckBox("");
-			checkBox.setBounds(46, 6, 28, 23);
-			panel.add(checkBox);
+			JCheckBox pin2Box = new JCheckBox("");
+			pin2Box.setBounds(46, 6, 28, 23);
+			panel.add(pin2Box);
 			
-			JCheckBox checkBox_1 = new JCheckBox("");
-			checkBox_1.setBounds(86, 6, 28, 23);
-			panel.add(checkBox_1);
+			JCheckBox pin3Box = new JCheckBox("");
+			pin3Box.setBounds(86, 6, 28, 23);
+			panel.add(pin3Box);
 			
-			JCheckBox checkBox_2 = new JCheckBox("");
-			checkBox_2.setBounds(127, 6, 28, 23);
-			panel.add(checkBox_2);
+			JCheckBox pin4Box = new JCheckBox("");
+			pin4Box.setBounds(127, 6, 28, 23);
+			panel.add(pin4Box);
 			
-			JCheckBox checkBox_3 = new JCheckBox("");
-			checkBox_3.setBounds(168, 6, 28, 23);
-			panel.add(checkBox_3);
+			JCheckBox pin5Box = new JCheckBox("");
+			pin5Box.setBounds(168, 6, 28, 23);
+			panel.add(pin5Box);
 			
-			JCheckBox checkBox_4 = new JCheckBox("");
-			checkBox_4.setBounds(209, 6, 28, 23);
-			panel.add(checkBox_4);
+			JCheckBox pin6Box = new JCheckBox("");
+			pin6Box.setBounds(209, 6, 28, 23);
+			panel.add(pin6Box);
 			
 			JLabel label = new JLabel("1");
 			label.setBounds(16, 30, 8, 16);
@@ -153,6 +157,21 @@ import javax.swing.JCheckBox;
 			
 			JButton btnSave = new JButton("Save");
 			btnSave.setBounds(163, 318, 117, 29);
+			btnSave.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					String pins = pin1Box.isSelected() ? "1" : "0";
+					pins += pin2Box.isSelected() ? "1" : "0";
+					pins += pin3Box.isSelected() ? "1" : "0";
+					pins += pin4Box.isSelected() ? "1" : "0";
+					pins += pin5Box.isSelected() ? "1" : "0";
+					pins += pin6Box.isSelected() ? "1" : "0";
+					pins += "00";
+					cell.setPins(pins);
+					funcFrame.dispose();
+					saveState = true;
+				}
+			});
+			
 			funcFrame.getContentPane().add(btnSave);
 			funcFrame.setResizable(false);
 			funcFrame.setBackground(new Color(255, 255, 255));
@@ -160,7 +179,6 @@ import javax.swing.JCheckBox;
 			funcFrame.setBounds(100, 100, 300, 400);
 			funcFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 			funcFrame.addWindowListener(new confirmClose());
-
 
 		}
 
@@ -175,5 +193,13 @@ import javax.swing.JCheckBox;
 					// do nothing
 				}
 			}
+		}
+		
+		public BrailleCell getCell() {
+			return this.cell;
+		}
+		
+		public boolean getSaveState() {
+			return this.saveState;
 		}
 	}
