@@ -4,6 +4,9 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
+import audioRecorder.RecorderFrame;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
@@ -302,6 +305,14 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(panel, gbc_panel);
 		
 		JButton btnRecordAudio = new JButton("Record Audio");
+		btnRecordAudio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				RecorderFrame rf = new RecorderFrame();
+				rf.displayRecorder();
+			}
+		});
 		panel.add(btnRecordAudio);
 		
 		JButton btnStopRecording = new JButton("Stop Recording");
