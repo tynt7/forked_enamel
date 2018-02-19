@@ -22,6 +22,7 @@ public class Card {
 		this.cardName = name;
 		this.type = type;
 		this.bList = new ArrayList<>();
+		this.cells = new ArrayList<>();
 	}
 	
 	public int getId(){

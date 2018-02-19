@@ -52,6 +52,13 @@ public class CardsToFileParser {
 		}
 		result += "\n" + currCard.getText();
 		ArrayList<DataButton> buttons = currCard.getButtonList();
+//		for (DataButton button : buttons) {
+//			if ( button.getAudio().equals("") && button.getText().equals("") ) {
+//				buttons.remove(button);
+//			}
+//		}
+		
+		
 		for (int i = 0; i < buttons.size(); i++) {
 			result += "\n/~skip-button:" + i + " ";
 			switch(i) {

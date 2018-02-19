@@ -366,7 +366,7 @@ public class AuthoringViewer {
 		});
 		btnSave.setBounds(80, 525, 50, 50);
 		aViewFrame.getContentPane().add(btnSave);
-
+//hi
 		JButton btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -557,10 +557,6 @@ public class AuthoringViewer {
 		s += pSix.isSelected() ? "1" : "0";
 		cards.get(currCard).getCells().set(currCell, temp);
 	}
-//	
-//	public static void updatePins(String s) {
-//		testPins = s;
-//	}
 	
 	public void showPrompt() {
 		setPromptText(cards.get(currCard).getText());

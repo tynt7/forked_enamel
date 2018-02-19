@@ -176,7 +176,7 @@ import javax.swing.JCheckBox;
 					pins.concat(pinsS);
 					funcFrame.dispose();
 					saveState = true;
-					AuthoringViewer.updatePins(pins);
+					//AuthoringViewer.updatePins(pins);
 					}
 				}
 			});
