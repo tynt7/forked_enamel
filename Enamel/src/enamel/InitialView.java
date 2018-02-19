@@ -159,11 +159,13 @@ public class InitialView {
 				
 //				 ScenarioParser s = new ScenarioParser(true);
 //				 s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
-				new Thread(new Runnable() {
-			         public void run() {
+				/*new Thread(new Runnable() {
+			         public void run() {*/
 			           /*ScenarioParser s = new ScenarioParser(true);
 			           s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");*/
-			        	 JButton open = new JButton();
+				Thread starterCodeThread = new Thread("Starter Code Thread") {
+				    public void run(){    
+						JButton open = new JButton();
 						 
 						 JFileChooser fc = new JFileChooser();
 						 fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
@@ -174,8 +176,8 @@ public class InitialView {
 						 } ScenarioParser s = new ScenarioParser(true);
 						 s.setScenarioFile(fc.getSelectedFile().getPath());
 			           }
-			     }).start();
-
+			     };//).start();
+			     starterCodeThread.start();
 				 
 			}
 		});
