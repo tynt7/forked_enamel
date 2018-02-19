@@ -1,18 +1,19 @@
 package enamel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CardsToFileParser {
 
 	private ArrayList<Card> cards;
+	private String scenarioFilePath;
 	private String initialPrompt;
 	private String endingPrompt;
 	private int numButtons;
 	private int numCells;
 	private String body;
 
-	public CardsToFileParser(ArrayList<Card> cards, int numButtons, int numCells, String initialPrompt,
-			String endingPrompt) { // , String path) {
+	public CardsToFileParser(ArrayList<Card> cards, int numButtons, int numCells, String initialPrompt, String endingPrompt) {
 		this.cards = cards;
 		this.numButtons = numButtons;
 		this.numCells = numCells;
@@ -20,7 +21,7 @@ public class CardsToFileParser {
 		this.endingPrompt = endingPrompt;
 		this.body = "";
 	}
-
+	
 	public void createBody() {
 		body += "Cell " + numCells;
 		body += "\nButton " + numButtons;
@@ -34,7 +35,7 @@ public class CardsToFileParser {
 		}
 		System.out.println(body);
 	}
-
+	
 	public String writeCard(Card currCard) {
 		String result = "/~disp-cell-clear:0";
 		for (int i = 1; i < this.numCells; i++) {
@@ -50,50 +51,39 @@ public class CardsToFileParser {
 		}
 		result += "\n" + currCard.getText();
 		ArrayList<DataButton> buttons = currCard.getButtonList();
+		
 		for (int i = 0; i < buttons.size(); i++) {
 			result += "\n/~skip-button:" + i + " ";
-			switch (i) {
+			switch(i) {
 			case (0):
-				result += "ONEE";
-				break;
+				result += "ONEE"; break;
 			case (1):
-				result += "TWOO";
-				break;
+				result += "TWOO"; break;
 			case (2):
-				result += "THREEE";
-				break;
+				result += "THREEE"; break;
 			case (3):
-				result += "FOURR";
-				break;
+				result += "FOURR"; break;
 			case (4):
-				result += "FIVEE";
-				break;
+				result += "FIVEE"; break;
 			case (5):
-				result += "SIXX";
-				break;
+				result += "SIXX"; break;
 			}
 		}
 		result += "\n/~user-input";
 		for (int i = 0; i < buttons.size(); i++) {
-			switch (i) {
+			switch(i) {
 			case (0):
-				result += "\n/~ONEE";
-				break;
+				result += "\n/~ONEE"; break;
 			case (1):
-				result += "\n/~TWOO";
-				break;
+				result += "\n/~TWOO"; break;
 			case (2):
-				result += "\n/~THREEE";
-				break;
+				result += "\n/~THREEE"; break;
 			case (3):
-				result += "\n/~FOURR";
-				break;
+				result += "\n/~FOURR"; break;
 			case (4):
-				result += "\n/~FIVEE";
-				break;
+				result += "\n/~FIVEE"; break;
 			case (5):
-				result += "\n/~SIXX";
-				break;
+				result += "\n/~SIXX"; break;
 			}
 			String audioPath = buttons.get(i).getAudio();
 			if (!audioPath.equals("")) {
@@ -107,10 +97,11 @@ public class CardsToFileParser {
 			}
 			String[] arr = buttons.get(i).getText().split("\n");
 			for (int j = 0; j < arr.length; j++) {
-				if ((arr[j].length() == 20) && (arr[j].substring(0, 9).equals("/Pins on "))) {
+				if ( (arr[j].length() == 20) && (arr[j].substring(0, 9).equals("/Pins on ")) ) {
 					result += "\n/~disp-cell-clear:" + arr[j].charAt(9);
 					result += "\n/~disp-cell-pins:" + arr[j].charAt(9) + " " + arr[j].substring(12);
-				} else {
+				}
+				else {
 					result += "\n" + arr[j];
 				}
 			}
@@ -119,7 +110,7 @@ public class CardsToFileParser {
 		result += "\n\n/~NEXTT";
 		return result;
 	}
-
+	
 	public String getText() {
 		return this.body;
 	}
