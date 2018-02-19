@@ -42,8 +42,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JPanel;
-//form
-//fixed colorss
+
+@SuppressWarnings({"unused", "rawtypes"})
 public class ScenarioForm {
 
 	private JFrame sCreatorFrame;
@@ -80,6 +80,7 @@ public class ScenarioForm {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	private void initialize() {
 		sCreatorFrame = new JFrame();
 		sCreatorFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
@@ -118,8 +119,6 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(lblNumberOfCells, gbc_lblNumberOfCells);
 
 		JComboBox buttonComboBox = new JComboBox();
-		// String[] input = new String[] {"1", "2", "3", "4", "5", "6", "7",
-		// "8", "9", "10"};
 		buttonComboBox
 				.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 		GridBagConstraints gbc_buttonComboBox = new GridBagConstraints();
@@ -130,22 +129,16 @@ public class ScenarioForm {
 		gbc_buttonComboBox.gridx = 4;
 		gbc_buttonComboBox.gridy = 3;
 		sCreatorFrame.getContentPane().add(buttonComboBox, gbc_buttonComboBox);
-		// int temp = buttonComboBox.getSelectedIndex();
-		// numButtons = Integer.parseInt(input[temp]);
-		// buttonComboBox.addItemListener(aListener);;
+		
 		buttonComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent itemEvent) {
 				int state = itemEvent.getStateChange();
-				// System.out.println((state == ItemEvent.SELECTED) ? "Selected"
-				// : "Deselected");
-				// System.out.println("Item: " + itemEvent.getItem());
 				ItemSelectable is = itemEvent.getItemSelectable();
 				numButtons = Integer.parseInt(selectedString(is).toString());
 				System.out.println("Selected: " + selectedString(is));
 			}
 		});
 		JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
-		// buttonComboBox.addItemListener(itemListener);
 		lblNumberOfButtons.setLabelFor(buttonComboBox);
 
 		GridBagConstraints gbc_lblNumberOfButtons = new GridBagConstraints();
@@ -172,9 +165,6 @@ public class ScenarioForm {
 		cellComboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent itemEvent) {
 				int state = itemEvent.getStateChange();
-				// System.out.println((state == ItemEvent.SELECTED) ? "Selected"
-				// : "Deselected");
-				// System.out.println("Item: " + itemEvent.getItem());
 				ItemSelectable is = itemEvent.getItemSelectable();
 				numCells = Integer.parseInt(selectedString(is).toString());
 				System.out.println("Selected: " + selectedString(is));
@@ -206,7 +196,6 @@ public class ScenarioForm {
 				Card temp = new Card(1, "Card 1", "");
 				cards.add(temp);
 				AuthoringViewer aw = new AuthoringViewer(5, 5, cards, "Hi", "Bye");
-				//aw.displayForm();
 				sCreatorFrame.dispose();
 			}
 		});
@@ -299,12 +288,6 @@ public class ScenarioForm {
 		gbc_btnExitWithoutSaving.gridx = 4;
 		gbc_btnExitWithoutSaving.gridy = 19;
 		sCreatorFrame.getContentPane().add(btnExitWithoutSaving, gbc_btnExitWithoutSaving);
-		/*
-		 * sCreatorFrame .setFocusTraversalPolicy(new FocusTraversalOnArray(new
-		 * Component[] { sCreatorFrame.getContentPane(), lblNewLabel,
-		 * lblNumberOfCells, buttonComboBox, lblNumberOfButtons, cellComboBox
-		 * }));
-		 */
 
 	}
 
