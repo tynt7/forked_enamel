@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
@@ -221,6 +222,12 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(panel);
 		
 		JButton btnRecordAudio = new JButton("Record Audio");
+		btnRecordAudio.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		panel.add(btnRecordAudio);
 		
 		JButton btnStopRecording = new JButton("Stop Recording");
@@ -291,13 +298,15 @@ public class ScenarioForm {
 				btnExitWithoutSaving.setBackground(UIManager.getColor("CheckBox.background"));
 				btnExitWithoutSaving.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						sCreatorFrame.setVisible(false);
+						//sCreatorFrame.setVisible(false);
 						int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE);
 						if (option == JOptionPane.YES_OPTION) {
 							sCreatorFrame.dispose();
 						} else {
 							// do nothing
+							JOptionPane.getRootFrame().dispose();  
+
 						}
 					}
 				});
@@ -325,6 +334,7 @@ public class ScenarioForm {
 			if (option == JOptionPane.YES_OPTION) {
 				sCreatorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			} else {
+				JOptionPane.getRootFrame().dispose();  
 				// do nothing
 			}
 		}
