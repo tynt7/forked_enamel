@@ -428,6 +428,19 @@ public class AuthoringViewer {
 		JButton btnD = new JButton("D");
 		btnD.setBounds(506, 224, 20, 20);
 		aViewFrame.getContentPane().add(btnD);
+		
+		JButton btnNextCard = new JButton("Next Card");
+		btnNextCard.setBounds(823, 525, 117, 29);
+		aViewFrame.getContentPane().add(btnNextCard);
+		
+		JButton btnPreviousCard = new JButton("Previous Card");
+		btnPreviousCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnPreviousCard.setBounds(694, 525, 117, 29);
+		aViewFrame.getContentPane().add(btnPreviousCard);
 		aViewFrame.setResizable(false);
 		aViewFrame.setBackground(new Color(255, 255, 255));
 		aViewFrame.setTitle("AuthoringApp view");
