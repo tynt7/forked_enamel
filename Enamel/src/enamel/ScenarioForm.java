@@ -302,13 +302,15 @@ public class ScenarioForm {
 				btnExitWithoutSaving.setBackground(UIManager.getColor("CheckBox.background"));
 				btnExitWithoutSaving.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						sCreatorFrame.setVisible(false);
+						//sCreatorFrame.setVisible(false);
 						int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
 								JOptionPane.QUESTION_MESSAGE);
 						if (option == JOptionPane.YES_OPTION) {
 							sCreatorFrame.dispose();
 						} else {
 							// do nothing
+							JOptionPane.getRootFrame().dispose();  
+
 						}
 					}
 				});
@@ -336,6 +338,7 @@ public class ScenarioForm {
 			if (option == JOptionPane.YES_OPTION) {
 				sCreatorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			} else {
+				JOptionPane.getRootFrame().dispose();  
 				// do nothing
 			}
 		}
