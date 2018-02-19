@@ -55,7 +55,7 @@ public class AuthoringApp {
 	//set the buttons values
 	public void setButtons() throws IOException {
 		for (int i = 0; i <= buttons.length; i++) {
-			writer.write("\n/~skip-button:" + buttons[i]);
+			
 		}
 	}
 }
