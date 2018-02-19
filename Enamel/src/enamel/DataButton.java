@@ -12,26 +12,32 @@ public class DataButton {
 	private String text;
 	private String audioFile;
 	
+	//Constructors
 	public DataButton(int id) {
 		this.bID = id;
 		this.audioFile = "";
 		this.text = "";
 	}
-	
 	public DataButton(DataButton other) {
 		this.bID = other.bID;
 		this.text = other.text;
 		this.audioFile = other.audioFile;
 	}
 	
-	public String getText() {
-		return this.text;
-	}
-	
+	//utility methods
 	public int getID() {
 		return this.bID;
 	}
 	
+	public String getAudio() {
+		return this.audioFile;
+	}
+	
+	public String getText() {
+		return this.text;
+	}
+	
+	//change methods
 	public void addText(String newText) {
 		if (text.equals("")) {
 			text = newText;
@@ -49,8 +55,6 @@ public class DataButton {
 		this.text = newText;
 	}
 	
-	public String getAudio() {
-		return this.audioFile;
-	}
+	
 	
 }

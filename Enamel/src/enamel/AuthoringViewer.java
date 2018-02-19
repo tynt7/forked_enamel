@@ -324,7 +324,7 @@ public class AuthoringViewer {
 				}
 			}
 		});
-		btnExit.setBounds(20, 525, 50, 50);
+		btnExit.setBounds(20, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnExit);
 
 		JButton btnSave = new JButton("Save");
@@ -354,7 +354,7 @@ public class AuthoringViewer {
 
 			}
 		});
-		btnSave.setBounds(80, 525, 50, 50);
+		btnSave.setBounds(100, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnSave);
 
 		JButton btnTest = new JButton("Test");
@@ -390,7 +390,7 @@ public class AuthoringViewer {
 
 			}
 		});
-		btnTest.setBounds(140, 525, 50, 50);
+		btnTest.setBounds(180, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnTest);
 
 		buttonEditor = new JEditorPane();
@@ -398,11 +398,11 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(buttonEditor);
 
 		JButton button_6 = new JButton("<");
-		button_6.setBounds(38, 80, 20, 20);
+		button_6.setBounds(20, 80, 38, 26);
 		aViewFrame.getContentPane().add(button_6);
 
 		JButton button_7 = new JButton(">");
-		button_7.setBounds(164, 80, 20, 20);
+		button_7.setBounds(164, 80, 39, 26);
 		aViewFrame.getContentPane().add(button_7);
 
 		listModel = new DefaultListModel();
@@ -418,16 +418,29 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(list);
 
 		JButton btnR = new JButton("R");
-		btnR.setBounds(458, 224, 20, 20);
+		btnR.setBounds(458, 224, 35, 20);
 		aViewFrame.getContentPane().add(btnR);
 
 		JButton btnI = new JButton("I");
-		btnI.setBounds(482, 224, 20, 20);
+		btnI.setBounds(493, 224, 35, 20);
 		aViewFrame.getContentPane().add(btnI);
 
 		JButton btnD = new JButton("D");
-		btnD.setBounds(506, 224, 20, 20);
+		btnD.setBounds(528, 224, 35, 20);
 		aViewFrame.getContentPane().add(btnD);
+		
+		JButton btnNextCard = new JButton("Next Card");
+		btnNextCard.setBounds(823, 525, 117, 29);
+		aViewFrame.getContentPane().add(btnNextCard);
+		
+		JButton btnPreviousCard = new JButton("Previous Card");
+		btnPreviousCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		btnPreviousCard.setBounds(694, 525, 117, 29);
+		aViewFrame.getContentPane().add(btnPreviousCard);
 		aViewFrame.setResizable(false);
 		aViewFrame.setBackground(new Color(255, 255, 255));
 		aViewFrame.setTitle("AuthoringApp view");
