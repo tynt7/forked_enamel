@@ -13,13 +13,12 @@ public class CardsToFileParser {
 	private int numCells;
 	private String body;
 
-	public CardsToFileParser(ArrayList<Card> cards, int numButtons, int numCells, String initialPrompt, String endingPrompt) { //, String path) {
+	public CardsToFileParser(ArrayList<Card> cards, int numButtons, int numCells, String initialPrompt, String endingPrompt) {
 		this.cards = cards;
 		this.numButtons = numButtons;
 		this.numCells = numCells;
 		this.initialPrompt = initialPrompt;
 		this.endingPrompt = endingPrompt;
-		//this.scenarioFilePath = path;
 		this.body = "";
 	}
 	
@@ -52,12 +51,6 @@ public class CardsToFileParser {
 		}
 		result += "\n" + currCard.getText();
 		ArrayList<DataButton> buttons = currCard.getButtonList();
-//		for (DataButton button : buttons) {
-//			if ( button.getAudio().equals("") && button.getText().equals("") ) {
-//				buttons.remove(button);
-//			}
-//		}
-		
 		
 		for (int i = 0; i < buttons.size(); i++) {
 			result += "\n/~skip-button:" + i + " ";
