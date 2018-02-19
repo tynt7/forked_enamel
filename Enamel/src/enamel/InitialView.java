@@ -21,8 +21,8 @@ import java.awt.Font;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.UIManager;
-//initial
-//fixed colors
+
+@SuppressWarnings({ "unused", "static-access" })
 public class InitialView {
 
 	private JFrame frmAuthoringApp;
@@ -42,7 +42,7 @@ public class InitialView {
 				}
 			}
 		});
-		
+
 	}
 
 	/**
@@ -83,9 +83,8 @@ public class InitialView {
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		newButton.setBackground(Color.WHITE);
 		newButton.setContentAreaFilled(false);
-        newButton.setOpaque(true);
-        
-		
+		newButton.setOpaque(true);
+
 		newButton.setForeground(Color.BLACK);
 		newButton.setToolTipText("Create New Scenario");
 		newButton.setBounds(85, 90, 85, 50);
@@ -95,17 +94,13 @@ public class InitialView {
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		editButton.setForeground(Color.BLACK);
 		editButton.setContentAreaFilled(false);
-        editButton.setOpaque(true);
+		editButton.setOpaque(true);
 		editButton.setBackground(Color.WHITE);
 		editButton.setToolTipText("Edit a Scenario");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Thread(new Runnable() {
 					public void run() {
-						/*
-						 * ScenarioParser s = new ScenarioParser(true);
-						 * s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
-						 */
 						JButton open = new JButton();
 
 						JFileChooser fc = new JFileChooser();
@@ -117,8 +112,9 @@ public class InitialView {
 						}
 						FileToCardsParser f = new FileToCardsParser();
 						f.setFile(fc.getSelectedFile().getPath());
-						AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons(), f.getCards(), 
-								f.getInitial(), f.getEnding()); //new ActionListener() {public void actionPerformed(ActionEvent e2) {}});
+						AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons(), f.getCards(),
+								f.getInitial(), f.getEnding()); // new ActionListener() {public void
+																// actionPerformed(ActionEvent e2) {}});
 						av.setPromptText(f.getCards().get(0).getText());
 						av.setCurrCellPins(f.getCards().get(0).getCells().get(0));
 						av.setButtonText(f.getCards().get(0).getButtonList().get(0).getText());
@@ -130,12 +126,11 @@ public class InitialView {
 		editButton.setBounds(85, 150, 85, 50);
 		frmAuthoringApp.getContentPane().add(editButton);
 
-		//**************************************************** Test Button
-		JButton testButton = new JButton("Test"); 
+		JButton testButton = new JButton("Test");
 		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		testButton.setBackground(Color.WHITE);
 		testButton.setContentAreaFilled(false);
-        testButton.setOpaque(true);
+		testButton.setOpaque(true);
 		testButton.setForeground(Color.BLACK);
 		testButton.setToolTipText("Test a Scenario");
 		testButton.addActionListener(new ActionListener() {
@@ -192,7 +187,7 @@ public class InitialView {
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		exitButton.setForeground(Color.BLACK);
 		exitButton.setContentAreaFilled(false);
-        exitButton.setOpaque(true);
+		exitButton.setOpaque(true);
 		exitButton.setBackground(Color.WHITE);
 		exitButton.setToolTipText("Exit the App");
 		exitButton.setBounds(85, 270, 85, 50);

@@ -49,6 +49,7 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import java.lang.Object;
 
+@SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 public class AuthoringViewer {
 
 	private JFrame aViewFrame;
@@ -64,6 +65,8 @@ public class AuthoringViewer {
 	private JRadioButton pFour;
 	private JRadioButton pFive;
 	private JRadioButton pSix;
+	private JRadioButton pSeven;
+	private JRadioButton pEight;
 	private JEditorPane buttonEditor;
 	private JList list;
 	private DefaultListModel<String> listModel;
@@ -77,17 +80,6 @@ public class AuthoringViewer {
 	private String endingPrompt;
 	private String path;
 	// non zero
-
-	/**
-	 * Launch the application.
-	 */
-
-	/*
-	 * public static void displayForm() { EventQueue.invokeLater(new Runnable() {
-	 * public void run() { try { AuthoringViewer window = new AuthoringViewer();
-	 * window.aViewFrame.setVisible(true); } catch (Exception e) {
-	 * e.printStackTrace(); } } }); }
-	 */
 
 	/**
 	 * Create the application.
@@ -111,7 +103,7 @@ public class AuthoringViewer {
 	 */
 	private void initialize() {
 		aViewFrame = new JFrame();
-		aViewFrame.getContentPane().setBackground(Color.GRAY);
+		aViewFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
 		aViewFrame.getContentPane().setLayout(null);
 
 		JLabel lblCurrcard = new JLabel("1/" + this.numCells);
@@ -133,8 +125,9 @@ public class AuthoringViewer {
 		txtCardName.setColumns(10);
 
 		editorPane = new JEditorPane();
-		editorPane.setBounds(250, 30, 478, 128);
-		aViewFrame.getContentPane().add(editorPane);
+		JScrollPane promptPane = new JScrollPane(editorPane);
+		promptPane.setBounds(250, 30, 478, 128);
+		aViewFrame.getContentPane().add(promptPane);
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBounds(250, 320, 561, 65);
@@ -145,6 +138,7 @@ public class AuthoringViewer {
 		label.setBounds(53, 19, 0, 0);
 		buttonPanel.add(label);
 
+		// determine how many buttons to display
 		if (this.numButtons >= 1) {
 			JButton button = new JButton("1");
 			button.addActionListener(new ActionListener() {
@@ -248,6 +242,14 @@ public class AuthoringViewer {
 		pSix = new JRadioButton("");
 		pSix.setBounds(46, 76, 28, 23);
 		cellPanel.add(pSix);
+		
+		pSeven = new JRadioButton("");
+		pSeven.setBounds(6, 111, 28, 23);
+		cellPanel.add(pSeven);
+		
+		pEight = new JRadioButton("");
+		pEight.setBounds(46, 76, 28, 23);
+		cellPanel.add(pEight);
 
 		textField = new JTextField();
 		textField.setBounds(73, 155, 130, 26);
@@ -262,37 +264,15 @@ public class AuthoringViewer {
 		btnAudio.setBounds(823, 319, 117, 29);
 		aViewFrame.getContentPane().add(btnAudio);
 
+		// Change the state of pin
 		JButton btnRaisePins = new JButton("Raise Pins");
 		btnRaisePins.addActionListener(new ActionListener() {
-			// String pins;
 			public void actionPerformed(ActionEvent e) {
-//				BrailleCell cell = new BrailleCell();
-//				new Thread(new Runnable() {
-//					public void join() {
-//						functionView fw = new functionView(cell);
-//						//fw.displayForm();
-//					}
-//					public void run() {
-//						join();
-//					}
-//				}).start();
-//				
-//				// wait
-//				
-//				String pins = ""; 
-//				for (int i = 0; i < 8; i++) { 
-//					pins += cell.getPinState(i) ? "1" : "0"; 
-//				}
-//				
-//				setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + pins);// fw.returnPins());
-				
-//				functionView fv = new functionView(); 
-//				setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + testPins);
 				String inputValue = JOptionPane.showInputDialog("Please input which pins to raise");
 				boolean checkNumber = true;
 				for (int i = 0; i < inputValue.length(); i++) {
 					System.out.println(i);
-					if ( inputValue.charAt(i) != '0' && inputValue.charAt(i) != '1' ) {
+					if (inputValue.charAt(i) != '0' && inputValue.charAt(i) != '1') {
 						System.out.println("hi");
 						checkNumber = false;
 					}
@@ -300,18 +280,19 @@ public class AuthoringViewer {
 				System.out.println(inputValue.length() + " " + inputValue);
 				if (inputValue.length() == 8 && checkNumber) {
 					setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + inputValue);
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert",
+							JOptionPane.ERROR_MESSAGE);
 				}
-				else {
-					JOptionPane.showMessageDialog(null, "Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert", JOptionPane.ERROR_MESSAGE);
-				}
-				
+
 			}
-			
 
 		});
 		btnRaisePins.setBounds(823, 356, 117, 29);
 		aViewFrame.getContentPane().add(btnRaisePins);
 
+		// exit the editor window
 		JButton btnExit = new JButton("Exit");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -327,6 +308,7 @@ public class AuthoringViewer {
 		btnExit.setBounds(20, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnExit);
 
+		// save the current card and write it to a file
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -347,7 +329,6 @@ public class AuthoringViewer {
 					try {
 						sW.write(a.getText());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -357,14 +338,13 @@ public class AuthoringViewer {
 		btnSave.setBounds(100, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnSave);
 
+		// test running the scenario currently being worked on
 		JButton btnTest = new JButton("Test");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (path.equals("")) {
 					JOptionPane.showMessageDialog(null, "Please save first", "Alert", JOptionPane.ERROR_MESSAGE);
 				} else {
-					System.out.println(cards.get(0).getButtonList().get(0).getText());
-					System.out.println("hi");
 					updateButton();
 					updatePrompt();
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
@@ -373,9 +353,6 @@ public class AuthoringViewer {
 					ScenarioWriter sW = new ScenarioWriter(path);
 					try {
 						sW.write(a.getText());
-						// ScenarioParser s = new ScenarioParser(true);
-						// s.setScenarioFile(path);
-
 						new Thread(new Runnable() {
 							public void run() {
 								ScenarioParser s = new ScenarioParser(true);
@@ -383,7 +360,6 @@ public class AuthoringViewer {
 							}
 						}).start();
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						System.out.println("failed to print");
 					}
 				}
@@ -394,8 +370,10 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnTest);
 
 		buttonEditor = new JEditorPane();
-		buttonEditor.setBounds(250, 400, 561, 70);
-		aViewFrame.getContentPane().add(buttonEditor);
+
+		JScrollPane buttonPane = new JScrollPane(buttonEditor);
+		buttonPane.setBounds(250, 400, 561, 113);
+		aViewFrame.getContentPane().add(buttonPane);
 
 		JButton button_6 = new JButton("<");
 		button_6.setBounds(20, 80, 38, 26);
@@ -428,19 +406,40 @@ public class AuthoringViewer {
 		JButton btnD = new JButton("D");
 		btnD.setBounds(528, 224, 35, 20);
 		aViewFrame.getContentPane().add(btnD);
+
 		
 		JButton btnNextCard = new JButton("Next Card");
+		btnNextCard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (cards.size() > currCard+1) {
+					nextCard();
+				}
+				else {
+					Card temp = new Card(currCard+1, "" + (currCard+2), "");
+					cards.add(temp);
+					temp.getButtonList().add(new DataButton(0));
+					temp.getCells().add(new BrailleCell());
+					nextCard();
+				}
+			}
+		});
 		btnNextCard.setBounds(823, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnNextCard);
 		
 		JButton btnPreviousCard = new JButton("Previous Card");
 		btnPreviousCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				if (currCard == 0) {
+					//add at front?
+				}
+				else {
+					prevCard();
+				}
 			}
 		});
 		btnPreviousCard.setBounds(694, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnPreviousCard);
+		
 		aViewFrame.setResizable(false);
 		aViewFrame.setBackground(new Color(255, 255, 255));
 		aViewFrame.setTitle("AuthoringApp view");
@@ -456,7 +455,6 @@ public class AuthoringViewer {
 			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
 					"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (option == JOptionPane.YES_OPTION) {
-				// System.exit( 0 );
 				aViewFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			} else {
 				// do nothing
@@ -495,7 +493,12 @@ public class AuthoringViewer {
 				currButton = buttonNum;
 				this.setButtonText(replace);
 			} catch (Exception e) {
-				cards.get(currCard).getButtonList().add(new DataButton(buttonNum));
+				int size = cards.get(currCard).getButtonList().size();
+				while (size <= buttonNum) {
+					System.out.println(size);
+					cards.get(currCard).getButtonList().add(new DataButton(size));
+					size = cards.get(currCard).getButtonList().size();
+				}
 				currButton = buttonNum;
 				this.setButtonText("");
 			}
@@ -510,7 +513,46 @@ public class AuthoringViewer {
 		cards.get(currCard).setText(editorPane.getText());
 	}
 	
-	public static void updatePins(String s) {
-		testPins = s;
+	public void updateCell() {
+		BrailleCell temp = new BrailleCell();
+		String s = "";
+		s += pOne.isSelected() ? "1" : "0";
+		s += pTwo.isSelected() ? "1" : "0";
+		s += pThree.isSelected() ? "1" : "0";
+		s += pFour.isSelected() ? "1" : "0";
+		s += pFive.isSelected() ? "1" : "0";
+		s += pSix.isSelected() ? "1" : "0";
+		cards.get(currCard).getCells().set(currCell, temp);
+	}
+	
+	public void showPrompt() {
+		setPromptText(cards.get(currCard).getText());
+	}
+	
+	public void nextCard() {
+		updateButton();
+		updatePrompt();
+		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+		currCard++;
+		currButton = 0;
+		currCell = 0;
+		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
+		
+		
+		showPrompt();
+		setCurrCellPins(new BrailleCell());
+		
+	}
+	
+	public void prevCard() {
+		updateButton();
+		updatePrompt();
+		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+		currCard--;
+		currButton = 0;
+		currCell = 0;
+		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
+		showPrompt();
+		setCurrCellPins(new BrailleCell());
 	}
 }
