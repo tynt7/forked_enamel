@@ -12,10 +12,10 @@ public class ToyAuthoring {
 		fc.setDialogTitle("Please Choose File to Open");
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
-
+			ScenarioParser s = new ScenarioParser(true);
+			s.setScenarioFile(fc.getSelectedFile().getPath());
 		}
-		ScenarioParser s = new ScenarioParser(true);
-		s.setScenarioFile(fc.getSelectedFile().getPath());
+		
 	}
 
 	//method

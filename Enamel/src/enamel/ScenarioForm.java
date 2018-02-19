@@ -210,7 +210,7 @@ public class ScenarioForm {
 				ArrayList<Card> cards =  new ArrayList<Card>();
 				Card temp = new Card(1, "Card 1", "");
 				cards.add(temp);
-				AuthoringViewer aw = new AuthoringViewer(5, 5, cards, " Hi");
+				AuthoringViewer aw = new AuthoringViewer(5, 5, cards, "Hi", "Bye");
 				//aw.displayForm();
 				sCreatorFrame.dispose();
 			}

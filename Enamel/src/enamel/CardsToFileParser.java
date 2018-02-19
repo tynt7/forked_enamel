@@ -97,7 +97,8 @@ public class CardsToFileParser {
 			}
 			String[] arr = buttons.get(i).getText().split("\n");
 			for (int j = 0; j < arr.length; j++) {
-				if (arr[j].substring(0, 9).equals("/Pins on ") && arr[j].length() == 20) {
+				if ( (arr[j].length() == 20) && (arr[j].substring(0, 9).equals("/Pins on ")) ) {
+					result += "\n/~disp-cell-clear:" + arr[j].charAt(9);
 					result += "\n/~disp-cell-pins:" + arr[j].charAt(9) + " " + arr[j].substring(12);
 				}
 				else {
@@ -108,5 +109,9 @@ public class CardsToFileParser {
 		}
 		result += "\n\n/~NEXTT";
 		return result;
+	}
+	
+	public String getText() {
+		return this.body;
 	}
 }
