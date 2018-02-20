@@ -279,7 +279,7 @@ public class RecorderFrame {
 
 		int userChoice = fileChooser.showSaveDialog(null);
 		if (userChoice == JFileChooser.APPROVE_OPTION) {
-			path = fileChooser.getSelectedFile().getAbsolutePath();
+			path = "./FactoryScenarios/AudioFiles";//fileChooser.getSelectedFile().getAbsolutePath();
 			if (!path.toLowerCase().endsWith(".wav")) {
 				path += ".wav";
 			}
