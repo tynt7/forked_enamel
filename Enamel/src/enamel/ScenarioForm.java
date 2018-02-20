@@ -97,33 +97,19 @@ public class ScenarioForm {
 				sCreatorFrame.getContentPane().setLayout(null);
 				// exit
 
-				JLabel lblNewLabel = new JLabel("Create a Scenario for your Students");
-				lblNewLabel.setBounds(103, 20, 236, 18);
-				lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 15));
+				JLabel lblNewLabel = new JLabel("Create a NEW Scenario for your Students");
+				lblNewLabel.setBounds(91, 22, 285, 27);
+				lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
 				sCreatorFrame.getContentPane().add(lblNewLabel);
-				
-				JLabel label = new JLabel("");
-				label.setBounds(254, 18, 0, 0);
-				sCreatorFrame.getContentPane().add(label);
-				
-				JLabel label_1 = new JLabel("");
-				label_1.setBounds(259, 18, 0, 0);
-				sCreatorFrame.getContentPane().add(label_1);
-				
-				JLabel label_2 = new JLabel("");
-				label_2.setBounds(264, 18, 0, 0);
-				sCreatorFrame.getContentPane().add(label_2);
 		
 				JLabel lblNumberOfCells = new JLabel("Number of Cells");
-				lblNumberOfCells.setBounds(116, 77, 102, 16);
+				lblNumberOfCells.setFont(new Font("Tahoma", Font.BOLD, 12));
+				lblNumberOfCells.setBounds(33, 77, 102, 16);
 				sCreatorFrame.getContentPane().add(lblNumberOfCells);
 				
-				JLabel label_3 = new JLabel("");
-				label_3.setBounds(376, 18, 0, 0);
-				sCreatorFrame.getContentPane().add(label_3);
-				
 						JComboBox comboCellBox = new JComboBox();
-						comboCellBox.setBounds(254, 76, 64, 21);
+						comboCellBox.setFont(new Font("Tahoma", Font.BOLD, 11));
+						comboCellBox.setBounds(224, 76, 64, 21);
 						comboCellBox
 								.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 						sCreatorFrame.getContentPane().add(comboCellBox);
@@ -137,11 +123,13 @@ public class ScenarioForm {
 							}
 						});
 				JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
-				lblNumberOfButtons.setBounds(116, 111, 119, 16);
+				lblNumberOfButtons.setFont(new Font("Tahoma", Font.BOLD, 12));
+				lblNumberOfButtons.setBounds(33, 109, 119, 16);
 				sCreatorFrame.getContentPane().add(lblNumberOfButtons);
 						lblNumberOfCells.setLabelFor(comboCellBox);
 						JComboBox comboButtonBox = new JComboBox();
-						comboButtonBox.setBounds(254, 105, 64, 27);
+						comboButtonBox.setFont(new Font("Tahoma", Font.BOLD, 11));
+						comboButtonBox.setBounds(224, 108, 64, 21);
 						comboButtonBox.setBackground(new Color(238, 238, 238));
 						
 								comboButtonBox
@@ -156,51 +144,31 @@ public class ScenarioForm {
 												System.out.println("Selected: " + selectedString(is));
 											}
 										});
-						
-						JLabel label_4 = new JLabel("");
-						label_4.setBounds(212, 50, 0, 0);
-						sCreatorFrame.getContentPane().add(label_4);
 				
 						JLabel lblScenarioTitle = new JLabel("Scenario Title");
-						lblScenarioTitle.setBounds(116, 140, 85, 16);
+						lblScenarioTitle.setFont(new Font("Tahoma", Font.BOLD, 12));
+						lblScenarioTitle.setBounds(33, 142, 85, 16);
 						sCreatorFrame.getContentPane().add(lblScenarioTitle);
-				
-				JLabel label_5 = new JLabel("");
-				label_5.setBounds(307, 50, 0, 0);
-				sCreatorFrame.getContentPane().add(label_5);
 		
 				titleTextField = new JTextField();
-				titleTextField.setBounds(246, 135, 130, 26);
+				titleTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+				titleTextField.setBounds(224, 140, 130, 21);
 				sCreatorFrame.getContentPane().add(titleTextField);
 				titleTextField.setColumns(10);
 		
-		JLabel label_6 = new JLabel("");
-		label_6.setBounds(447, 50, 0, 0);
-		sCreatorFrame.getContentPane().add(label_6);
-		
-		JLabel lblAddAudioFile = new JLabel("Add Audio File");
-		lblAddAudioFile.setBounds(73, 223, 92, 16);
+		JLabel lblAddAudioFile = new JLabel("Add Audio File (Optional)");
+		lblAddAudioFile.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblAddAudioFile.setBounds(33, 177, 160, 16);
 		sCreatorFrame.getContentPane().add(lblAddAudioFile);
 		
-		JLabel label_7 = new JLabel("");
-		label_7.setBounds(160, 83, 0, 0);
-		sCreatorFrame.getContentPane().add(label_7);
-		
 		audioFileTextField = new JTextField();
-		audioFileTextField.setBounds(175, 218, 130, 26);
+		audioFileTextField.setBounds(224, 176, 119, 21);
 		audioFileTextField.setColumns(10);
 		sCreatorFrame.getContentPane().add(audioFileTextField);
 		
-		JLabel label_8 = new JLabel("");
-		label_8.setBounds(300, 83, 0, 0);
-		sCreatorFrame.getContentPane().add(label_8);
-		
-		JLabel label_9 = new JLabel("");
-		label_9.setBounds(305, 83, 0, 0);
-		sCreatorFrame.getContentPane().add(label_9);
-		
 		JButton btnBrowse = new JButton("Browse");
-		btnBrowse.setBounds(320, 217, 88, 29);
+		btnBrowse.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnBrowse.setBounds(350, 176, 82, 21);
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
@@ -214,16 +182,15 @@ public class ScenarioForm {
 		});
 		sCreatorFrame.getContentPane().add(btnBrowse);
 		
-		JLabel label_10 = new JLabel("");
-		label_10.setBounds(403, 83, 0, 0);
-		sCreatorFrame.getContentPane().add(label_10);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(47, 251, 362, 39);
-		panel.setBackground(UIManager.getColor("CheckBox.background"));
-		sCreatorFrame.getContentPane().add(panel);
+		JLabel lblS = new JLabel("Record and Save a New Audio \".wav\" File");
+		lblS.setBounds(33, 212, 278, 19);
+		sCreatorFrame.getContentPane().add(lblS);
+		lblS.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		JButton btnRecordAudio = new JButton("Record Audio");
+		btnRecordAudio.setBounds(321, 210, 111, 21);
+		sCreatorFrame.getContentPane().add(btnRecordAudio);
+		btnRecordAudio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRecordAudio.addActionListener(new ActionListener() {
 			
 			@Override
@@ -232,40 +199,10 @@ public class ScenarioForm {
 				rf.displayRecorder();
 			}
 		});
-		panel.add(btnRecordAudio);
 		
-		JButton btnStopRecording = new JButton("Stop Recording");
-		panel.add(btnStopRecording);
-		
-		JButton btnSave = new JButton("Save");
-		panel.add(btnSave);
-		
-		JLabel label_11 = new JLabel("");
-		label_11.setBounds(404, 122, 0, 0);
-		sCreatorFrame.getContentPane().add(label_11);
-		
-		JLabel label_12 = new JLabel("");
-		label_12.setBounds(409, 122, 0, 0);
-		sCreatorFrame.getContentPane().add(label_12);
-		
-		JLabel label_13 = new JLabel("");
-		label_13.setBounds(414, 122, 0, 0);
-		sCreatorFrame.getContentPane().add(label_13);
-		
-		JLabel label_14 = new JLabel("");
-		label_14.setBounds(419, 122, 0, 0);
-		sCreatorFrame.getContentPane().add(label_14);
-		
-		JLabel label_15 = new JLabel("");
-		label_15.setBounds(424, 122, 0, 0);
-		sCreatorFrame.getContentPane().add(label_15);
-		
-		JLabel label_16 = new JLabel("");
-		label_16.setBounds(429, 122, 0, 0);
-		sCreatorFrame.getContentPane().add(label_16);
-		
-				JButton btnSaveAndCreate = new JButton("Save and Create ScenarioFile");
-				btnSaveAndCreate.setBounds(21, 355, 222, 29);
+				JButton btnSaveAndCreate = new JButton("Save and Create Scenario File");
+				btnSaveAndCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnSaveAndCreate.setBounds(117, 303, 201, 29);
 				btnSaveAndCreate.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						ArrayList<Card> cards =  new ArrayList<Card>();
@@ -278,30 +215,19 @@ public class ScenarioForm {
 					}
 				});
 				
-				btnSaveAndCreate.setForeground(Color.BLACK);
+				/*btnSaveAndCreate.setForeground(Color.BLACK);
 				btnSaveAndCreate.setContentAreaFilled(false);
-				btnSaveAndCreate.setOpaque(true);
+				btnSaveAndCreate.setOpaque(true);*/
 				btnSaveAndCreate.setBackground(UIManager.getColor("CheckBox.background"));
 				sCreatorFrame.getContentPane().add(btnSaveAndCreate);
 		
-		JLabel label_17 = new JLabel("");
-		label_17.setBounds(251, 161, 0, 0);
-		sCreatorFrame.getContentPane().add(label_17);
-		
-		JLabel label_18 = new JLabel("");
-		label_18.setBounds(256, 161, 0, 0);
-		sCreatorFrame.getContentPane().add(label_18);
-		
-		JLabel label_19 = new JLabel("");
-		label_19.setBounds(261, 161, 0, 0);
-		sCreatorFrame.getContentPane().add(label_19);
-		
 				JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
-				btnExitWithoutSaving.setBounds(263, 355, 166, 29);
-				btnExitWithoutSaving.setForeground(Color.BLACK);
+				btnExitWithoutSaving.setFont(new Font("Tahoma", Font.BOLD, 11));
+				btnExitWithoutSaving.setBounds(117, 343, 201, 29);
+				/*btnExitWithoutSaving.setForeground(Color.BLACK);
 				btnExitWithoutSaving.setContentAreaFilled(false);
 				btnExitWithoutSaving.setOpaque(true);
-				btnExitWithoutSaving.setBackground(UIManager.getColor("CheckBox.background"));
+				btnExitWithoutSaving.setBackground(UIManager.getColor("CheckBox.background"));*/
 				btnExitWithoutSaving.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						//sCreatorFrame.setVisible(false);
@@ -317,14 +243,6 @@ public class ScenarioForm {
 					}
 				});
 				sCreatorFrame.getContentPane().add(btnExitWithoutSaving);
-		
-		JLabel label_20 = new JLabel("");
-		label_20.setBounds(437, 161, 0, 0);
-		sCreatorFrame.getContentPane().add(label_20);
-		
-		JLabel label_21 = new JLabel("");
-		label_21.setBounds(442, 161, 0, 0);
-		sCreatorFrame.getContentPane().add(label_21);
 
 	}
 

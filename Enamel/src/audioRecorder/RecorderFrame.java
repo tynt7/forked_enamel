@@ -57,6 +57,7 @@ public class RecorderFrame {
 	private boolean isRunning;
 
 	private String path;
+	private JButton discardButton;
 
 	/**
 	 * Launch the application.
@@ -99,30 +100,28 @@ public class RecorderFrame {
 		// JTextArea for instructions
 		txtrPressrecordTo = new JTextArea();
 		txtrPressrecordTo.setEditable(false);
-		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		txtrPressrecordTo.setBounds(10, 5, 747, 120);
-		txtrPressrecordTo.setText(" -     Press \"RECORD NEW\" to start recording\r\n"
-				+ " -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n"
-				+ " -     \"TIMER\" indicates the record time\r\n" + " -     You may choose to \"DISCARD\" recording ");
+		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		txtrPressrecordTo.setBounds(10, 5, 747, 132);
+		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording \r\n\t- (feature coming soon....)");
 		contentPane.add(txtrPressrecordTo);
 
 		// Button for starting a new recording
 		recordNewButton = new JButton("RECORD NEW");
 		recordNewButton.setForeground(Color.BLUE);
-		recordNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		recordNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		recordNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				recordAudio();
 			}
 		});
-		recordNewButton.setBounds(27, 138, 150, 46);
+		recordNewButton.setBounds(26, 148, 150, 29);
 		contentPane.add(recordNewButton);
 
 		// Button for stopping and then saving the current recoding
 		stopRecordingButton = new JButton("STOP & SAVE");
 		stopRecordingButton.setEnabled(false);
 		stopRecordingButton.setForeground(Color.RED);
-		stopRecordingButton.setFont(new Font("Tahoma", Font.BOLD, 15));
+		stopRecordingButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		stopRecordingButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -131,24 +130,31 @@ public class RecorderFrame {
 				stopRecording();
 			}
 		});
-		stopRecordingButton.setBounds(190, 138, 142, 46);
+		stopRecordingButton.setBounds(190, 147, 142, 29);
 		contentPane.add(stopRecordingButton);
 
 		// Label for record timer
 		JLabel lblTimer = new JLabel("TIMER:");
-		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblTimer.setBounds(342, 140, 70, 44);
+		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblTimer.setBounds(342, 148, 70, 29);
 		contentPane.add(lblTimer);
 
 		// textField to display the record time
 		textField = new JTextField();
 		textField.setForeground(Color.BLUE);
-		textField.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField.setText("00.00.00");
 		textField.setEditable(false);
-		textField.setBounds(416, 138, 150, 46);
+		textField.setBounds(417, 148, 150, 29);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		
+		discardButton = new JButton("DISCARD");
+		discardButton.setForeground(new Color(220, 20, 60));
+		discardButton.setEnabled(false);
+		discardButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		discardButton.setBounds(587, 148, 150, 29);
+		contentPane.add(discardButton);
 		if (textField.getText() == "00.00.00") {
 			recorderFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
@@ -181,7 +187,8 @@ public class RecorderFrame {
 				// TODO Auto-generated method stub
 				// set isRecording boolean to true
 				isRecording = true;
-				textField.setText("Redocrding......");
+				textField.setText("Redcording......");
+				recordNewButton.setEnabled(false);
 				stopRecordingButton.setEnabled(true);
 
 				// while recording
@@ -238,6 +245,8 @@ public class RecorderFrame {
 	private void stopRecording() {
 		isRecording = false;
 		textField.setText("Recording Stopped");
+		recordNewButton.setEnabled(true);
+		stopRecordingButton.setEnabled(false);
 		try {
 			stop();
 			saveAudioFile();
