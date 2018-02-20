@@ -26,6 +26,7 @@ import javax.swing.UIManager;
 public class InitialView {
 
 	private JFrame frmAuthoringApp;
+	private Thread starterCodeThread;//thread to run visual player
 
 	/**
 	 * Launch the application.
@@ -134,24 +135,51 @@ public class InitialView {
 		testButton.setToolTipText("Test a Scenario");
 		testButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new Thread(new Runnable() {
-					public void run() {
-
+				// ToyAuthoring ta = new ToyAuthoring();
+				// ta.launchToyAuthoring();
+				// ta.main(null);
+				
+				// frame.dispose(); 
+				/* JButton open = new JButton();
+				 
+				 JFileChooser fc = new JFileChooser();
+				 fc.setCurrentDirectory(new
+				 java.io.File("./FactoryScenarios"));
+				 fc.setDialogTitle("Please Choose File to Open");
+				 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				 if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+				 
+				 } ScenarioParser s = new ScenarioParser(true);
+				 s.setScenarioFile(fc.getSelectedFile().getPath());*/
+				 
+				// ToyAuthoring.runFileChhoser();
+				
+//				 ScenarioParser s = new ScenarioParser(true);
+//				 s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");
+				/*new Thread(new Runnable() {
+			         public void run() {*/
+			           /*ScenarioParser s = new ScenarioParser(true);
+			           s.setScenarioFile("FactoryScenarios/Scenario_" + 1 + ".txt");*/
+				starterCodeThread = new Thread("Starter Code Thread") {
+				    public void run(){    
 						JButton open = new JButton();
-
-						JFileChooser fc = new JFileChooser();
-						fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
-						fc.setDialogTitle("Please Choose File to Open");
-						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-						if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
-							ScenarioParser s = new ScenarioParser(true);
-							s.setScenarioFile(fc.getSelectedFile().getPath());
-						}
-					}
-				}).start();
-
+						 
+						 JFileChooser fc = new JFileChooser();
+						 fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
+						 fc.setDialogTitle("Please Choose File to Open");
+						 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						 if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
+							 ScenarioParser s = new ScenarioParser(true);
+							 s.setScenarioFile(fc.getSelectedFile().getPath());
+						 } 
+			           }
+			     };//).start();
+			     starterCodeThread.start();
 			}
+		     
+			
 		});
+	   
 		testButton.setBounds(85, 210, 85, 50);
 		frmAuthoringApp.getContentPane().add(testButton);
 

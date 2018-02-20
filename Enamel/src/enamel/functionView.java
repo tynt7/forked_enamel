@@ -167,19 +167,18 @@ public class functionView {
 					funcFrame.dispose();
 					saveState = true;
 					//AuthoringViewer.updatePins(pins);
-					}
-				}
-			});
-			
-			funcFrame.getContentPane().add(btnSave);
-			funcFrame.setResizable(false);
-			funcFrame.setBackground(new Color(255, 255, 255));
-			funcFrame.setTitle("AuthoringApp view");
-			funcFrame.setBounds(100, 100, 300, 400);
-			funcFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-			funcFrame.addWindowListener(new confirmClose());
-			funcFrame.setVisible(true);
-		
+				   }
+			}
+		});
+
+		funcFrame.getContentPane().add(btnSave);
+		funcFrame.setResizable(false);
+		funcFrame.setBackground(new Color(255, 255, 255));
+		funcFrame.setTitle("AuthoringApp view");
+		funcFrame.setBounds(100, 100, 300, 400);
+		funcFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		funcFrame.addWindowListener(new confirmClose());
+		funcFrame.setVisible(true);
 	}
 
 	private class confirmClose extends WindowAdapter {

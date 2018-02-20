@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
 
+import audioRecorder.RecorderFrame;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
@@ -226,6 +228,8 @@ public class ScenarioForm {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				RecorderFrame rf = new RecorderFrame();
+				rf.displayRecorder();
 			}
 		});
 		panel.add(btnRecordAudio);
