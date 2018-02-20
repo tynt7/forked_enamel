@@ -175,6 +175,7 @@ public class RecorderFrame {
 				// TODO Auto-generated method stub
 				// set isRecording boolean to true
 				isRecording = true;
+				textField.setText("Redocrding......");
 				//while recording 
 				while(isRecording){
 					try {
@@ -227,6 +228,7 @@ public class RecorderFrame {
 	 */
 	private void stopRecording() {
 		isRecording = false;
+		textField.setText("Recording Stopped");
 		try {
 			stop();			
 			saveAudioFile();
