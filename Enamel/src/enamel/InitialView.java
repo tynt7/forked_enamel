@@ -107,17 +107,17 @@ public class InitialView {
 						fc.setDialogTitle("Please Choose File to Open");
 						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 						if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
-
+							FileToCardsParser f = new FileToCardsParser();
+							f.setFile(fc.getSelectedFile().getPath());
+							AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons(), f.getCards(),
+									f.getInitial(), f.getEnding()); // new ActionListener() {public void
+																	// actionPerformed(ActionEvent e2) {}});
+							av.setPromptText(f.getCards().get(0).getText());
+							av.setCurrCellPins(f.getCards().get(0).getCells().get(0));
+							av.setButtonText(f.getCards().get(0).getButtonList().get(0).getText());
+							av.setCardList();
 						}
-						FileToCardsParser f = new FileToCardsParser();
-						f.setFile(fc.getSelectedFile().getPath());
-						AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons(), f.getCards(),
-								f.getInitial(), f.getEnding()); // new ActionListener() {public void
-																// actionPerformed(ActionEvent e2) {}});
-						av.setPromptText(f.getCards().get(0).getText());
-						av.setCurrCellPins(f.getCards().get(0).getCells().get(0));
-						av.setButtonText(f.getCards().get(0).getButtonList().get(0).getText());
-						av.setCardList();
+						
 					}
 				}).start();
 			}

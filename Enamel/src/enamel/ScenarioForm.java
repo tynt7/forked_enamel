@@ -267,7 +267,9 @@ public class ScenarioForm {
 						ArrayList<Card> cards =  new ArrayList<Card>();
 						Card temp = new Card(1, "Card 1", "");
 						cards.add(temp);
-						AuthoringViewer aw = new AuthoringViewer(1, comboButtonBox.getSelectedIndex()+1, cards, "Hi", "Bye");
+						cards.get(0).getCells().add(new BrailleCell());
+						AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex()+1, comboButtonBox.getSelectedIndex()+1, cards, "Hi", "Bye");
+						av.setCardList();
 						sCreatorFrame.dispose();
 					}
 				});
