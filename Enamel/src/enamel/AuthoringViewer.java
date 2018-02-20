@@ -521,6 +521,7 @@ public class AuthoringViewer {
 				if (cards.size() > currCard + 1) {
 					nextCard();
 				} else {
+					System.out.println(cards.size());
 					Card temp = new Card(currCard + 1, "card" + (currCard + 2), "");
 					cards.add(temp);
 					temp.getButtonList().add(new DataButton(0));
@@ -616,7 +617,9 @@ public class AuthoringViewer {
 	}
 
 	public void updateButton() {
-		cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
+		if (!cards.get(currCard).getButtonList().isEmpty()) {
+			cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
+		}
 	}
 
 	public void updatePrompt() {
