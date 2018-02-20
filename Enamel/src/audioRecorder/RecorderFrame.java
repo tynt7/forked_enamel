@@ -43,9 +43,12 @@ public class RecorderFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
+	JTextArea txtrPressrecordTo;
+	JButton recordNewButton;
+	JButton stopRecordingButton;
 
 	private Boolean isRecording;
-	
+
 	private static final int BUFFER_SIZE = 4096;
 	private ByteArrayOutputStream recordBytes;
 	private TargetDataLine audioLine;
@@ -53,7 +56,7 @@ public class RecorderFrame {
 
 	private boolean isRunning;
 
-	private String path; 
+	private String path;
 
 	/**
 	 * Launch the application.
@@ -93,11 +96,8 @@ public class RecorderFrame {
 		recorderFrame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		recorderFrame.addWindowListener(new confirmClose()); // pop up before
-		// exit
-
 		// JTextArea for instructions
-		JTextArea txtrPressrecordTo = new JTextArea();
+		txtrPressrecordTo = new JTextArea();
 		txtrPressrecordTo.setEditable(false);
 		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		txtrPressrecordTo.setBounds(10, 5, 747, 120);
@@ -107,23 +107,24 @@ public class RecorderFrame {
 		contentPane.add(txtrPressrecordTo);
 
 		// Button for starting a new recording
-		JButton recordNewButton = new JButton("RECORD NEW");
+		recordNewButton = new JButton("RECORD NEW");
 		recordNewButton.setForeground(Color.BLUE);
 		recordNewButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		recordNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				 recordAudio();
+				recordAudio();
 			}
 		});
 		recordNewButton.setBounds(27, 138, 150, 46);
 		contentPane.add(recordNewButton);
 
 		// Button for stopping and then saving the current recoding
-		JButton stopRecordingButton = new JButton("STOP & SAVE");
+		stopRecordingButton = new JButton("STOP & SAVE");
+		stopRecordingButton.setEnabled(false);
 		stopRecordingButton.setForeground(Color.RED);
 		stopRecordingButton.setFont(new Font("Tahoma", Font.BOLD, 15));
 		stopRecordingButton.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
@@ -148,10 +149,16 @@ public class RecorderFrame {
 		textField.setBounds(416, 138, 150, 46);
 		contentPane.add(textField);
 		textField.setColumns(10);
+		if (textField.getText() == "00.00.00") {
+			recorderFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		}
+		recorderFrame.addWindowListener(new confirmClose());
+		// pop up before exit
 	}
-	
+
 	/**
 	 * Defines a default audio format used to record
+	 * 
 	 * @return AudioFormat
 	 */
 	public AudioFormat getAudioFormat() {
@@ -160,15 +167,14 @@ public class RecorderFrame {
 		int channels = 2;
 		boolean signed = true;
 		boolean bigEndian = true;
-		return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed,
-				bigEndian);
+		return new AudioFormat(sampleRate, sampleSizeInBits, channels, signed, bigEndian);
 	}
-	
+
 	/*
 	 * Record audio as a separate thread
 	 */
 	public void recordAudio() {
-		Thread record = new Thread(new Runnable(){
+		Thread record = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -176,8 +182,10 @@ public class RecorderFrame {
 				// set isRecording boolean to true
 				isRecording = true;
 				textField.setText("Redocrding......");
-				//while recording 
-				while(isRecording){
+				stopRecordingButton.setEnabled(true);
+
+				// while recording
+				while (isRecording) {
 					try {
 						start();
 					} catch (LineUnavailableException e) {
@@ -186,15 +194,17 @@ public class RecorderFrame {
 					}
 				}
 			}
-			
+
 		});
 		record.start();
 	}
-	
+
 	/**
 	 * Start recording sound.
-	 * @throws LineUnavailableException if the system does not support the specified 
-	 * audio format nor open the audio data line.
+	 * 
+	 * @throws LineUnavailableException
+	 *             if the system does not support the specified audio format nor
+	 *             open the audio data line.
 	 */
 	public void start() throws LineUnavailableException {
 		format = getAudioFormat();
@@ -202,8 +212,7 @@ public class RecorderFrame {
 
 		// checks if system supports the data line
 		if (!AudioSystem.isLineSupported(info)) {
-			throw new LineUnavailableException(
-					"The system does not support the specified format.");
+			throw new LineUnavailableException("The system does not support the specified format.");
 		}
 
 		audioLine = AudioSystem.getTargetDataLine(format);
@@ -230,35 +239,35 @@ public class RecorderFrame {
 		isRecording = false;
 		textField.setText("Recording Stopped");
 		try {
-			stop();			
+			stop();
 			saveAudioFile();
 		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null,"Error",
-					"Error stopping sound recording!",
-					JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error", "Error stopping sound recording!", JOptionPane.ERROR_MESSAGE);
 			ex.printStackTrace();
 		}
 	}
 
-
 	/**
 	 * Stop recording sound.
-	 * @throws IOException if any I/O error occurs.
+	 * 
+	 * @throws IOException
+	 *             if any I/O error occurs.
 	 */
 	public void stop() throws IOException {
 		isRunning = false;
-		
+
 		if (audioLine != null) {
-			//audioLine.drain();
+			// audioLine.drain();
 			audioLine.close();
 			audioLine.drain();
 		}
 	}
-	
+
 	private void saveAudioFile() {
-		// TODO Auto-generated method stub
 		JFileChooser fileChooser = new JFileChooser();
-		FileFilter wavFilter = new FileFilter(){
+		fileChooser.setCurrentDirectory(new java.io.File("./FactoryScenarios/AudioFiles"));
+		fileChooser.setDialogTitle("Save as");
+		FileFilter wavFilter = new FileFilter() {
 			@Override
 			public String getDescription() {
 				return "Sound file (*.WAV)";
@@ -279,7 +288,7 @@ public class RecorderFrame {
 
 		int userChoice = fileChooser.showSaveDialog(null);
 		if (userChoice == JFileChooser.APPROVE_OPTION) {
-			path = "./FactoryScenarios/AudioFiles";//fileChooser.getSelectedFile().getAbsolutePath();
+			path = fileChooser.getSelectedFile().getAbsolutePath();
 			if (!path.toLowerCase().endsWith(".wav")) {
 				path += ".wav";
 			}
@@ -288,14 +297,10 @@ public class RecorderFrame {
 
 			try {
 				save(wavFile);
-
-				JOptionPane.showMessageDialog(null,
-						"Saved recorded sound to:\n" + path);
+				JOptionPane.showMessageDialog(null, "Saved recorded sound to:\n" + path);
 
 			} catch (IOException ex) {
-				JOptionPane.showMessageDialog(null, "Error",
-						"Error saving to sound file!",
-						JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Error", "Error saving to sound file!", JOptionPane.ERROR_MESSAGE);
 				ex.printStackTrace();
 			}
 		}
@@ -303,15 +308,18 @@ public class RecorderFrame {
 
 	/**
 	 * Save recorded sound data into a .wav file format.
-	 * @param wavFile The file to be saved.
-	 * @throws IOException if any I/O error occurs.
-	 * @throws UnsupportedAudioFileException 
+	 * 
+	 * @param wavFile
+	 *            The file to be saved.
+	 * @throws IOException
+	 *             if any I/O error occurs.
+	 * @throws UnsupportedAudioFileException
 	 */
 	public void save(File wavFile) throws IOException {
 		byte[] audioData = recordBytes.toByteArray();
 		ByteArrayInputStream bais = new ByteArrayInputStream(audioData);
 		AudioInputStream audioInputStream = new AudioInputStream(bais, format,
-				audioData.length / format.getFrameSize());		
+				audioData.length / format.getFrameSize());
 		AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, wavFile);
 
 		audioInputStream.close();
@@ -322,37 +330,42 @@ public class RecorderFrame {
 	// close the JFrame
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
-			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
-					"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-			if (option == JOptionPane.YES_OPTION) {
-				// System.exit( 0 );
-				recorderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			if (!(textField.getText().contains("00.00.00"))) {
+				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
+						"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (option == JOptionPane.YES_OPTION) {
+					// System.exit( 0 );
+					recorderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				} else {
+					// do nothing
+				}
 			} else {
-				// do nothing
+				// normal exit if no recording started
+				recorderFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 		}
 	}
-	
+
 	private class Timer {
-		private DateFormat dateFormater = new SimpleDateFormat("HH:mm:ss");	
+		private DateFormat dateFormater = new SimpleDateFormat("HH:mm:ss");
 		private Boolean running;
 		private long startTime;
 		String timer;
-		/*public Timer(String s){
-			this.timer = s;
-		}*/
-		
-		public void main(String[] args) {
-	        SwingUtilities.invokeLater(new Runnable() {
+		/*
+		 * public Timer(String s){ this.timer = s; }
+		 */
 
-	            @Override
-	            public void run() {
-	            	running = true;
-	            	startTime = System.currentTimeMillis();
-	            	System.out.println("Start Time"+ startTime);
-	                new Timer();
-	            }
-	        });
-	    }
+		public void main(String[] args) {
+			SwingUtilities.invokeLater(new Runnable() {
+
+				@Override
+				public void run() {
+					running = true;
+					startTime = System.currentTimeMillis();
+					System.out.println("Start Time" + startTime);
+					new Timer();
+				}
+			});
+		}
 	}
 }
