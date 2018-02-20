@@ -106,7 +106,7 @@ public class AuthoringViewer {
 	 */
 	private void initialize() {
 		aViewFrame = new JFrame();
-		aViewFrame.getContentPane().setBackground(Color.GRAY);
+		aViewFrame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		aViewFrame.getContentPane().setLayout(null);
 
 		JLabel lblCurrCell = new JLabel("1/" + this.numCells);
