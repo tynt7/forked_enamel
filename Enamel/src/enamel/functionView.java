@@ -167,7 +167,7 @@ public class functionView {
 					funcFrame.dispose();
 					saveState = true;
 					//AuthoringViewer.updatePins(pins);
-				}
+				   }
 			}
 		});
 

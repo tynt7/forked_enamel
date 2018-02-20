@@ -103,7 +103,7 @@ public class AuthoringViewer {
 	 */
 	private void initialize() {
 		aViewFrame = new JFrame();
-		aViewFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
+		aViewFrame.getContentPane().setBackground(Color.GRAY);
 		aViewFrame.getContentPane().setLayout(null);
 
 		JLabel lblCurrcard = new JLabel("1/" + this.numCells);
@@ -215,7 +215,7 @@ public class AuthoringViewer {
 		txtAudiofilenamemp.setColumns(10);
 
 		JPanel cellPanel = new JPanel();
-		cellPanel.setBounds(70, 38, 82, 105);
+		cellPanel.setBounds(70, 38, 82, 140);
 		aViewFrame.getContentPane().add(cellPanel);
 		cellPanel.setLayout(null);
 
@@ -248,17 +248,20 @@ public class AuthoringViewer {
 		cellPanel.add(pSeven);
 		
 		pEight = new JRadioButton("");
-		pEight.setBounds(46, 76, 28, 23);
+		pEight.setBounds(46, 111, 28, 23);
 		cellPanel.add(pEight);
 
-		textField = new JTextField();
-		textField.setBounds(73, 155, 130, 26);
-		aViewFrame.getContentPane().add(textField);
-		textField.setColumns(10);
-
-		JLabel lblLetter = new JLabel("Letter:");
-		lblLetter.setBounds(20, 160, 55, 16);
-		aViewFrame.getContentPane().add(lblLetter);
+		
+		
+		//Under Construction
+//		textField = new JTextField();
+//		textField.setBounds(73, 185, 130, 26);
+//		aViewFrame.getContentPane().add(textField);
+//		textField.setColumns(10);
+//
+//		JLabel lblLetter = new JLabel("Letter:");
+//		lblLetter.setBounds(20, 185, 55, 16);
+//		aViewFrame.getContentPane().add(lblLetter);
 
 		JButton btnAudio = new JButton("Audio");
 		btnAudio.setBounds(823, 319, 117, 29);
@@ -376,11 +379,11 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(buttonPane);
 
 		JButton button_6 = new JButton("<");
-		button_6.setBounds(20, 80, 38, 26);
+		button_6.setBounds(6, 80, 52, 39);
 		aViewFrame.getContentPane().add(button_6);
 
 		JButton button_7 = new JButton(">");
-		button_7.setBounds(164, 80, 39, 26);
+		button_7.setBounds(164, 80, 52, 39);
 		aViewFrame.getContentPane().add(button_7);
 
 		listModel = new DefaultListModel();
@@ -396,15 +399,15 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(list);
 
 		JButton btnR = new JButton("R");
-		btnR.setBounds(458, 224, 35, 20);
+		btnR.setBounds(458, 224, 45, 20);
 		aViewFrame.getContentPane().add(btnR);
 
 		JButton btnI = new JButton("I");
-		btnI.setBounds(493, 224, 35, 20);
+		btnI.setBounds(506, 224, 45, 20);
 		aViewFrame.getContentPane().add(btnI);
 
 		JButton btnD = new JButton("D");
-		btnD.setBounds(528, 224, 35, 20);
+		btnD.setBounds(554, 224, 45, 20);
 		aViewFrame.getContentPane().add(btnD);
 
 		
@@ -522,6 +525,8 @@ public class AuthoringViewer {
 		s += pFour.isSelected() ? "1" : "0";
 		s += pFive.isSelected() ? "1" : "0";
 		s += pSix.isSelected() ? "1" : "0";
+		s += pSeven.isSelected() ? "1" : "0";
+		s += pEight.isSelected() ? "1" : "0";
 		cards.get(currCard).getCells().set(currCell, temp);
 	}
 	
