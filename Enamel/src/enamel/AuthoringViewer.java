@@ -617,9 +617,11 @@ public class AuthoringViewer {
 	}
 
 	public void updateButton() {
-		if (!cards.get(currCard).getButtonList().isEmpty()) {
-			cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
+		if (cards.get(currCard).getButtonList().isEmpty()) {
+			DataButton temp = new DataButton(0);
+			cards.get(currCard).getButtonList().add(temp);
 		}
+		cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
 	}
 
 	public void updatePrompt() {
