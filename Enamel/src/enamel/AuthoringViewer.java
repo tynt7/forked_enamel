@@ -3,6 +3,9 @@ package enamel;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+
+import audioRecorder.RecorderFrame;
+
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
@@ -119,7 +122,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(lblOrder);
 
 		txtCardName = new JTextField();
-		txtCardName.setText("Card Name");
+		txtCardName.setText(cards.get(currCard).getName());
 		txtCardName.setBounds(6, 5, 130, 26);
 		aViewFrame.getContentPane().add(txtCardName);
 		txtCardName.setColumns(10);
@@ -242,26 +245,24 @@ public class AuthoringViewer {
 		pSix = new JRadioButton("");
 		pSix.setBounds(46, 76, 28, 23);
 		cellPanel.add(pSix);
-		
+
 		pSeven = new JRadioButton("");
 		pSeven.setBounds(6, 111, 28, 23);
 		cellPanel.add(pSeven);
-		
+
 		pEight = new JRadioButton("");
 		pEight.setBounds(46, 111, 28, 23);
 		cellPanel.add(pEight);
 
-		
-		
-		//Under Construction
-//		textField = new JTextField();
-//		textField.setBounds(73, 185, 130, 26);
-//		aViewFrame.getContentPane().add(textField);
-//		textField.setColumns(10);
-//
-//		JLabel lblLetter = new JLabel("Letter:");
-//		lblLetter.setBounds(20, 185, 55, 16);
-//		aViewFrame.getContentPane().add(lblLetter);
+		// Under Construction
+		// textField = new JTextField();
+		// textField.setBounds(73, 185, 130, 26);
+		// aViewFrame.getContentPane().add(textField);
+		// textField.setColumns(10);
+		//
+		// JLabel lblLetter = new JLabel("Letter:");
+		// lblLetter.setBounds(20, 185, 55, 16);
+		// aViewFrame.getContentPane().add(lblLetter);
 
 		JButton btnAudio = new JButton("Audio");
 		btnAudio.setBounds(823, 319, 117, 29);
@@ -379,10 +380,43 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(buttonPane);
 
 		JButton button_6 = new JButton("<");
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currCell == 0) {
+					JOptionPane.showMessageDialog(null, "You are already at the first cell", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					updateCell();
+					currCell--;
+					setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+				}
+			}
+		});
 		button_6.setBounds(6, 80, 52, 39);
 		aViewFrame.getContentPane().add(button_6);
 
 		JButton button_7 = new JButton(">");
+		button_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (currCell + 1 == numCells) {
+					JOptionPane.showMessageDialog(null, "You are already at the last cell", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					if (cards.get(currCard).getCells().size() > currCell + 1) {
+						updateCell();
+						currCell++;
+						setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+					} else {
+						BrailleCell temp = new BrailleCell();
+						cards.get(currCard).getCells().add(temp);
+						updateCell();
+						currCell++;
+						setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+					}
+				}
+
+			}
+		});
 		button_7.setBounds(164, 80, 52, 39);
 		aViewFrame.getContentPane().add(button_7);
 
@@ -391,34 +425,102 @@ public class AuthoringViewer {
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setVisibleRowCount(-1);
-		list.setBounds(750, 30, 234, 128);
 		JScrollPane listScroller = new JScrollPane(list);
-		listScroller.setPreferredSize(new Dimension(250, 80));
+		listScroller.setBounds(750, 30, 234, 128);
 		listScroller.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
 		aViewFrame.getContentPane().add(listScroller);
-		aViewFrame.getContentPane().add(list);
 
 		JButton btnR = new JButton("R");
+		btnR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RecorderFrame rf = new RecorderFrame();
+				rf.displayRecorder();
+			}
+		});
 		btnR.setBounds(458, 224, 45, 20);
 		aViewFrame.getContentPane().add(btnR);
 
 		JButton btnI = new JButton("I");
+		btnI.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios/AudioFiles"));
+				fc.setDialogTitle("Please Choose File to Open");
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				if (fc.showOpenDialog(btnI) == JFileChooser.APPROVE_OPTION) {
+					String temp = fc.getSelectedFile().getName().toString();
+					txtAudiofilenamemp.setText(temp);
+					cards.get(currCard).setSound(temp);
+				}
+			}
+		});
 		btnI.setBounds(506, 224, 45, 20);
 		aViewFrame.getContentPane().add(btnI);
 
 		JButton btnD = new JButton("D");
+		btnD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cards.get(currCard).setSound("");
+				txtAudiofilenamemp.setText(null);
+			}
+		});
 		btnD.setBounds(554, 224, 45, 20);
 		aViewFrame.getContentPane().add(btnD);
 
-		
+		JButton btnCardUp = new JButton("Card Up");
+		btnCardUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected = list.getSelectedIndex();
+				if (selected == 0) {
+					JOptionPane.showMessageDialog(null, "This card is already at the top", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					if (currCard == selected) {
+						currCard--;
+					} else if (currCard == selected - 1) {
+						currCard++;
+					}
+					Card temp = cards.get(selected);
+					cards.set(selected, cards.get(selected - 1));
+					cards.set(selected - 1, temp);
+					setCardList();
+
+				}
+			}
+		});
+		btnCardUp.setBounds(750, 165, 234, 20);
+		aViewFrame.getContentPane().add(btnCardUp);
+
+		JButton btnCardDown = new JButton("Card Down");
+		btnCardDown.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selected = list.getSelectedIndex();
+				if (selected == cards.size() - 1) {
+					JOptionPane.showMessageDialog(null, "This card is already at the bottom", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					if (currCard == selected) {
+						currCard++;
+					} else if (currCard == selected - 1) {
+						currCard--;
+					}
+					Card temp = cards.get(selected);
+					cards.set(selected, cards.get(selected + 1));
+					cards.set(selected + 1, temp);
+					setCardList();
+				}
+			}
+		});
+		btnCardDown.setBounds(750, 190, 234, 20);
+		aViewFrame.getContentPane().add(btnCardDown);
+
 		JButton btnNextCard = new JButton("Next Card");
 		btnNextCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (cards.size() > currCard+1) {
+				if (cards.size() > currCard + 1) {
 					nextCard();
-				}
-				else {
-					Card temp = new Card(currCard+1, "" + (currCard+2), "");
+				} else {
+					Card temp = new Card(currCard + 1, "card" + (currCard + 2), "");
 					cards.add(temp);
 					temp.getButtonList().add(new DataButton(0));
 					temp.getCells().add(new BrailleCell());
@@ -428,21 +530,21 @@ public class AuthoringViewer {
 		});
 		btnNextCard.setBounds(823, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnNextCard);
-		
+
 		JButton btnPreviousCard = new JButton("Previous Card");
 		btnPreviousCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (currCard == 0) {
-					//add at front?
-				}
-				else {
+					JOptionPane.showMessageDialog(null, "You are already at the first card", "Alert",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
 					prevCard();
 				}
 			}
 		});
 		btnPreviousCard.setBounds(694, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnPreviousCard);
-		
+
 		aViewFrame.setResizable(false);
 		aViewFrame.setBackground(new Color(255, 255, 255));
 		aViewFrame.setTitle("AuthoringApp view");
@@ -483,9 +585,11 @@ public class AuthoringViewer {
 	}
 
 	public void setCardList() {
+		listModel.clear();
 		for (Card cards : this.cards) {
 			listModel.addElement(cards.getName());
 		}
+		list.setSelectedIndex(currCard);
 	}
 
 	public void showButtonText(int buttonNum) { // ButtonNum 0-5
@@ -515,7 +619,7 @@ public class AuthoringViewer {
 	public void updatePrompt() {
 		cards.get(currCard).setText(editorPane.getText());
 	}
-	
+
 	public void updateCell() {
 		BrailleCell temp = new BrailleCell();
 		String s = "";
@@ -529,35 +633,38 @@ public class AuthoringViewer {
 		s += pEight.isSelected() ? "1" : "0";
 		cards.get(currCard).getCells().set(currCell, temp);
 	}
-	
+
 	public void showPrompt() {
 		setPromptText(cards.get(currCard).getText());
 	}
-	
+
 	public void nextCard() {
 		updateButton();
 		updatePrompt();
 		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+		cards.get(currCard).setName(txtCardName.getText());
 		currCard++;
 		currButton = 0;
 		currCell = 0;
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
-		
-		
+		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
-		setCurrCellPins(new BrailleCell());
-		
+		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+		setCardList();
 	}
-	
+
 	public void prevCard() {
 		updateButton();
 		updatePrompt();
 		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+		cards.get(currCard).setName(txtCardName.getText());
 		currCard--;
 		currButton = 0;
 		currCell = 0;
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
+		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
-		setCurrCellPins(new BrailleCell());
+		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+		setCardList();
 	}
 }

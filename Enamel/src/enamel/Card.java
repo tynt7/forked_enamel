@@ -24,6 +24,7 @@ public class Card {
 		this.type = type;
 		this.bList = new ArrayList<>();
 		this.cells = new ArrayList<>();
+		this.sound = "";
 	}
 	
 	public int getId(){
@@ -73,6 +74,10 @@ public class Card {
 	
 	public void setCells(ArrayList<BrailleCell> newList) {
 		this.cells = newList;
+	}
+	
+	public void setName(String s) {
+		this.cardName = s;
 	}
 }
 
