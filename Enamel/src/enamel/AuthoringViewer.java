@@ -109,9 +109,9 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().setBackground(Color.GRAY);
 		aViewFrame.getContentPane().setLayout(null);
 
-		JLabel lblCurrcard = new JLabel("1/" + this.numCells);
-		lblCurrcard.setBounds(148, 10, 55, 16);
-		aViewFrame.getContentPane().add(lblCurrcard);
+		JLabel lblCurrCell = new JLabel("1/" + this.numCells);
+		lblCurrCell.setBounds(148, 10, 55, 16);
+		aViewFrame.getContentPane().add(lblCurrCell);
 
 		JLabel lblPrompt = new JLabel("PROMPT");
 		lblPrompt.setBounds(250, 10, 61, 16);
@@ -389,6 +389,7 @@ public class AuthoringViewer {
 					updateCell();
 					currCell--;
 					setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+					lblCurrCell.setText("" + (currCell+1) + "/" + numCells);
 				}
 			}
 		});
@@ -406,12 +407,15 @@ public class AuthoringViewer {
 						updateCell();
 						currCell++;
 						setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+						lblCurrCell.setText("" + (currCell+1) + "/" + numCells);
 					} else {
 						BrailleCell temp = new BrailleCell();
 						cards.get(currCard).getCells().add(temp);
+						System.out.println(cards.get(currCard).getCells().size());
 						updateCell();
 						currCell++;
 						setCurrCellPins(cards.get(currCard).getCells().get(currCell));
+						lblCurrCell.setText("" + (currCell+1) + "/" + numCells);
 					}
 				}
 
@@ -433,8 +437,8 @@ public class AuthoringViewer {
 		JButton btnR = new JButton("R");
 		btnR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				RecorderFrame rf = new RecorderFrame();
-				rf.displayRecorder();
+				//RecorderFrame rf = new RecorderFrame();
+				//rf.displayRecorder();
 			}
 		});
 		btnR.setBounds(458, 224, 45, 20);
@@ -578,6 +582,8 @@ public class AuthoringViewer {
 		pFour.setSelected(cell.getPinState(3));
 		pFive.setSelected(cell.getPinState(4));
 		pSix.setSelected(cell.getPinState(5));
+		pSeven.setSelected(cell.getPinState(6));
+		pEight.setSelected(cell.getPinState(7));
 	}
 
 	public void setButtonText(String text) {
@@ -631,6 +637,7 @@ public class AuthoringViewer {
 		s += pSix.isSelected() ? "1" : "0";
 		s += pSeven.isSelected() ? "1" : "0";
 		s += pEight.isSelected() ? "1" : "0";
+		temp.setPins(s);
 		cards.get(currCard).getCells().set(currCell, temp);
 	}
 
