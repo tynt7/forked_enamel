@@ -280,7 +280,7 @@ public class AuthoringViewer {
 				}
 				System.out.println(inputValue.length() + " " + inputValue);
 				if (inputValue.length() == 8 && checkNumber) {
-					setButtonText(buttonEditor.getText() + "\n/Pins on " + (currButton + 1) + ": " + inputValue);
+					setButtonText(buttonEditor.getText() + "\n/Pins on " + (currCell) + ": " + inputValue);
 				} else {
 					JOptionPane.showMessageDialog(null,
 							"Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert",
