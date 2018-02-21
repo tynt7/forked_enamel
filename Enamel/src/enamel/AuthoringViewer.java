@@ -437,8 +437,8 @@ public class AuthoringViewer {
 		JButton btnR = new JButton("R");
 		btnR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//RecorderFrame rf = new RecorderFrame();
-				//rf.displayRecorder();
+				RecorderFrame rf = new RecorderFrame();
+				rf.displayRecorder();
 			}
 		});
 		btnR.setBounds(458, 224, 45, 20);

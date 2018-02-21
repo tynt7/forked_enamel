@@ -150,6 +150,11 @@ public class RecorderFrame {
 		textField.setColumns(10);
 		
 		discardButton = new JButton("DISCARD");
+		discardButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				resetRecorder();
+			}
+		});
 		discardButton.setForeground(new Color(220, 20, 60));
 		discardButton.setEnabled(false);
 		discardButton.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -190,6 +195,7 @@ public class RecorderFrame {
 				textField.setText("Redcording......");
 				recordNewButton.setEnabled(false);
 				stopRecordingButton.setEnabled(true);
+				discardButton.setEnabled(true);
 
 				// while recording
 				while (isRecording) {
@@ -246,7 +252,7 @@ public class RecorderFrame {
 		isRecording = false;
 		textField.setText("Recording Stopped");
 		recordNewButton.setEnabled(true);
-		stopRecordingButton.setEnabled(false);
+		//stopRecordingButton.setEnabled(false);
 		try {
 			stop();
 			saveAudioFile();
@@ -256,6 +262,23 @@ public class RecorderFrame {
 		}
 	}
 
+
+	/**
+	 * Stop recording and reset recorder
+	 */
+	private void resetRecorder() {
+		isRecording = false;
+		textField.setText("00.00.00");
+		recordNewButton.setEnabled(true);
+		stopRecordingButton.setEnabled(false);
+		try {
+			stop();
+		} catch (IOException ex) {
+			JOptionPane.showMessageDialog(null, "Error", "Error discarding sound recording!", JOptionPane.ERROR_MESSAGE);
+			ex.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Stop recording sound.
 	 * 
