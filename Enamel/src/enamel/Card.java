@@ -43,6 +43,10 @@ public class Card {
 		return this.text;
 	}
 	
+	public String getSound() {
+		return this.sound;
+	}
+	
 	public ArrayList<BrailleCell> getCells() {
 		return this.cells;
 	}

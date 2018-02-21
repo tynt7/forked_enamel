@@ -31,7 +31,7 @@ public class CardsToFileParser {
 		}
 		body += "\n" + endingPrompt;
 		for (int i = 0; i < this.numCells; i++) {
-			body += "\n/~disp-cell-clear:" + i;
+			body += "\n/~disp-cell-clear:" + i + "";
 		}
 		System.out.println(body);
 	}
@@ -93,7 +93,13 @@ public class CardsToFileParser {
 						slashPos = j;
 					}
 				}
-				result += "\n/~sound:" + audioPath.substring(slashPos + 1);
+				if (slashPos == 0) {
+					result += "\n/~sound:" + audioPath;
+				}
+				else {
+					result += "\n/~sound:" + audioPath.substring(slashPos + 1);
+				}
+				
 			}
 			String[] arr = buttons.get(i).getText().split("\n");
 			for (int j = 0; j < arr.length; j++) {
