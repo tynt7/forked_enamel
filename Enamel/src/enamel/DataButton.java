@@ -67,7 +67,7 @@ public class DataButton {
 	/**
 	 * Method to set the text associated with button. If text is empty, set
 	 * 'newText' as text associated with button; else 'newText' is appended to
-	 * already existing text.
+	 * already existing text as new line.
 	 * 
 	 * @param newText
 	 */
