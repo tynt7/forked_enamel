@@ -56,7 +56,7 @@ public class ScenarioForm {
 	private int numButtons = 1; // assuming 1 selected by default. i.e. always
 	private JTextField titleTextField;
 	private JTextField audioFileTextField;
-	// non zero
+	// non zero 
 
 	/**
 	 * Launch the application.
@@ -74,7 +74,7 @@ public class ScenarioForm {
 		});
 	}
 
-	/**
+	/** 
 	 * Create the application.
 	 */
 	public ScenarioForm() {
@@ -130,6 +130,7 @@ public class ScenarioForm {
 						JComboBox comboButtonBox = new JComboBox();
 						comboButtonBox.setFont(new Font("Tahoma", Font.BOLD, 11));
 						comboButtonBox.setBounds(224, 108, 64, 21);
+						comboButtonBox.setToolTipText("Number of buttons");
 						comboButtonBox.setBackground(new Color(238, 238, 238));
 						
 								comboButtonBox
@@ -153,6 +154,7 @@ public class ScenarioForm {
 				titleTextField = new JTextField();
 				titleTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				titleTextField.setBounds(224, 140, 130, 21);
+				titleTextField.setToolTipText("Enter a Title for your Scenario");
 				sCreatorFrame.getContentPane().add(titleTextField);
 				titleTextField.setColumns(10);
 		
@@ -209,7 +211,7 @@ public class ScenarioForm {
 						Card temp = new Card(1, "Card 1", "");
 						cards.add(temp);
 						cards.get(0).getCells().add(new BrailleCell());
-						AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex()+1, comboButtonBox.getSelectedIndex()+1, cards, "Hi", "Bye");
+						AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex()+1, comboButtonBox.getSelectedIndex()+1, cards, "", "");
 						av.setCardList();
 						sCreatorFrame.dispose();
 					}

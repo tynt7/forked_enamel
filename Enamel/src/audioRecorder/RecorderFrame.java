@@ -193,8 +193,9 @@ public class RecorderFrame {
 				// TODO Auto-generated method stub
 				// set isRecording boolean to true
 				isRecording = true;
-				textField.setText("Redcording......");
+				//textField.setText("Redcording......");
 				recordNewButton.setEnabled(false);
+				textField.setText("Recording......");
 				stopRecordingButton.setEnabled(true);
 				discardButton.setEnabled(true);
 

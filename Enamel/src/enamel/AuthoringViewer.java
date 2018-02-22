@@ -61,7 +61,7 @@ public class AuthoringViewer {
 	private JTextField txtCardName;
 	private JTextField txtAudiofilenamemp;
 	private JTextField textField;
-	private JEditorPane editorPane;
+	private JEditorPane dtrpnEnterAPrompt;
 	private JRadioButton pOne;
 	private JRadioButton pTwo;
 	private JRadioButton pThree;
@@ -125,13 +125,26 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(lblOrder);
 
 		txtCardName = new JTextField();
+		txtCardName.setToolTipText("Enter a name for the card");
 		txtCardName.setText(cards.get(currCard).getName());
 		txtCardName.setBounds(6, 5, 130, 26);
 		aViewFrame.getContentPane().add(txtCardName);
 		txtCardName.setColumns(10);
 
-		editorPane = new JEditorPane();
-		JScrollPane promptPane = new JScrollPane(editorPane);
+		dtrpnEnterAPrompt = new JEditorPane();
+		dtrpnEnterAPrompt.setText("Enter a Prompt for this card");
+		dtrpnEnterAPrompt.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				dtrpnEnterAPrompt.setText("");
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		JScrollPane promptPane = new JScrollPane(dtrpnEnterAPrompt);
 		promptPane.setBounds(250, 30, 478, 128);
 		aViewFrame.getContentPane().add(promptPane);
 
@@ -215,7 +228,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(lblAudio);
 
 		txtAudiofilenamemp = new JTextField();
-		txtAudiofilenamemp.setText("AudioFileName.mp3");
+		txtAudiofilenamemp.setToolTipText("Audio File Name");
 		txtAudiofilenamemp.setBounds(250, 220, 209, 26);
 		aViewFrame.getContentPane().add(txtAudiofilenamemp);
 		txtAudiofilenamemp.setColumns(10);
@@ -226,34 +239,42 @@ public class AuthoringViewer {
 		cellPanel.setLayout(null);
 
 		pOne = new JRadioButton("");
+		pOne.setToolTipText("Pin One");
 		pOne.setBounds(6, 6, 28, 23);
 		cellPanel.add(pOne);
 
 		pFour = new JRadioButton("");
+		pFour.setToolTipText("Pin Two");
 		pFour.setBounds(46, 6, 28, 23);
 		cellPanel.add(pFour);
 
 		pTwo = new JRadioButton("");
+		pTwo.setToolTipText("Pin  Three");
 		pTwo.setBounds(6, 41, 28, 23);
 		cellPanel.add(pTwo);
 
 		pFive = new JRadioButton("");
+		pFive.setToolTipText("Pin  Four");
 		pFive.setBounds(46, 41, 28, 23);
 		cellPanel.add(pFive);
 
 		pThree = new JRadioButton("");
+		pThree.setToolTipText("Pin  Five");
 		pThree.setBounds(6, 76, 28, 23);
 		cellPanel.add(pThree);
 
 		pSix = new JRadioButton("");
+		pSix.setToolTipText("Pin  Six");
 		pSix.setBounds(46, 76, 28, 23);
 		cellPanel.add(pSix);
 
 		pSeven = new JRadioButton("");
+		pSeven.setToolTipText("Pin  Seven");
 		pSeven.setBounds(6, 111, 28, 23);
 		cellPanel.add(pSeven);
 
 		pEight = new JRadioButton("");
+		pEight.setToolTipText("Pin  Eight");
 		pEight.setBounds(46, 111, 28, 23);
 		cellPanel.add(pEight);
 
@@ -278,6 +299,22 @@ public class AuthoringViewer {
 					String temp = fc.getSelectedFile().getName().toString();
 					setButtonText(buttonEditor.getText() + "\n/~sound:"+ (temp));
 					//cards.get(currCard).setSound(temp);
+
+					if (temp.length() > 4) {
+						if (temp.charAt(temp.length() - 4) != '.' || temp.charAt(temp.length() - 3) != 'w'
+								|| temp.charAt(temp.length() - 2) != 'a' || temp.charAt(temp.length() - 1) != 'v') {
+							JOptionPane.showMessageDialog(null, "Please select a .wav file", "Alert",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							setButtonText(buttonEditor.getText() + "\n/~sound:" + (temp));
+							cards.get(currCard).getButtonList().get(currButton).setAudio(temp);
+						}
+					} else {
+						JOptionPane.showMessageDialog(null, "Please select a .wav file", "Alert",
+								JOptionPane.ERROR_MESSAGE);
+					}
+					
+
 				}
 			}
 		});
@@ -391,12 +428,26 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnTest);
 
 		buttonEditor = new JEditorPane();
+		buttonEditor.setText("Enter a response for this button");
+		buttonEditor.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				buttonEditor.setText("");
+			}
 
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+
+		
 		JScrollPane buttonPane = new JScrollPane(buttonEditor);
 		buttonPane.setBounds(250, 400, 561, 113);
 		aViewFrame.getContentPane().add(buttonPane);
 
 		JButton button_6 = new JButton("<");
+		button_6.setToolTipText("Left Cell Button");
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (currCell == 0) {
@@ -406,7 +457,7 @@ public class AuthoringViewer {
 					updateCell();
 					currCell--;
 					setCurrCellPins(cards.get(currCard).getCells().get(currCell));
-					lblCurrCell.setText("" + (currCell+1) + "/" + numCells);
+					lblCurrCell.setText("" + (currCell + 1) + "/" + numCells);
 				}
 			}
 		});
@@ -414,6 +465,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(button_6);
 
 		JButton button_7 = new JButton(">");
+		button_7.setToolTipText("Right Cell Button");
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (currCell + 1 == numCells) {
@@ -424,7 +476,7 @@ public class AuthoringViewer {
 						updateCell();
 						currCell++;
 						setCurrCellPins(cards.get(currCard).getCells().get(currCell));
-						lblCurrCell.setText("" + (currCell+1) + "/" + numCells);
+						lblCurrCell.setText("" + (currCell + 1) + "/" + numCells);
 					} else {
 						BrailleCell temp = new BrailleCell();
 						cards.get(currCard).getCells().add(temp);
@@ -432,7 +484,7 @@ public class AuthoringViewer {
 						updateCell();
 						currCell++;
 						setCurrCellPins(cards.get(currCard).getCells().get(currCell));
-						lblCurrCell.setText("" + (currCell+1) + "/" + numCells);
+						lblCurrCell.setText("" + (currCell + 1) + "/" + numCells);
 					}
 				}
 
@@ -443,6 +495,7 @@ public class AuthoringViewer {
 
 		listModel = new DefaultListModel();
 		list = new JList(listModel);
+		list.setToolTipText("Card Order List");
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL);
 		list.setVisibleRowCount(-1);
@@ -452,6 +505,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(listScroller);
 
 		JButton btnR = new JButton("R");
+		btnR.setToolTipText("Record an Audio FIle");
 		btnR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RecorderFrame rf = new RecorderFrame();
@@ -462,6 +516,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnR);
 
 		JButton btnI = new JButton("I");
+		btnI.setToolTipText("Import an Audio File");
 		btnI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
@@ -479,6 +534,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnI);
 
 		JButton btnD = new JButton("D");
+		btnD.setToolTipText("Delete the Selected Audio File");
 		btnD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cards.get(currCard).setSound("");
@@ -590,7 +646,7 @@ public class AuthoringViewer {
 	}
 
 	public void setPromptText(String text) {
-		editorPane.setText(text);
+		dtrpnEnterAPrompt.setText(text);
 	}
 
 	public void setCurrCellPins(BrailleCell cell) {
@@ -647,7 +703,7 @@ public class AuthoringViewer {
 	}
 
 	public void updatePrompt() {
-		cards.get(currCard).setText(editorPane.getText());
+		cards.get(currCard).setText(dtrpnEnterAPrompt.getText());
 	}
 
 	public void updateCell() {

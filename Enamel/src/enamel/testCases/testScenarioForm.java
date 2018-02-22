@@ -1,14 +1,42 @@
 package enamel.testCases;
 
 import static org.junit.Assert.*;
+import org.junit.*;
 
-import org.junit.Test;
+import enamel.ScenarioForm;
 
-class testScenarioForm {
+public class testScenarioForm{
+	
+	private ScenarioForm sf;
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
+	@Before
+	public void setUp() throws Exception {
+		sf = new ScenarioForm();
 	}
 
+	/*
+	 * Test if the GUI is created 
+	 */
+	@Test
+	public void test() {
+		assertNotNull(sf);
+	}
+
+	/*
+	 * Ensure the GUI is capable of having multiple iterations of itself
+	 */
+	@Test
+	public void test2() {
+		ScenarioForm temp = new ScenarioForm();
+		assertNotSame(sf, temp);
+		
+	}
+
+	/*
+	 * 
+	 */
+	@Test
+	public void test3() {
+		
+	}
 }
