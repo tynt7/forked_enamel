@@ -367,7 +367,7 @@ public class AuthoringViewer {
 		btnExit.setBounds(20, 525, 75, 50);
 		aViewFrame.getContentPane().add(btnExit);
 
-		// save the current card and write it to a file
+		// save the current card and write it to a file 
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
