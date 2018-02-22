@@ -1,11 +1,9 @@
 package enamel.testCases;
 
 import static org.junit.Assert.*;
-import java.io.FileWriter;
 import java.util.ArrayList;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 
 import enamel.BrailleCell;
 import enamel.Card;
@@ -13,11 +11,7 @@ import enamel.DataButton;
 
 public class testCard {
 	
-	FileWriter write;
 	
-	@Before
-	public void setUp() {
-	}
 	
 	@Test
 	public void testCtorAndGets() {
