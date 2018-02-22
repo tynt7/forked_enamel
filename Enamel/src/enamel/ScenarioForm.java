@@ -139,7 +139,8 @@ public class ScenarioForm {
 				sCreatorFrame.getContentPane().add(lblNumberOfButtons);
 						lblNumberOfCells.setLabelFor(comboCellBox);
 						JComboBox comboButtonBox = new JComboBox();
-						comboButtonBox.setBounds(254, 105, 64, 27);
+						comboButtonBox.setToolTipText("Number of buttons");
+						comboButtonBox.setBounds(254, 109, 64, 27);
 						comboButtonBox.setBackground(new Color(238, 238, 238));
 						
 								comboButtonBox
@@ -168,6 +169,7 @@ public class ScenarioForm {
 				sCreatorFrame.getContentPane().add(label_5);
 		
 				titleTextField = new JTextField();
+				titleTextField.setToolTipText("Enter a Title for your Scenario");
 				titleTextField.setBounds(246, 135, 130, 26);
 				sCreatorFrame.getContentPane().add(titleTextField);
 				titleTextField.setColumns(10);
