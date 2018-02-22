@@ -148,12 +148,13 @@ public class AuthoringViewer {
 		dtrpnEnterAPrompt.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				dtrpnEnterAPrompt.setText("");
+				dtrpnEnterAPrompt.setText(cards.get(currCard).getText());
 				promptEdit = true;
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
+				updatePrompt();
 				// TODO Auto-generated method stub
 			}
 		});
@@ -450,12 +451,13 @@ public class AuthoringViewer {
 		buttonEditor.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				buttonEditor.setText("");
+				buttonEditor.setText(cards.get(currCard).getButtonList().get(currButton).getText());
 				buttEdit = true;
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
+				updateButton();
 				// TODO Auto-generated method stub
 
 			}
