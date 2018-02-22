@@ -3,6 +3,8 @@ package enamel;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 public class CardsToFileParser {
 
 	private ArrayList<Card> cards;
@@ -13,7 +15,8 @@ public class CardsToFileParser {
 	private int numCells;
 	private String body;
 
-	public CardsToFileParser(ArrayList<Card> cards, int numButtons, int numCells, String initialPrompt, String endingPrompt) {
+	public CardsToFileParser(ArrayList<Card> cards, int numButtons, int numCells, String initialPrompt,
+			String endingPrompt) {
 		this.cards = cards;
 		this.numButtons = numButtons;
 		this.numCells = numCells;
@@ -21,7 +24,7 @@ public class CardsToFileParser {
 		this.endingPrompt = endingPrompt;
 		this.body = "";
 	}
-	
+
 	public void createBody() {
 		body += "Cell " + numCells;
 		body += "\nButton " + numButtons;
@@ -35,7 +38,7 @@ public class CardsToFileParser {
 		}
 		System.out.println(body);
 	}
-	
+
 	public String writeCard(Card currCard) {
 		String result = "/~disp-cell-clear:0";
 		for (int i = 1; i < this.numCells; i++) {
@@ -44,10 +47,13 @@ public class CardsToFileParser {
 		ArrayList<BrailleCell> cells = currCard.getCells();
 		for (int i = 0; i < cells.size(); i++) {
 			String pins = "";
-			for (int j = 0; j < cells.get(i).getNumberOfPins(); j++) {
-				pins += cells.get(i).getPinState(j) ? "1" : "0";
+			if (cells.get(i) != null) {
+				for (int j = 0; j < cells.get(i).getNumberOfPins(); j++) {
+					pins += cells.get(i).getPinState(j) ? "1" : "0";
+				}
+				result += "\n/~disp-cell-pins:" + i + " " + pins;
 			}
-			result += "\n/~disp-cell-pins:" + i + " " + pins;
+			
 		}
 		result += "\n" + currCard.getText();
 		ArrayList<DataButton> buttons = currCard.getButtonList();
@@ -104,8 +110,24 @@ public class CardsToFileParser {
 			String[] arr = buttons.get(i).getText().split("\n");
 			for (int j = 0; j < arr.length; j++) {
 				if ( (arr[j].length() == 20) && (arr[j].substring(0, 9).equals("/Pins on ")) ) {
-					result += "\n/~disp-cell-clear:" + arr[j].charAt(9);
-					result += "\n/~disp-cell-pins:" + arr[j].charAt(9) + " " + arr[j].substring(12);
+					boolean checkNumber = true;
+					for (int k = 0; k < arr[j].substring(12).length(); k++) {
+						System.out.println(i);
+						if (arr[j].substring(12).charAt(k) != '0' && arr[j].substring(12).charAt(k) != '1') {
+							System.out.println("hi");
+							checkNumber = false;
+						}
+					}
+					if (checkNumber) {
+						result += "\n/~disp-cell-clear:" + arr[j].charAt(9);
+						result += "\n/~disp-cell-pins:" + arr[j].charAt(9) + " " + arr[j].substring(12);
+					}
+					else {
+						JOptionPane.showMessageDialog(null,
+								"On card " + (currCard.getId()) +  " on button " 
+						+ (i+1) + " the pins trying to be displayed were not 8 1's and 0's. Therefor this line will be ignored. Please change it save again if you wish to correct this"
+						, "Alert", JOptionPane.ERROR_MESSAGE);
+					}
 				}
 				else {
 					result += "\n" + arr[j];
@@ -116,7 +138,7 @@ public class CardsToFileParser {
 		result += "\n\n/~NEXTT";
 		return result;
 	}
-	
+
 	public String getText() {
 		return this.body;
 	}
