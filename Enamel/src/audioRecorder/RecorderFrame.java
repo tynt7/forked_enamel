@@ -12,6 +12,7 @@ import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.TargetDataLine;
@@ -154,6 +155,7 @@ public class RecorderFrame {
 		discardButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				resetRecorder();
+				//playSound(path);
 			}
 		});
 		discardButton.setForeground(new Color(220, 20, 60));
@@ -380,6 +382,35 @@ public class RecorderFrame {
 		}
 	}
 
+	/*
+	 * This method corresponds to the /~sound: key phrase in the scenario file,
+	 * and it plays the sound files where the argument is the name of the sound
+	 * file.
+	 */
+	private void playSound(String sound) {
+		try {
+			Clip clip = AudioSystem.getClip();
+			clip.open(AudioSystem.getAudioInputStream(
+					new File(sound)));
+			clip.start();
+			// This while loop is to check if the audio file has played or not,
+			// and if it has not then it will
+			// continue to wait until it does.
+			while (!clip.isRunning())
+				Thread.sleep(10);
+			while (clip.isRunning())
+				Thread.sleep(10);
+			clip.close();
+
+		} catch (Exception e) {
+			System.out.println("Exception error: " + e.toString()+
+					"Expected the name of the file (including extension) but instead got: " + sound
+							+ "\n Perhaps you forgot to include the extension of the sound file with the name? Other "
+							+ "possibilities include: \n Incorrect name of the file, the file not being in the same location "
+							+ "as the project folder, or an attempt to play an unsupported sound file. (only .wav files"
+							+ "are supported at this time)");
+		}
+	}
 	private class Timer {
 		private DateFormat dateFormater = new SimpleDateFormat("HH:mm:ss");
 		private Boolean running;
