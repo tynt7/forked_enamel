@@ -94,6 +94,9 @@ public class AuthoringViewer {
 		this.endingPrompt = endingPrompt;
 		this.numCells = numCells;
 		this.cards = new ArrayList<Card>(cards);
+		if (this.cards.get(0).getButtonList().isEmpty()) {
+			this.cards.get(0).getButtonList().add(new DataButton(0));
+		}
 		this.path = "";
 		initialize();
 		this.currButton = 0;
@@ -608,11 +611,13 @@ public class AuthoringViewer {
 				this.setButtonText(replace);
 			} catch (Exception e) {
 				int size = cards.get(currCard).getButtonList().size();
+				cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
 				while (size <= buttonNum) {
 					System.out.println(size);
 					cards.get(currCard).getButtonList().add(new DataButton(size));
 					size = cards.get(currCard).getButtonList().size();
 				}
+				System.out.println(size);
 				currButton = buttonNum;
 				this.setButtonText("");
 			}
