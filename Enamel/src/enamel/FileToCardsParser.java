@@ -15,6 +15,7 @@ public class FileToCardsParser {
 	private int numCells;
 	private int numLines;
 	private int start;
+	private boolean lastRemoved;
 
 	public FileToCardsParser() {
 		cards = new ArrayList<Card>();
@@ -30,15 +31,20 @@ public class FileToCardsParser {
 			scenarioFilePath = absolutePath.substring(0, absolutePath.lastIndexOf(File.separator));
 			checkNumLines(scenarioFile);
 			checkButtonsAndCells();
+			parse();
+			checkLast();
+			print();
 
 		} catch (Exception e) {
 			System.out.println("Incorrect File Name");
 		}
-		parse();
-		checkLast();
-		print();
+		
 	}
 
+	public int getNumLines() {
+		return this.numLines;
+	}
+	
 	public void checkNumLines(String scenarioFile) {
 		try {
 			File f = new File(scenarioFile);
@@ -64,21 +70,42 @@ public class FileToCardsParser {
 	}
 
 	public void checkButtonsAndCells() {
+		if (fileScanner == null) {
+			try {
+				File f = new File("./FactoryScenarios/test.txt");
+				fileScanner = new Scanner(f);
+			} catch (Exception e) {
+				System.out.println("Incorrect File Name");
+			}
+			
+		}
 		String fileLine = fileScanner.nextLine();
-
-		if (fileLine.substring(0, 4).equals("Cell")) {
-			numCells = Character.getNumericValue(fileLine.charAt(5));
+		if (fileLine == null) {
+			throw new IllegalArgumentException();
+		}
+		if (fileLine.length() >= 6 && fileLine.substring(0, 4).equals("Cell")) {
+			if (Character.isDigit(fileLine.charAt(5))) {
+				numCells = Character.getNumericValue(fileLine.charAt(5));
+			} else {
+				throw new IllegalArgumentException();
+			}
+			
 		} else {
 			throw new IllegalArgumentException();
 		}
 		fileLine = fileScanner.nextLine();
-		if (fileLine.substring(0, 6).equals("Button")) {
-			numButtons = Character.getNumericValue(fileLine.charAt(7));
+		if (fileLine.length() >= 8 && fileLine.substring(0, 6).equals("Button")) {
+			if (Character.isDigit(fileLine.charAt(7))) {
+				numButtons = Character.getNumericValue(fileLine.charAt(7));
+			} else {
+				throw new IllegalArgumentException();
+			}
 		} else {
 			throw new IllegalArgumentException();
 		}
 
 	}
+	
 
 	public void parse() {
 		boolean inButton = false;
@@ -92,7 +119,6 @@ public class FileToCardsParser {
 			currLineNum++;
 
 		}
-		System.out.println("************************************ " + this.initialPrompt);
 		Card currCard = new Card(cardNum - 1, "card" + cardNum, "notSure");
 		ArrayList<DataButton> buttons = new ArrayList<DataButton>(numButtons);
 		ArrayList<BrailleCell> cells = new ArrayList<BrailleCell>(numCells);
@@ -102,7 +128,6 @@ public class FileToCardsParser {
 
 			currLineNum++;
 			fileLine = fileScanner.nextLine();
-			System.out.println(fileLine);
 			if (fileLine.replace(" ", "").equals(""))
 				continue;
 			if (fileLine.length() >= 2 && fileLine.substring(0, 2).equals("/~")) {
@@ -231,7 +256,16 @@ public class FileToCardsParser {
 		if (temp.getCells().isEmpty()) {
 			this.endingPrompt = temp.getText();
 			cards.remove(temp);
+			this.lastRemoved = true;
 		}
+		else {
+			this.lastRemoved = false;
+		}
+		
+	}
+	
+	public boolean getLastRemoved() {
+		return this.lastRemoved;
 	}
 
 	public void print() {

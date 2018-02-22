@@ -92,8 +92,19 @@ public class AuthoringViewer {
 	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt,
 			String endingPrompt) {
 		this.numButtons = numButtons;
-		this.initialPrompt = initialPrompt;
-		this.endingPrompt = endingPrompt;
+		if (initialPrompt == null || initialPrompt.equals("")) {
+			this.initialPrompt = "Hello";
+		}
+		else {
+			this.initialPrompt = initialPrompt;
+		}
+		if (endingPrompt == null || endingPrompt.equals("")) {
+			this.endingPrompt = "Good Bye";
+		}
+		else {
+			this.endingPrompt = endingPrompt;
+		}
+		
 		this.numCells = numCells;
 		this.cards = new ArrayList<Card>(cards);
 		if (this.cards.get(0).getButtonList().isEmpty()) {
@@ -742,6 +753,9 @@ public class AuthoringViewer {
 		currCard++;
 		currButton = 0;
 		currCell = 0;
+		if (cards.get(currCard).getButtonList().isEmpty()) {
+			cards.get(currCard).getButtonList().add(new DataButton(0));
+		}
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
 		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
