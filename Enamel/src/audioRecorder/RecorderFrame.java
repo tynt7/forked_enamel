@@ -59,7 +59,7 @@ public class RecorderFrame {
 	private String path;
 	private JButton discardButton;
 
-	/**
+	/** 
 	 * Launch the application.
 	 */
 	public static void displayRecorder() {
