@@ -26,6 +26,14 @@ public class ScenarioWriter {
 	}
 	
 	/*
+	 * Get the files name
+	 */
+	public String getName() {
+		String name[] = path.split("/");
+		return name[name.length-1];
+	}
+	
+	/*
 	 * Write to a file
 	 */
 	public void write(String text) throws IOException{
@@ -34,4 +42,5 @@ public class ScenarioWriter {
 		print.printf("%s" + "%n", text);
 		print.close();
 	}
+	
 }

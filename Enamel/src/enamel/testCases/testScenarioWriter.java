@@ -2,6 +2,9 @@ package enamel.testCases;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 import org.junit.*;
@@ -12,11 +15,16 @@ public class testScenarioWriter {
 
 	private boolean val = true;
 	private String path;
+	private String line;
 	private ScenarioWriter sw;
+	private BufferedReader br;
 
 	@Before
 	public void setUp() throws Exception {
-		path = "./";
+		path = "./TestFile.txt";
+		sw = new ScenarioWriter(path);
+		br = new BufferedReader(new FileReader(sw.getName()));
+
 	}
 
 	/* 
@@ -24,9 +32,9 @@ public class testScenarioWriter {
 	 */
 	@Test
 	public void test() throws IOException {
-		sw = new ScenarioWriter(path);
-		sw.write("Hello\n");
-		
+		sw.write("One");
+		line = br.readLine();
+		assertEquals("One", line);
 	}
 
 	/*
@@ -34,15 +42,12 @@ public class testScenarioWriter {
 	 */
 	@Test
 	public void test2() throws IOException {
-		sw = new ScenarioWriter(path, true);
-		sw.write("Bye");
-	}
-
-	/*
-	 * 
-	 */
-	@Test
-	public void test3() {
-
+		ScenarioWriter sw2 = new ScenarioWriter(path,true);
+		sw2.write("Two");
+		br.readLine();
+		line = br.readLine();
+		br.close();
+		assertEquals("Two", line);
+		
 	}
 }
