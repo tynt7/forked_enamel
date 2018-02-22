@@ -3,6 +3,7 @@ package enamel;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter;
 
 import audioRecorder.RecorderFrame;
 
@@ -24,6 +25,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -326,12 +328,12 @@ public class AuthoringViewer {
 					String temp = fc.getSelectedFile().getName().toString();
 
 					if (temp.length() > 4) {
-						if (temp.charAt(temp.length() - 4) != '.' || temp.charAt(temp.length() - 3) != 'w'
-								|| temp.charAt(temp.length() - 2) != 'a' || temp.charAt(temp.length() - 1) != 'v') {
+						if (!temp.toLowerCase().endsWith(".wav")) {
 							JOptionPane.showMessageDialog(null, "Please select a .wav file", "Alert",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
 							setButtonText(buttonEditor.getText() + "\n/~sound:" + (temp));
+							updateButton();
 							cards.get(currCard).getButtonList().get(currButton).setAudio(temp);
 						}
 					} else {
@@ -361,7 +363,9 @@ public class AuthoringViewer {
 					}
 					System.out.println(inputValue.length() + " " + inputValue);
 					if (inputValue.length() == 8 && checkNumber) {
+						
 						setButtonText(buttonEditor.getText() + "\n/Pins on " + (currCell) + ": " + inputValue);
+						updateButton();
 					} else {
 						JOptionPane.showMessageDialog(null,
 								"Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert",
@@ -403,11 +407,34 @@ public class AuthoringViewer {
 				JButton save = new JButton();
 				JFileChooser fc = new JFileChooser();
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
-				fc.setDialogTitle("Please Save The File");
+				fc.setDialogTitle("Save as");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				if (fc.showSaveDialog(save) == JFileChooser.APPROVE_OPTION) {
-					System.out.println(fc.getSelectedFile().getPath());
-					path = fc.getSelectedFile().getPath();
+				FileFilter txtFilter = new FileFilter() {
+					@Override
+					public String getDescription() {
+						return "Text file (*.txt)";
+					}
+
+					@Override
+					public boolean accept(File file) {
+						if (file.isDirectory()) {
+							return true;
+						} else {
+							return file.getName().toLowerCase().endsWith(".txt");
+						}
+					}
+				};
+				fc.setFileFilter(txtFilter);
+				fc.setAcceptAllFileFilterUsed(false);
+
+				int userChoice = fc.showSaveDialog(null);
+				if (userChoice == JFileChooser.APPROVE_OPTION) {
+					path = fc.getSelectedFile().getAbsolutePath();
+					if (!path.toLowerCase().endsWith(".txt")) {
+						path += ".txt";
+					}
+
+					File txtFile = new File(path);
 					updateButton();
 					updatePrompt();
 
@@ -417,8 +444,11 @@ public class AuthoringViewer {
 					ScenarioWriter sW = new ScenarioWriter(path);
 					try {
 						sW.write(a.getText());
-					} catch (IOException e1) {
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, "Saved recorded sound to:\n" + path);
+
+					} catch (IOException ex) {
+						JOptionPane.showMessageDialog(null, "Error", "Error saving to sound file!", JOptionPane.ERROR_MESSAGE);
+						ex.printStackTrace();
 					}
 				}
 
