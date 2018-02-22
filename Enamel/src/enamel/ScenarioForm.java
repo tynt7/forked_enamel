@@ -72,7 +72,7 @@ public class ScenarioForm {
 		});
 	}
 
-	/**
+	/** 
 	 * Create the application.
 	 */
 	public ScenarioForm() {

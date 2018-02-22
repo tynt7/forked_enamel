@@ -19,7 +19,7 @@ public class testScenarioWriter {
 		path = "./";
 	}
 
-	/*
+	/* 
 	 * Creates a file and tests if it writes correctly
 	 */
 	@Test
