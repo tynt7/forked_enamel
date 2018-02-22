@@ -90,7 +90,7 @@ public class AuthoringViewer {
 	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt,
 			String endingPrompt) {
 		this.numButtons = numButtons;
-		if (initialPrompt == null) {
+		if (initialPrompt == null || initialPrompt.equals("")) {
 			this.initialPrompt = "Good Bye";
 		}
 		else {
