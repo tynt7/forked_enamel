@@ -82,6 +82,8 @@ public class AuthoringViewer {
 	private String initialPrompt;
 	private String endingPrompt;
 	private String path;
+	private boolean promptEdit = false;
+	private boolean buttEdit = false;
 	// non zero
 
 	/**
@@ -137,6 +139,7 @@ public class AuthoringViewer {
 			@Override
 			public void focusGained(FocusEvent e) {
 				dtrpnEnterAPrompt.setText("");
+				promptEdit = true;
 			}
 
 			@Override
@@ -368,6 +371,12 @@ public class AuthoringViewer {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(buttEdit == false) {
+					buttonEditor.setText("");
+				}
+				if(promptEdit == false) {
+					dtrpnEnterAPrompt.setText("");
+				}
 				JButton save = new JButton();
 				JFileChooser fc = new JFileChooser();
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
@@ -378,6 +387,7 @@ public class AuthoringViewer {
 					path = fc.getSelectedFile().getPath();
 					updateButton();
 					updatePrompt();
+					
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
 							endingPrompt);
 					a.createBody();
@@ -431,6 +441,7 @@ public class AuthoringViewer {
 			@Override
 			public void focusGained(FocusEvent e) {
 				buttonEditor.setText("");
+				buttEdit = true;
 			}
 
 			@Override
