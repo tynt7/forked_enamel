@@ -268,6 +268,19 @@ public class AuthoringViewer {
 		// aViewFrame.getContentPane().add(lblLetter);
 
 		JButton btnAudio = new JButton("Audio");
+		btnAudio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fc = new JFileChooser();
+				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios/AudioFiles"));
+				fc.setDialogTitle("Please Choose File to Open");
+				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+				if (fc.showOpenDialog(btnAudio) == JFileChooser.APPROVE_OPTION) {
+					String temp = fc.getSelectedFile().getName().toString();
+					setButtonText(buttonEditor.getText() + "\n/~sound:"+ (temp));
+					//cards.get(currCard).setSound(temp);
+				}
+			}
+		});
 		btnAudio.setBounds(823, 319, 117, 29);
 		aViewFrame.getContentPane().add(btnAudio);
 
@@ -277,24 +290,25 @@ public class AuthoringViewer {
 			public void actionPerformed(ActionEvent e) {
 				String inputValue = JOptionPane.showInputDialog("Please input which pins to raise");
 				boolean checkNumber = true;
-				for (int i = 0; i < inputValue.length(); i++) {
-					System.out.println(i);
-					if (inputValue.charAt(i) != '0' && inputValue.charAt(i) != '1') {
-						System.out.println("hi");
-						checkNumber = false;
+				if (inputValue != null) {
+					for (int i = 0; i < inputValue.length(); i++) {
+						System.out.println(i);
+						if (inputValue.charAt(i) != '0' && inputValue.charAt(i) != '1') {
+							System.out.println("hi");
+							checkNumber = false;
+						}
 					}
-				}
-				System.out.println(inputValue.length() + " " + inputValue);
-				if (inputValue.length() == 8 && checkNumber) {
-					setButtonText(buttonEditor.getText() + "\n/Pins on " + (currCell) + ": " + inputValue);
-				} else {
-					JOptionPane.showMessageDialog(null,
-							"Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert",
-							JOptionPane.ERROR_MESSAGE);
-				}
+					System.out.println(inputValue.length() + " " + inputValue);
+					if (inputValue.length() == 8 && checkNumber) {
+						setButtonText(buttonEditor.getText() + "\n/Pins on " + (currCell) + ": " + inputValue);
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"Please enter 8 1's or 0's corresponding to the pins you want to raise", "Alert",
+								JOptionPane.ERROR_MESSAGE);
+					}
 
+				}
 			}
-
 		});
 		btnRaisePins.setBounds(823, 356, 117, 29);
 		aViewFrame.getContentPane().add(btnRaisePins);
