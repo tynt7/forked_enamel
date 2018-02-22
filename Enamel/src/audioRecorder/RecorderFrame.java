@@ -149,6 +149,7 @@ public class RecorderFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
+		//button for discarding current recording and resetting the recorder
 		discardButton = new JButton("DISCARD");
 		discardButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
