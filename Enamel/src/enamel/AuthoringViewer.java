@@ -91,12 +91,12 @@ public class AuthoringViewer {
 			String endingPrompt) {
 		this.numButtons = numButtons;
 		if (initialPrompt == null || initialPrompt.equals("")) {
-			this.initialPrompt = "Good Bye";
+			this.initialPrompt = "Hello";
 		}
 		else {
 			this.initialPrompt = initialPrompt;
 		}
-		if (endingPrompt == null) {
+		if (endingPrompt == null || endingPrompt.equals("")) {
 			this.endingPrompt = "Good Bye";
 		}
 		else {
