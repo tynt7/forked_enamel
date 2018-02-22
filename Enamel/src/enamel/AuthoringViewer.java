@@ -83,7 +83,7 @@ public class AuthoringViewer {
 	private String endingPrompt;
 	private String path;
 	private boolean promptEdit = false;
-	private boolean buttEdit = false;
+	private boolean buttonEdit = false;
 	// non zero
 
 
@@ -93,6 +93,7 @@ public class AuthoringViewer {
 	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt,
 			String endingPrompt) {
 		this.numButtons = numButtons;
+		
 		if (initialPrompt == null || initialPrompt.equals("")) {
 			this.initialPrompt = "Hello";
 		} else {
@@ -147,7 +148,6 @@ public class AuthoringViewer {
 			public void focusLost(FocusEvent e) {
 				cards.get(currCard).setName(txtCardName.getText());
 				setCardList();
-				// TODO Auto-generated method stub
 			}
 		});
 		txtCardName.setToolTipText("Enter a name for the card");
@@ -168,7 +168,6 @@ public class AuthoringViewer {
 			@Override
 			public void focusLost(FocusEvent e) {
 				updatePrompt();
-				// TODO Auto-generated method stub
 			}
 		});
 		JScrollPane promptPane = new JScrollPane(dtrpnEnterAPrompt);
@@ -395,12 +394,12 @@ public class AuthoringViewer {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (buttEdit == false) {
-					buttonEditor.setText("");
-				}
-				if (promptEdit == false) {
-					dtrpnEnterAPrompt.setText("");
-				}
+//				if (buttEdit == false) {
+//					buttonEditor.setText("");
+//				}
+//				if (promptEdit == false) {
+//					dtrpnEnterAPrompt.setText("");
+//				}
 				JButton save = new JButton();
 				JFileChooser fc = new JFileChooser();
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
@@ -465,13 +464,12 @@ public class AuthoringViewer {
 			@Override
 			public void focusGained(FocusEvent e) {
 				buttonEditor.setText(cards.get(currCard).getButtonList().get(currButton).getText());
-				buttEdit = true;
+				buttonEdit = true;
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
 				updateButton();
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -679,6 +677,7 @@ public class AuthoringViewer {
 		}
 	}
 	public void setPromptText(String text) {
+		promptEdit = true;
 		dtrpnEnterAPrompt.setText(text);
 	}
 
@@ -694,6 +693,7 @@ public class AuthoringViewer {
 	}
 
 	public void setButtonText(String text) {
+		buttonEdit = true;
 		buttonEditor.setText(text);
 	}
 

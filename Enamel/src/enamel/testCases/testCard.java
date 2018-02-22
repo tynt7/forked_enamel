@@ -1,10 +1,6 @@
 package enamel.testCases;
 
 import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import org.junit.*;
@@ -15,11 +11,7 @@ import enamel.DataButton;
 
 public class testCard {
 	
-	FileWriter write;
 	
-	@Before
-	public void setUp() {
-	}
 	
 	@Test
 	public void testCtorAndGets() {

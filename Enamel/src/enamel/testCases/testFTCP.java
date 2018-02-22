@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.junit.*;
 
@@ -26,6 +25,14 @@ public class testFTCP {
 		currPath = new java.io.File("./FactoryScenarios/test.txt").getCanonicalPath();
 	}
 
+	@Test
+	public void testCtor() {
+		FileToCardsParser f = new FileToCardsParser();
+		assertEquals(new ArrayList<Card>(), f.getCards());
+		assertEquals("", f.getInitial());
+		assertEquals("", f.getEnding());
+	}
+	
 	@Test
 	public void testCheckNumLines() throws IOException {
 		FileWriter write = new FileWriter(currPath, false);
