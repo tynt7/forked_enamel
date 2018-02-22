@@ -56,7 +56,7 @@ public class ScenarioForm {
 	private int numButtons = 1; // assuming 1 selected by default. i.e. always
 	private JTextField titleTextField;
 	private JTextField audioFileTextField;
-	// non zero 
+	// non zero
 
 	/**
 	 * Launch the application.

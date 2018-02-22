@@ -59,7 +59,7 @@ public class RecorderFrame {
 	private String path;
 	private JButton discardButton;
 
-	/**
+	/** 
 	 * Launch the application.
 	 */
 	public static void displayRecorder() {
@@ -193,9 +193,9 @@ public class RecorderFrame {
 				// TODO Auto-generated method stub
 				// set isRecording boolean to true
 				isRecording = true;
-				//textField.setText("Redcording......");
 				recordNewButton.setEnabled(false);
 				textField.setText("Recording......");
+				recordNewButton.setEnabled(false);
 				stopRecordingButton.setEnabled(true);
 				discardButton.setEnabled(true);
 

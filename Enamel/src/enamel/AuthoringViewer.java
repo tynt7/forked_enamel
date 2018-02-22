@@ -82,7 +82,10 @@ public class AuthoringViewer {
 	private String initialPrompt;
 	private String endingPrompt;
 	private String path;
+	private boolean promptEdit = false;
+	private boolean buttEdit = false;
 	// non zero
+
 
 	/**
 	 * Create the application.
@@ -90,8 +93,17 @@ public class AuthoringViewer {
 	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt,
 			String endingPrompt) {
 		this.numButtons = numButtons;
-		this.initialPrompt = initialPrompt;
-		this.endingPrompt = endingPrompt;
+		if (initialPrompt == null || initialPrompt.equals("")) {
+			this.initialPrompt = "Hello";
+		} else {
+			this.initialPrompt = initialPrompt;
+		}
+		if (endingPrompt == null || endingPrompt.equals("")) {
+			this.endingPrompt = "Good Bye";
+		} else {
+			this.endingPrompt = endingPrompt;
+		}
+
 		this.numCells = numCells;
 		this.cards = new ArrayList<Card>(cards);
 		if (this.cards.get(0).getButtonList().isEmpty()) {
@@ -125,6 +137,19 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(lblOrder);
 
 		txtCardName = new JTextField();
+		txtCardName.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				//do nothing
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				cards.get(currCard).setName(txtCardName.getText());
+				setCardList();
+				// TODO Auto-generated method stub
+			}
+		});
 		txtCardName.setToolTipText("Enter a name for the card");
 		txtCardName.setText(cards.get(currCard).getName());
 		txtCardName.setBounds(6, 5, 130, 26);
@@ -136,11 +161,13 @@ public class AuthoringViewer {
 		dtrpnEnterAPrompt.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				dtrpnEnterAPrompt.setText("");
+				dtrpnEnterAPrompt.setText(cards.get(currCard).getText());
+				promptEdit = true;
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
+				updatePrompt();
 				// TODO Auto-generated method stub
 			}
 		});
@@ -174,6 +201,7 @@ public class AuthoringViewer {
 				public void actionPerformed(ActionEvent e) {
 					showButtonText(1);
 				}
+
 			});
 			button_1.setBounds(110, 20, 80, 30);
 			buttonPanel.add(button_1);
@@ -244,22 +272,22 @@ public class AuthoringViewer {
 		cellPanel.add(pOne);
 
 		pFour = new JRadioButton("");
-		pFour.setToolTipText("Pin Two");
+		pFour.setToolTipText("Pin Four");
 		pFour.setBounds(46, 6, 28, 23);
 		cellPanel.add(pFour);
 
 		pTwo = new JRadioButton("");
-		pTwo.setToolTipText("Pin  Three");
+		pTwo.setToolTipText("Pin  Two");
 		pTwo.setBounds(6, 41, 28, 23);
 		cellPanel.add(pTwo);
 
 		pFive = new JRadioButton("");
-		pFive.setToolTipText("Pin  Four");
+		pFive.setToolTipText("Pin  Five");
 		pFive.setBounds(46, 41, 28, 23);
 		cellPanel.add(pFive);
 
 		pThree = new JRadioButton("");
-		pThree.setToolTipText("Pin  Five");
+		pThree.setToolTipText("Pin  Three");
 		pThree.setBounds(6, 76, 28, 23);
 		cellPanel.add(pThree);
 
@@ -313,7 +341,6 @@ public class AuthoringViewer {
 						JOptionPane.showMessageDialog(null, "Please select a .wav file", "Alert",
 								JOptionPane.ERROR_MESSAGE);
 					}
-					
 
 				}
 			}
@@ -370,6 +397,12 @@ public class AuthoringViewer {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (buttEdit == false) {
+					buttonEditor.setText("");
+				}
+				if (promptEdit == false) {
+					dtrpnEnterAPrompt.setText("");
+				}
 				JButton save = new JButton();
 				JFileChooser fc = new JFileChooser();
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
@@ -380,6 +413,7 @@ public class AuthoringViewer {
 					path = fc.getSelectedFile().getPath();
 					updateButton();
 					updatePrompt();
+
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
 							endingPrompt);
 					a.createBody();
@@ -432,16 +466,18 @@ public class AuthoringViewer {
 		buttonEditor.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				buttonEditor.setText("");
+				buttonEditor.setText(cards.get(currCard).getButtonList().get(currButton).getText());
+				buttEdit = true;
 			}
 
 			@Override
 			public void focusLost(FocusEvent e) {
+				updateButton();
 				// TODO Auto-generated method stub
+
 			}
 		});
 
-		
 		JScrollPane buttonPane = new JScrollPane(buttonEditor);
 		buttonPane.setBounds(250, 400, 561, 113);
 		aViewFrame.getContentPane().add(buttonPane);
@@ -644,7 +680,6 @@ public class AuthoringViewer {
 			}
 		}
 	}
-
 	public void setPromptText(String text) {
 		dtrpnEnterAPrompt.setText(text);
 	}
@@ -733,6 +768,9 @@ public class AuthoringViewer {
 		currCard++;
 		currButton = 0;
 		currCell = 0;
+		if (cards.get(currCard).getButtonList().isEmpty()) {
+			cards.get(currCard).getButtonList().add(new DataButton(0));
+		}
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
 		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
