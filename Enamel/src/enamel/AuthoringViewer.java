@@ -242,6 +242,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(lblAudio);
 
 		txtAudiofilenamemp = new JTextField();
+		txtAudiofilenamemp.setToolTipText("Audio File Name");
 		txtAudiofilenamemp.setBounds(250, 220, 209, 26);
 		aViewFrame.getContentPane().add(txtAudiofilenamemp);
 		txtAudiofilenamemp.setColumns(10);
@@ -257,25 +258,21 @@ public class AuthoringViewer {
 		cellPanel.add(pOne);
 
 		pFour = new JRadioButton("");
-		pFour.setToolTipText("Pin Two");
 		pFour.setToolTipText("Pin Four");
 		pFour.setBounds(46, 6, 28, 23);
 		cellPanel.add(pFour);
 
 		pTwo = new JRadioButton("");
-		pTwo.setToolTipText("Pin  Three");
 		pTwo.setToolTipText("Pin  Two");
 		pTwo.setBounds(6, 41, 28, 23);
 		cellPanel.add(pTwo);
 
 		pFive = new JRadioButton("");
-		pFive.setToolTipText("Pin  Four");
 		pFive.setToolTipText("Pin  Five");
 		pFive.setBounds(46, 41, 28, 23);
 		cellPanel.add(pFive);
 
 		pThree = new JRadioButton("");
-		pThree.setToolTipText("Pin  Five");
 		pThree.setToolTipText("Pin  Three");
 		pThree.setBounds(6, 76, 28, 23);
 		cellPanel.add(pThree);
