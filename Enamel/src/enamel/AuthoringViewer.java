@@ -137,6 +137,19 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(lblOrder);
 
 		txtCardName = new JTextField();
+		txtCardName.addFocusListener(new FocusListener() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				//do nothing
+			}
+
+			@Override
+			public void focusLost(FocusEvent e) {
+				cards.get(currCard).setName(txtCardName.getText());
+				setCardList();
+				// TODO Auto-generated method stub
+			}
+		});
 		txtCardName.setToolTipText("Enter a name for the card");
 		txtCardName.setText(cards.get(currCard).getName());
 		txtCardName.setBounds(6, 5, 130, 26);
