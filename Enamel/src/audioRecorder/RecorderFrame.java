@@ -102,7 +102,7 @@ public class RecorderFrame {
 		txtrPressrecordTo.setEditable(false);
 		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		txtrPressrecordTo.setBounds(10, 5, 747, 132);
-		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording \r\n\t- (feature coming soon....)");
+		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording ");
 		contentPane.add(txtrPressrecordTo);
 
 		// Button for starting a new recording
