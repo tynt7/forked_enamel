@@ -1,7 +1,6 @@
 package enamel.testCases;
 
 import static org.junit.Assert.*;
-
 import org.junit.*;
 
 import enamel.ScenarioForm;

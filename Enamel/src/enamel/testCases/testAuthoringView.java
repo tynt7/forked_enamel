@@ -27,7 +27,7 @@ public class testAuthoringView {
 	}
 
 	/*
-	 * Test if the GUI is created 
+	 * Test if the GUI is created
 	 */
 	@Test
 	public void test() {
