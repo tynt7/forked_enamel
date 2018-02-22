@@ -326,8 +326,6 @@ public class AuthoringViewer {
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 				if (fc.showOpenDialog(btnAudio) == JFileChooser.APPROVE_OPTION) {
 					String temp = fc.getSelectedFile().getName().toString();
-					setButtonText(buttonEditor.getText() + "\n/~sound:"+ (temp));
-					//cards.get(currCard).setSound(temp);
 
 					if (temp.length() > 4) {
 						if (!temp.toLowerCase().endsWith(".wav")) {
