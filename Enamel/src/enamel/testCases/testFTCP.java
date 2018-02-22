@@ -270,7 +270,7 @@ public class testFTCP {
 		assertEquals(false, cards.get(0).getCells().get(0).getPinState(4));
 		assertEquals(false, cards.get(0).getCells().get(0).getPinState(5));
 		assertEquals(false, cards.get(0).getCells().get(0).getPinState(6));
-		assertEquals(false, cards.get(0).getCells().get(0).getPinState(7));// testing card 0 (Scenario_2.txt)
+		assertEquals(false, cards.get(0).getCells().get(0).getPinState(7));// testing card 0 (Scenario_1.txt)
 
 		assertEquals("These are pins 1 and 2, the top two pins on the left side. \n" + "Press button 1 to continue.",
 				cards.get(2).getText());
@@ -283,7 +283,7 @@ public class testFTCP {
 		assertEquals(false, cards.get(2).getCells().get(0).getPinState(4));
 		assertEquals(false, cards.get(2).getCells().get(0).getPinState(5));
 		assertEquals(false, cards.get(2).getCells().get(0).getPinState(6));
-		assertEquals(false, cards.get(2).getCells().get(0).getPinState(7)); // testing card 2 (Scenario_2.txt)
+		assertEquals(false, cards.get(2).getCells().get(0).getPinState(7)); // testing card 2 (Scenario_1.txt)
 	}
 
 }
