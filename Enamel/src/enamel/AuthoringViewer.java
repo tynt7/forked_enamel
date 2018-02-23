@@ -60,6 +60,7 @@ public class AuthoringViewer {
 	private JFrame aViewFrame;
 	private int numCells = 1;
 	private int numButtons = 1;
+	private JLabel lblCurrCell;
 	private JTextField txtCardName;
 	private JTextField txtAudiofilenamemp;
 	private JTextField textField;
@@ -127,7 +128,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		aViewFrame.getContentPane().setLayout(null);
 
-		JLabel lblCurrCell = new JLabel("1/" + this.numCells);
+		lblCurrCell = new JLabel("1/" + this.numCells);
 		lblCurrCell.setBounds(148, 10, 55, 16);
 		aViewFrame.getContentPane().add(lblCurrCell);
 
@@ -804,6 +805,7 @@ public class AuthoringViewer {
 		if (cards.get(currCard).getButtonList().isEmpty()) {
 			cards.get(currCard).getButtonList().add(new DataButton(0));
 		}
+		lblCurrCell.setText("1/" + this.numCells);
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
 		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
@@ -819,6 +821,7 @@ public class AuthoringViewer {
 		currCard--;
 		currButton = 0;
 		currCell = 0;
+		lblCurrCell.setText("1/" + this.numCells);
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
 		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
