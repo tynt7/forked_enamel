@@ -59,6 +59,7 @@ public class RecorderFrame {
 
 	private String path;
 	private JButton discardButton;
+	private final JButton btnPlay = new JButton("PLAY");
 
 	/** 
 	 * Launch the application.
@@ -103,7 +104,7 @@ public class RecorderFrame {
 		txtrPressrecordTo.setEditable(false);
 		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		txtrPressrecordTo.setBounds(10, 5, 747, 132);
-		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording ");
+		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording \r\n -     You may play the recorded audio after you save it (you can not play a previously saved audio file yet)");
 		contentPane.add(txtrPressrecordTo);
 
 		// Button for starting a new recording
@@ -115,7 +116,7 @@ public class RecorderFrame {
 				recordAudio();
 			}
 		});
-		recordNewButton.setBounds(26, 148, 150, 29);
+		recordNewButton.setBounds(20, 148, 125, 29);
 		contentPane.add(recordNewButton);
 
 		// Button for stopping and then saving the current recoding
@@ -131,13 +132,13 @@ public class RecorderFrame {
 				stopRecording();
 			}
 		});
-		stopRecordingButton.setBounds(190, 147, 142, 29);
+		stopRecordingButton.setBounds(155, 148, 125, 29);
 		contentPane.add(stopRecordingButton);
 
 		// Label for record timer
 		JLabel lblTimer = new JLabel("TIMER:");
 		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTimer.setBounds(342, 148, 70, 29);
+		lblTimer.setBounds(290, 148, 54, 29);
 		contentPane.add(lblTimer);
 
 		// textField to display the record time
@@ -146,7 +147,7 @@ public class RecorderFrame {
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField.setText("00.00.00");
 		textField.setEditable(false);
-		textField.setBounds(417, 148, 150, 29);
+		textField.setBounds(343, 148, 125, 29);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -161,8 +162,21 @@ public class RecorderFrame {
 		discardButton.setForeground(new Color(220, 20, 60));
 		discardButton.setEnabled(false);
 		discardButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		discardButton.setBounds(587, 148, 150, 29);
+		discardButton.setBounds(478, 148, 125, 29);
 		contentPane.add(discardButton);
+		
+		//button to play the recorded audio
+		btnPlay.setBounds(619, 148, 125, 29);
+		contentPane.add(btnPlay);
+		btnPlay.setForeground(new Color(0, 100, 0));
+		btnPlay.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnPlay.setEnabled(false);
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				playSound(path);
+			}
+		});
+		
 		if (textField.getText() == "00.00.00") {
 			recorderFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
@@ -275,6 +289,7 @@ public class RecorderFrame {
 		textField.setText("00.00.00");
 		recordNewButton.setEnabled(true);
 		stopRecordingButton.setEnabled(false);
+		btnPlay.setEnabled(false);
 		try {
 			stop();
 		} catch (IOException ex) {
@@ -334,7 +349,7 @@ public class RecorderFrame {
 			try {
 				save(wavFile);
 				JOptionPane.showMessageDialog(null, "Saved recorded sound to:\n" + path);
-
+				btnPlay.setEnabled(true);
 			} catch (IOException ex) {
 				JOptionPane.showMessageDialog(null, "Error", "Error saving to sound file!", JOptionPane.ERROR_MESSAGE);
 				ex.printStackTrace();
