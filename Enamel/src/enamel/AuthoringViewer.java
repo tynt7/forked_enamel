@@ -332,6 +332,10 @@ public class AuthoringViewer {
 							JOptionPane.showMessageDialog(null, "Please select a .wav file", "Alert",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
+							if (!buttonEdit) {
+								buttonEditor.setText("");
+								buttonEdit = true;
+							}
 							setButtonText(buttonEditor.getText() + "\n/~sound:" + (temp));
 							updateButton();
 							cards.get(currCard).getButtonList().get(currButton).setAudio(temp);
