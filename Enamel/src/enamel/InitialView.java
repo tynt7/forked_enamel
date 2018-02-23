@@ -59,7 +59,7 @@ public class InitialView {
 		frmAuthoringApp = new JFrame();
 		frmAuthoringApp.setTitle("Authoring App");
 		frmAuthoringApp.setBackground(new Color(240, 240, 240));
-		frmAuthoringApp.getContentPane().setBackground(Color.WHITE);
+		frmAuthoringApp.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
 		frmAuthoringApp.setBounds(150, 150, 275, 375);
 		frmAuthoringApp.setResizable(false); // fix window dimensions
 
@@ -81,21 +81,21 @@ public class InitialView {
 			}
 		});
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		newButton.setBackground(Color.WHITE);
-		newButton.setContentAreaFilled(false);
-		newButton.setOpaque(true);
+		//newButton.setBackground(Color.WHITE);
+		//newButton.setContentAreaFilled(false);
+		//newButton.setOpaque(true);
 
-		newButton.setForeground(Color.BLACK);
+		newButton.setForeground(new Color(0, 0, 205));
 		newButton.setToolTipText("Create New Scenario");
 		newButton.setBounds(85, 90, 85, 50);
 		frmAuthoringApp.getContentPane().add(newButton);
 
 		JButton editButton = new JButton("Edit");
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		editButton.setForeground(Color.BLACK);
-		editButton.setContentAreaFilled(false);
-		editButton.setOpaque(true);
-		editButton.setBackground(Color.WHITE);
+		editButton.setForeground(new Color(255, 140, 0));
+		//editButton.setContentAreaFilled(false);
+		//editButton.setOpaque(true);
+		//editButton.setBackground(Color.WHITE);
 		editButton.setToolTipText("Edit a Scenario");
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -128,10 +128,10 @@ public class InitialView {
 
 		JButton testButton = new JButton("Test");
 		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		testButton.setBackground(Color.WHITE);
-		testButton.setContentAreaFilled(false);
-		testButton.setOpaque(true);
-		testButton.setForeground(Color.BLACK);
+		//testButton.setBackground(Color.WHITE);
+		//testButton.setContentAreaFilled(false);
+		//testButton.setOpaque(true);
+		testButton.setForeground(new Color(0, 128, 0));
 		testButton.setToolTipText("Test a Scenario");
 		testButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -185,10 +185,10 @@ public class InitialView {
 
 		JButton exitButton = new JButton("Exit");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		exitButton.setForeground(Color.BLACK);
-		exitButton.setContentAreaFilled(false);
-		exitButton.setOpaque(true);
-		exitButton.setBackground(Color.WHITE);
+		exitButton.setForeground(new Color(255, 0, 0));
+		//exitButton.setContentAreaFilled(false);
+		//exitButton.setOpaque(true);
+		//exitButton.setBackground(Color.WHITE);
 		exitButton.setToolTipText("Exit the App");
 		exitButton.setBounds(85, 270, 85, 50);
 		frmAuthoringApp.getContentPane().add(exitButton);
