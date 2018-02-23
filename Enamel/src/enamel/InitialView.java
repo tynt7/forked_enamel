@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import enamel.ToyAuthoring;
@@ -21,6 +22,7 @@ import java.awt.Font;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter;
 
 @SuppressWarnings({ "unused", "static-access" })
 public class InitialView {
@@ -106,6 +108,24 @@ public class InitialView {
 						JButton open = new JButton();
 
 						JFileChooser fc = new JFileChooser();
+						FileFilter txtFilter = new FileFilter() {
+							@Override
+							public String getDescription() {
+								return "Text file (*.TXT)";
+							}
+
+							@Override
+							public boolean accept(File file) {
+								if (file.isDirectory()) {
+									return true;
+								} else {
+									return file.getName().toLowerCase().endsWith(".txt");
+								}
+							}
+						};
+
+						fc.setFileFilter(txtFilter);
+						fc.setAcceptAllFileFilterUsed(false);
 						fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
 						fc.setDialogTitle("Please Choose File to Open");
 						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);

@@ -92,6 +92,7 @@ public class RecorderFrame {
 		recorderFrame = new JFrame();
 		recorderFrame.setResizable(false);
 		recorderFrame.setTitle("Audio Recorder");
+		recorderFrame.getAccessibleContext().setAccessibleDescription("Use this tool to record and save an audio file");
 		recorderFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		recorderFrame.setBounds(100, 100, 773, 224);
 		contentPane = new JPanel();
@@ -101,6 +102,7 @@ public class RecorderFrame {
 
 		// JTextArea for instructions
 		txtrPressrecordTo = new JTextArea();
+		txtrPressrecordTo.getAccessibleContext().setAccessibleDescription("User guide");
 		txtrPressrecordTo.setEditable(false);
 		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		txtrPressrecordTo.setBounds(10, 5, 747, 132);
@@ -109,6 +111,7 @@ public class RecorderFrame {
 
 		// Button for starting a new recording
 		recordNewButton = new JButton("RECORD NEW");
+		recordNewButton.getAccessibleContext().setAccessibleDescription("Click to record a new audio");
 		recordNewButton.setForeground(Color.BLUE);
 		recordNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		recordNewButton.addActionListener(new ActionListener() {
@@ -121,6 +124,7 @@ public class RecorderFrame {
 
 		// Button for stopping and then saving the current recoding
 		stopRecordingButton = new JButton("STOP & SAVE");
+		stopRecordingButton.getAccessibleContext().setAccessibleDescription("Click to stop recording and save audio file");
 		stopRecordingButton.setEnabled(false);
 		stopRecordingButton.setForeground(Color.RED);
 		stopRecordingButton.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -137,12 +141,14 @@ public class RecorderFrame {
 
 		// Label for record timer
 		JLabel lblTimer = new JLabel("TIMER:");
+		lblTimer.getAccessibleContext().setAccessibleDescription("Indicates whether the recorder is recording or not");
 		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblTimer.setBounds(290, 148, 54, 29);
 		contentPane.add(lblTimer);
 
 		// textField to display the record time
 		textField = new JTextField();
+		textField.getAccessibleContext().setAccessibleDescription("Recording or not");
 		textField.setForeground(Color.BLUE);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField.setText("00.00.00");
@@ -153,6 +159,7 @@ public class RecorderFrame {
 		
 		//button for discarding current recording and resetting the recorder
 		discardButton = new JButton("DISCARD");
+		discardButton.getAccessibleContext().setAccessibleDescription("Click to Discard a Recording");
 		discardButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				resetRecorder();
@@ -166,6 +173,7 @@ public class RecorderFrame {
 		contentPane.add(discardButton);
 		
 		//button to play the recorded audio
+		btnPlay.getAccessibleContext().setAccessibleDescription("Click to play recently saved audio");
 		btnPlay.setBounds(619, 148, 125, 29);
 		contentPane.add(btnPlay);
 		btnPlay.setForeground(new Color(0, 100, 0));

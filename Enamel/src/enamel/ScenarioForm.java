@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileFilter;
 
 import audioRecorder.RecorderFrame;
 
@@ -26,6 +27,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
@@ -180,6 +182,24 @@ public class ScenarioForm {
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
+				FileFilter wavFilter = new FileFilter() {
+					@Override
+					public String getDescription() {
+						return "Sound file (*.WAV)";
+					}
+
+					@Override
+					public boolean accept(File file) {
+						if (file.isDirectory()) {
+							return true;
+						} else {
+							return file.getName().toLowerCase().endsWith(".wav");
+						}
+					}
+				};
+
+				fc.setFileFilter(wavFilter);
+				fc.setAcceptAllFileFilterUsed(false);
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios/AudioFiles"));
 				fc.setDialogTitle("Please Choose File to Open");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -196,7 +216,7 @@ public class ScenarioForm {
 		lblS.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		JButton btnRecordAudio = new JButton("Record Audio");
-		btnRecordAudio.getAccessibleContext().setAccessibleDescription("Allows recording of audio");
+		btnRecordAudio.getAccessibleContext().setAccessibleDescription("Click to record new audio");
 		btnRecordAudio.setBounds(321, 210, 111, 21);
 		sCreatorFrame.getContentPane().add(btnRecordAudio);
 		btnRecordAudio.setFont(new Font("Tahoma", Font.BOLD, 11));

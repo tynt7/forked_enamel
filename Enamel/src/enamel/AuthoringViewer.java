@@ -320,9 +320,28 @@ public class AuthoringViewer {
 		// aViewFrame.getContentPane().add(lblLetter);
 
 		JButton btnAudio = new JButton("Audio");
+		btnAudio.getAccessibleContext().setAccessibleDescription("Click to insert an audio action to the chosen button response");
 		btnAudio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
+				FileFilter wavFilter = new FileFilter() {
+					@Override
+					public String getDescription() {
+						return "Sound file (*.WAV)";
+					}
+
+					@Override
+					public boolean accept(File file) {
+						if (file.isDirectory()) {
+							return true;
+						} else {
+							return file.getName().toLowerCase().endsWith(".wav");
+						}
+					}
+				};
+
+				fc.setFileFilter(wavFilter);
+				fc.setAcceptAllFileFilterUsed(false);
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios/AudioFiles"));
 				fc.setDialogTitle("Please Choose File to Open");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -355,6 +374,7 @@ public class AuthoringViewer {
 
 		// Change the state of pin
 		JButton btnRaisePins = new JButton("Raise Pins");
+		btnRaisePins.getAccessibleContext().setAccessibleDescription("Click to insert an action to selected button response so that braille cell pins are raised");
 		btnRaisePins.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String inputValue = JOptionPane.showInputDialog("Please input which pins to raise");
@@ -389,6 +409,7 @@ public class AuthoringViewer {
 
 		// exit the editor window
 		JButton btnExit = new JButton("Exit");
+		btnExit.getAccessibleContext().setAccessibleDescription("Click to exit Authoring View Editor");
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
@@ -405,6 +426,7 @@ public class AuthoringViewer {
 
 		// save the current card and write it to a file
 		JButton btnSave = new JButton("Save");
+		btnSave.getAccessibleContext().setAccessibleDescription("Click to save your work");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (buttonEdit == false) {
@@ -468,6 +490,7 @@ public class AuthoringViewer {
 
 		// test running the scenario currently being worked on
 		JButton btnTest = new JButton("Test");
+		btnTest.getAccessibleContext().setAccessibleDescription("Click to Test this scenario");
 		btnTest.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (path.equals("")) {
@@ -498,6 +521,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnTest);
 
 		buttonEditor = new JEditorPane();
+		buttonEditor.getAccessibleContext().setAccessibleDescription("Enter a response for this button");
 		buttonEditor.setText("Enter a response for this button");
 		buttonEditor.addFocusListener(new FocusListener() {
 			@Override
@@ -514,10 +538,12 @@ public class AuthoringViewer {
 		});
 
 		JScrollPane buttonPane = new JScrollPane(buttonEditor);
+		buttonPane.getAccessibleContext().setAccessibleDescription("Use to scroll the view");
 		buttonPane.setBounds(250, 400, 561, 113);
 		aViewFrame.getContentPane().add(buttonPane);
 
 		JButton button_6 = new JButton("<");
+		button_6.getAccessibleContext().setAccessibleDescription("Go to previous cell to change raised pins");
 		button_6.setToolTipText("Left Cell Button");
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -536,6 +562,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(button_6);
 
 		JButton button_7 = new JButton(">");
+		button_7.getAccessibleContext().setAccessibleDescription("Go to Next cell to change raised pins");
 		button_7.setToolTipText("Right Cell Button");
 		button_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -566,6 +593,7 @@ public class AuthoringViewer {
 
 		listModel = new DefaultListModel();
 		list = new JList(listModel);
+		list.getAccessibleContext().setAccessibleDescription("Card Order List");
 		list.setToolTipText("Card Order List");
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL);
@@ -576,6 +604,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(listScroller);
 
 		JButton btnR = new JButton("Record");
+		btnR.getAccessibleContext().setAccessibleDescription("Click to record new audio");
 		btnR.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnR.setToolTipText("Record an Audio FIle");
 		btnR.addActionListener(new ActionListener() {
@@ -588,11 +617,30 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnR);
 
 		JButton btnI = new JButton("Insert");
+		btnI.getAccessibleContext().setAccessibleDescription("Click to insert an audio file");
 		btnI.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnI.setToolTipText("Import an Audio File");
 		btnI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
+				FileFilter wavFilter = new FileFilter() {
+					@Override
+					public String getDescription() {
+						return "Sound file (*.WAV)";
+					}
+
+					@Override
+					public boolean accept(File file) {
+						if (file.isDirectory()) {
+							return true;
+						} else {
+							return file.getName().toLowerCase().endsWith(".wav");
+						}
+					}
+				};
+
+				fc.setFileFilter(wavFilter);
+				fc.setAcceptAllFileFilterUsed(false);
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios/AudioFiles"));
 				fc.setDialogTitle("Please Choose File to Open");
 				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
@@ -607,6 +655,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnI);
 
 		JButton btnD = new JButton("Delete");
+		btnD.getAccessibleContext().setAccessibleDescription("Click to delete inserted audio");
 		btnD.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnD.setToolTipText("Delete the Selected Audio File");
 		btnD.addActionListener(new ActionListener() {
@@ -619,6 +668,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnD);
 
 		JButton btnCardUp = new JButton("Card Up");
+		btnCardUp.getAccessibleContext().setAccessibleDescription("Press to move selected card up in card list order");
 		btnCardUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selected = list.getSelectedIndex();
@@ -643,6 +693,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnCardUp);
 
 		JButton btnCardDown = new JButton("Card Down");
+		btnCardDown.getAccessibleContext().setAccessibleDescription("Press to move selected card down in card list order");
 		btnCardDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selected = list.getSelectedIndex();
@@ -666,6 +717,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnCardDown);
 
 		JButton btnNextCard = new JButton("Next Card");
+		btnNextCard.getAccessibleContext().setAccessibleDescription("Click to add a new card to the list. By doing so your view will change to next card");
 		btnNextCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cards.size() > currCard + 1) {
@@ -684,6 +736,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnNextCard);
 
 		JButton btnPreviousCard = new JButton("Previous Card");
+		btnPreviousCard.getAccessibleContext().setAccessibleDescription("Click to go back to the previus card u edited. By doing so your view will change to next card");
 		btnPreviousCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (currCard == 0) {
@@ -698,6 +751,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnPreviousCard);
 		
 		JLabel lblCell = new JLabel("Cell:");
+		lblCell.getAccessibleContext().setAccessibleDescription("Indicates Cell number of the cell being displayed");
 		lblCell.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblCell.setBounds(70, 189, 31, 14);
 		aViewFrame.getContentPane().add(lblCell);
@@ -705,6 +759,7 @@ public class AuthoringViewer {
 		aViewFrame.setResizable(false);
 		aViewFrame.setBackground(new Color(255, 255, 255));
 		aViewFrame.setTitle("AuthoringApp view");
+		aViewFrame.getAccessibleContext().setAccessibleDescription("Authoring App Editor");
 		aViewFrame.setBounds(100, 100, 1000, 612);
 		aViewFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		aViewFrame.addWindowListener(new confirmClose());
