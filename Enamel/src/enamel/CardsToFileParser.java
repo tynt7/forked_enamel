@@ -109,7 +109,7 @@ public class CardsToFileParser {
 //			}
 			String[] arr = buttons.get(i).getText().split("\n");
 			for (int j = 0; j < arr.length; j++) {
-				if ( (arr[j].length() == 20) && (arr[j].substring(0, 9).equals("/Pins on ")) ) {
+				if ( arr[j].length() == 20 && arr[j].substring(0, 9).equals("/Pins on ") ) {
 					boolean checkNumber = true;
 					for (int k = 0; k < arr[j].substring(12).length(); k++) {
 						System.out.println(i);

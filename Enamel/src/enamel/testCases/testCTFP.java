@@ -66,6 +66,7 @@ public class testCTFP {
 		assertEquals(result, returned); // Test basic button
 
 		b1.setAudio("correct.wav");
+		b1.setText("/~sound:correct.wav\nhello");
 		returned = cTFP.writeCard(test);
 		System.out.println(returned);
 		result = "/~disp-cell-clear:0";
@@ -119,7 +120,6 @@ public class testCTFP {
 		result += "\n/~skip-button:" + 1 + " TWOO";
 		result += "\n/~user-input";
 		result += "\n/~ONEE";
-		result += "\n/~sound:correct.wav";
 		result += "\nhello";
 		result += "\n/~disp-cell-clear:0";
 		result += "\n/~disp-cell-pins:0 10101010";
@@ -142,7 +142,6 @@ public class testCTFP {
 		result += "\n/~skip-button:" + 1 + " TWOO";
 		result += "\n/~user-input";
 		result += "\n/~ONEE";
-		result += "\n/~sound:correct.wav";
 		result += "\nhello";
 		result += "\n/~skip:NEXTT";
 		result += "\n/~TWOO";
