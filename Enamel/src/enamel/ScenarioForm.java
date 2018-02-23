@@ -111,7 +111,7 @@ public class ScenarioForm {
 		// exit
 
 		JLabel lblNewLabel = new JLabel("    Create a NEW Scenario");
-		lblNewLabel.setBounds(117, 21, 180, 27);
+		lblNewLabel.setBounds(117, 21, 226, 27);
 		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
 		sCreatorFrame.getContentPane().add(lblNewLabel);
 
