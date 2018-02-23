@@ -118,6 +118,7 @@ public class AuthoringViewer {
 		this.currButton = 0;
 		this.currCell = 0;
 		this.currCard = 0;
+		
 	}
 
 	/**

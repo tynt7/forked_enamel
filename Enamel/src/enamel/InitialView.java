@@ -74,6 +74,7 @@ public class InitialView {
 		frmAuthoringApp.getContentPane().add(lblNewLabel);
 
 		JButton newButton = new JButton("New");
+		newButton.getAccessibleContext().setAccessibleDescription("Creates a new file");
 		newButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ScenarioForm sf = new ScenarioForm();
@@ -91,6 +92,7 @@ public class InitialView {
 		frmAuthoringApp.getContentPane().add(newButton);
 
 		JButton editButton = new JButton("Edit");
+		editButton.getAccessibleContext().setAccessibleDescription("Loads and allows you to edit a file");
 		editButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		editButton.setForeground(new Color(255, 140, 0));
 		//editButton.setContentAreaFilled(false);
@@ -128,6 +130,7 @@ public class InitialView {
 		frmAuthoringApp.getContentPane().add(editButton);
 
 		JButton testButton = new JButton("Test");
+		testButton.getAccessibleContext().setAccessibleDescription("Tests a file");
 		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		//testButton.setBackground(Color.WHITE);
 		//testButton.setContentAreaFilled(false);
@@ -185,6 +188,7 @@ public class InitialView {
 		frmAuthoringApp.getContentPane().add(testButton);
 
 		JButton exitButton = new JButton("Exit");
+		exitButton.getAccessibleContext().setAccessibleDescription("Closes the application");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		exitButton.setForeground(new Color(255, 0, 0));
 		//exitButton.setContentAreaFilled(false);

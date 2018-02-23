@@ -47,7 +47,7 @@ import javax.swing.JTextPane;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 
-@SuppressWarnings({"unused", "rawtypes"})
+@SuppressWarnings({ "unused", "rawtypes" })
 public class ScenarioForm {
 
 	private JFrame sCreatorFrame;
@@ -74,7 +74,7 @@ public class ScenarioForm {
 		});
 	}
 
-	/** 
+	/**
 	 * Create the application.
 	 */
 	public ScenarioForm() {
@@ -94,82 +94,88 @@ public class ScenarioForm {
 		sCreatorFrame.setBounds(100, 100, 467, 412);
 		sCreatorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		sCreatorFrame.addWindowListener(new confirmClose());
-				sCreatorFrame.getContentPane().setLayout(null);
-				// exit
+		sCreatorFrame.getContentPane().setLayout(null);
+		// exit
 
-				JLabel lblNewLabel = new JLabel("    Create a NEW Scenario");
-				lblNewLabel.setBounds(117, 21, 180, 27);
-				lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
-				sCreatorFrame.getContentPane().add(lblNewLabel);
-		
-				JLabel lblNumberOfCells = new JLabel("Number of Cells");
-				lblNumberOfCells.setFont(new Font("Tahoma", Font.BOLD, 12));
-				lblNumberOfCells.setBounds(33, 77, 102, 16);
-				sCreatorFrame.getContentPane().add(lblNumberOfCells);
-				
-						JComboBox comboCellBox = new JComboBox();
-						comboCellBox.setFont(new Font("Tahoma", Font.BOLD, 11));
-						comboCellBox.setBounds(224, 76, 64, 21);
-						comboCellBox
-								.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-						sCreatorFrame.getContentPane().add(comboCellBox);
-						
-						comboCellBox.addItemListener(new ItemListener() {
-							public void itemStateChanged(ItemEvent itemEvent) {
-								int state = itemEvent.getStateChange();
-								ItemSelectable is = itemEvent.getItemSelectable();
-								numButtons = Integer.parseInt(selectedString(is).toString());
-								System.out.println("Selected: " + selectedString(is));
-							}
-						});
-				JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
-				lblNumberOfButtons.setFont(new Font("Tahoma", Font.BOLD, 12));
-				lblNumberOfButtons.setBounds(33, 109, 119, 16);
-				sCreatorFrame.getContentPane().add(lblNumberOfButtons);
-						lblNumberOfCells.setLabelFor(comboCellBox);
-						JComboBox comboButtonBox = new JComboBox();
-						comboButtonBox.setFont(new Font("Tahoma", Font.BOLD, 11));
-						comboButtonBox.setBounds(224, 108, 64, 21);
-						comboButtonBox.setToolTipText("Number of buttons");
-						comboButtonBox.setBackground(new Color(238, 238, 238));
-						
-								comboButtonBox
-										.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
-								sCreatorFrame.getContentPane().add(comboButtonBox);
-								
-										comboButtonBox.addItemListener(new ItemListener() {
-											public void itemStateChanged(ItemEvent itemEvent) {
-												int state = itemEvent.getStateChange();
-												ItemSelectable is = itemEvent.getItemSelectable();
-												numCells = Integer.parseInt(selectedString(is).toString());
-												System.out.println("Selected: " + selectedString(is));
-											}
-										});
-				
-						JLabel lblScenarioTitle = new JLabel("Scenario Title");
-						lblScenarioTitle.setFont(new Font("Tahoma", Font.BOLD, 12));
-						lblScenarioTitle.setBounds(33, 142, 85, 16);
-						sCreatorFrame.getContentPane().add(lblScenarioTitle);
-		
-				titleTextField = new JTextField();
-				titleTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-				titleTextField.setBounds(224, 140, 130, 21);
-				titleTextField.setToolTipText("Enter a Title for your Scenario");
-				sCreatorFrame.getContentPane().add(titleTextField);
-				titleTextField.setColumns(10);
-		
+		JLabel lblNewLabel = new JLabel("    Create a NEW Scenario");
+		lblNewLabel.setBounds(117, 21, 180, 27);
+		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		sCreatorFrame.getContentPane().add(lblNewLabel);
+
+		JLabel lblNumberOfCells = new JLabel("Number of Cells");
+		lblNumberOfCells.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNumberOfCells.setBounds(33, 77, 102, 16);
+		sCreatorFrame.getContentPane().add(lblNumberOfCells);
+
+		JComboBox comboCellBox = new JComboBox();
+		comboCellBox.getAccessibleContext().setAccessibleDescription("Select number of cells");
+		comboCellBox.setFont(new Font("Tahoma", Font.BOLD, 11));
+		comboCellBox.setBounds(224, 76, 64, 21);
+		comboCellBox
+				.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+		sCreatorFrame.getContentPane().add(comboCellBox);
+
+		comboCellBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent itemEvent) {
+				int state = itemEvent.getStateChange();
+				ItemSelectable is = itemEvent.getItemSelectable();
+				numButtons = Integer.parseInt(selectedString(is).toString());
+				System.out.println("Selected: " + selectedString(is));
+			}
+		});
+		JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
+		lblNumberOfButtons.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNumberOfButtons.setBounds(33, 109, 119, 16);
+		sCreatorFrame.getContentPane().add(lblNumberOfButtons);
+		lblNumberOfCells.setLabelFor(comboCellBox);
+		JComboBox comboButtonBox = new JComboBox();
+		comboButtonBox.getAccessibleContext().setAccessibleDescription("Select number of buttons");
+		comboButtonBox.setFont(new Font("Tahoma", Font.BOLD, 11));
+		comboButtonBox.setBounds(224, 108, 64, 21);
+		comboButtonBox.setBackground(new Color(238, 238, 238));
+
+		comboButtonBox.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
+		sCreatorFrame.getContentPane().add(comboButtonBox);
+
+		comboButtonBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent itemEvent) {
+				int state = itemEvent.getStateChange();
+				ItemSelectable is = itemEvent.getItemSelectable();
+				numCells = Integer.parseInt(selectedString(is).toString());
+				System.out.println("Selected: " + selectedString(is));
+			}
+		});
+
+		JLabel lblScenarioTitle = new JLabel("Scenario Title");
+		lblScenarioTitle.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblScenarioTitle.setBounds(33, 142, 85, 16);
+		sCreatorFrame.getContentPane().add(lblScenarioTitle);
+
+		titleTextField = new JTextField();
+		titleTextField.getAccessibleContext().setAccessibleDescription("Title of the scenario");
+		titleTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		titleTextField.setBounds(224, 140, 130, 21);
+		titleTextField.setToolTipText("Enter a Title for your Scenario");
+		sCreatorFrame.getContentPane().add(titleTextField);
+		titleTextField.setColumns(10);
+
 		JLabel lblAddAudioFile = new JLabel("Add Audio File (Optional)");
 		lblAddAudioFile.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblAddAudioFile.setBounds(33, 177, 160, 16);
 		sCreatorFrame.getContentPane().add(lblAddAudioFile);
-		
+
 		audioFileTextField = new JTextField();
+
+		audioFileTextField.setEditable(false);
+		audioFileTextField.getAccessibleContext().setAccessibleDescription("Selected audio file");
 		audioFileTextField.setBounds(224, 176, 119, 21);
 		audioFileTextField.setColumns(10);
 		sCreatorFrame.getContentPane().add(audioFileTextField);
 		
+
 		JButton btnBrowse = new JButton("Browse");
 		btnBrowse.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnBrowse.getAccessibleContext().setAccessibleDescription("Search for sound file");
 		btnBrowse.setBounds(350, 176, 82, 21);
 		btnBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -188,13 +194,14 @@ public class ScenarioForm {
 		lblS.setBounds(33, 212, 278, 19);
 		sCreatorFrame.getContentPane().add(lblS);
 		lblS.setFont(new Font("Tahoma", Font.BOLD, 12));
-		
+
 		JButton btnRecordAudio = new JButton("Record Audio");
+		btnRecordAudio.getAccessibleContext().setAccessibleDescription("Allows recording of audio");
 		btnRecordAudio.setBounds(321, 210, 111, 21);
 		sCreatorFrame.getContentPane().add(btnRecordAudio);
 		btnRecordAudio.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnRecordAudio.addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				RecorderFrame rf = new RecorderFrame();
@@ -203,6 +210,7 @@ public class ScenarioForm {
 		});
 		
 				JButton btnSaveAndCreate = new JButton("Save and Create Scenario File");
+				btnSaveAndCreate.getAccessibleContext().setAccessibleDescription("Saves information and opens editor");	
 				btnSaveAndCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
 				btnSaveAndCreate.setBounds(117, 303, 201, 29);
 				btnSaveAndCreate.addActionListener(new ActionListener() {
@@ -224,6 +232,7 @@ public class ScenarioForm {
 				sCreatorFrame.getContentPane().add(btnSaveAndCreate);
 		
 				JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
+				btnExitWithoutSaving.getAccessibleContext().setAccessibleDescription("Doesn't save and closes current window");
 				btnExitWithoutSaving.setFont(new Font("Tahoma", Font.BOLD, 11));
 				btnExitWithoutSaving.setBounds(117, 343, 201, 29);
 				/*btnExitWithoutSaving.setForeground(Color.BLACK);
@@ -240,12 +249,10 @@ public class ScenarioForm {
 						} else {
 							// do nothing
 							JOptionPane.getRootFrame().dispose();  
-
 						}
 					}
 				});
 				sCreatorFrame.getContentPane().add(btnExitWithoutSaving);
-
 	}
 
 	static private String selectedString(ItemSelectable is) {
@@ -255,12 +262,12 @@ public class ScenarioForm {
 
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
-			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE);
+			int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
+					"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 			if (option == JOptionPane.YES_OPTION) {
 				sCreatorFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			} else {
-				JOptionPane.getRootFrame().dispose();  
+				JOptionPane.getRootFrame().dispose();
 				// do nothing
 			}
 		}
