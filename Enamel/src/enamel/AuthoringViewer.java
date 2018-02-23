@@ -60,6 +60,7 @@ public class AuthoringViewer {
 	private JFrame aViewFrame;
 	private int numCells = 1;
 	private int numButtons = 1;
+	private JLabel lblCurrCell;
 	private JTextField txtCardName;
 	private JTextField txtAudiofilenamemp;
 	private JTextField textField;
@@ -127,7 +128,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().setBackground(new Color(217, 217, 217));//(Color.LIGHT_GRAY.brighter());
 		aViewFrame.getContentPane().setLayout(null);
 
-		JLabel lblCurrCell = new JLabel("1/" + this.numCells);
+		lblCurrCell = new JLabel("1/" + this.numCells);
 		lblCurrCell.setBounds(105, 189, 31, 16);
 		aViewFrame.getContentPane().add(lblCurrCell);
 
@@ -332,6 +333,10 @@ public class AuthoringViewer {
 							JOptionPane.showMessageDialog(null, "Please select a .wav file", "Alert",
 									JOptionPane.ERROR_MESSAGE);
 						} else {
+							if (!buttonEdit) {
+								buttonEditor.setText("");
+								buttonEdit = true;
+							}
 							setButtonText(buttonEditor.getText() + "\n/~sound:" + (temp));
 							updateButton();
 							cards.get(currCard).getButtonList().get(currButton).setAudio(temp);
@@ -805,6 +810,7 @@ public class AuthoringViewer {
 		if (cards.get(currCard).getButtonList().isEmpty()) {
 			cards.get(currCard).getButtonList().add(new DataButton(0));
 		}
+		lblCurrCell.setText("1/" + this.numCells);
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
 		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
@@ -820,6 +826,7 @@ public class AuthoringViewer {
 		currCard--;
 		currButton = 0;
 		currCell = 0;
+		lblCurrCell.setText("1/" + this.numCells);
 		this.setButtonText(cards.get(currCard).getButtonList().get(0).getText());
 		txtCardName.setText(cards.get(currCard).getName());
 		showPrompt();
