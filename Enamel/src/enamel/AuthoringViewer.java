@@ -575,7 +575,8 @@ public class AuthoringViewer {
 		listScroller.setAlignmentX(java.awt.Component.LEFT_ALIGNMENT);
 		aViewFrame.getContentPane().add(listScroller);
 
-		JButton btnR = new JButton("R");
+		JButton btnR = new JButton("Record");
+		btnR.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnR.setToolTipText("Record an Audio FIle");
 		btnR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -583,10 +584,11 @@ public class AuthoringViewer {
 				rf.displayRecorder();
 			}
 		});
-		btnR.setBounds(458, 224, 45, 20);
+		btnR.setBounds(463, 224, 82, 20);
 		aViewFrame.getContentPane().add(btnR);
 
-		JButton btnI = new JButton("I");
+		JButton btnI = new JButton("Insert");
+		btnI.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnI.setToolTipText("Import an Audio File");
 		btnI.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -601,10 +603,11 @@ public class AuthoringViewer {
 				}
 			}
 		});
-		btnI.setBounds(506, 224, 45, 20);
+		btnI.setBounds(554, 224, 82, 20);
 		aViewFrame.getContentPane().add(btnI);
 
-		JButton btnD = new JButton("D");
+		JButton btnD = new JButton("Delete");
+		btnD.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnD.setToolTipText("Delete the Selected Audio File");
 		btnD.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -612,7 +615,7 @@ public class AuthoringViewer {
 				txtAudiofilenamemp.setText(null);
 			}
 		});
-		btnD.setBounds(554, 224, 45, 20);
+		btnD.setBounds(645, 224, 82, 20);
 		aViewFrame.getContentPane().add(btnD);
 
 		JButton btnCardUp = new JButton("Card Up");
