@@ -51,5 +51,8 @@ public class testScenarioWriter {
 	@Test
 	public void test3() {
 		assertEquals(sw.getName(), "scenarioWriterTest.txt");
+		path = "hello.txt";
+		sw = new ScenarioWriter(path);
+		assertEquals(sw.getName(), "hello.txt");
 	}
 }

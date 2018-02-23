@@ -80,9 +80,6 @@ public class FileToCardsParser {
 			
 		}
 		String fileLine = fileScanner.nextLine();
-		if (fileLine == null) {
-			throw new IllegalArgumentException();
-		}
 		if (fileLine.length() >= 6 && fileLine.substring(0, 4).equals("Cell")) {
 			if (Character.isDigit(fileLine.charAt(5))) {
 				numCells = Character.getNumericValue(fileLine.charAt(5));
@@ -186,6 +183,7 @@ public class FileToCardsParser {
 					if (inButton) {
 						currButton.setAudio(scenarioFilePath + File.separator + "AudioFiles" + File.separator
 								+ fileLine.substring(8));
+						currButton.addText(fileLine);
 					} else {
 						currCard.setSound(scenarioFilePath + File.separator + "AudioFiles" + File.separator
 								+ fileLine.substring(8));
