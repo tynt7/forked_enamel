@@ -365,6 +365,7 @@ public class AuthoringViewer {
 					if (inputValue.length() == 8 && checkNumber) {
 						if (!buttonEdit) {
 							buttonEditor.setText("");
+							buttonEdit = true;
 						}
 						setButtonText(buttonEditor.getText() + "\n/Pins on " + (currCell) + ": " + inputValue);
 						updateButton();
