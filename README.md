@@ -13,8 +13,8 @@ You may run the program after downloading the jar file above. Just double click 
 You may download following documents or just click them to preview.
 
 * [User Manual](https://github.com/NS-01/forked_enamel/blob/master/Documents/2311%20-%20User%20Manual.pdf): This document describes  instructions for installing the program. The document also describes major use cases along with  screenshots and instruction on how to interact with the software.  
-* [Requirements Document](https://github.com/NS-01/forked_enamel/blob/master/Documents/Requirements%20Document.pdf): This document describes what the system does for its client/customer. There is also a simple use case and some acceptance test cases.
-* [Testing Document](https://github.com/NS-01/forked_enamel/blob/master/Documents/TestDocuments.pdf): This document describes the test cases that have been implemented along with discussion on the derivation of these test cases. The document also describes why these test cases are
+* [Requirements Document](https://github.com/NS-01/forked_enamel/blob/master/Documents/Requirements%20Document%20%5BMidterm%20Submission%5D.pdf): This document describes what the system does for its client/customer. There is also a simple use case and some acceptance test cases.
+* [Testing Document](https://github.com/NS-01/forked_enamel/blob/master/Documents/Testing%20Documents.pdf): This document describes the test cases that have been implemented along with discussion on the derivation of these test cases. The document also describes why these test cases are
 sufficient and discusses test coverage. 
 
 ## Team 9 Members 
