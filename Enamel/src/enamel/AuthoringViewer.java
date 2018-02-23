@@ -128,7 +128,7 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().setLayout(null);
 
 		JLabel lblCurrCell = new JLabel("1/" + this.numCells);
-		lblCurrCell.setBounds(148, 10, 55, 16);
+		lblCurrCell.setBounds(105, 189, 31, 16);
 		aViewFrame.getContentPane().add(lblCurrCell);
 
 		JLabel lblPrompt = new JLabel("PROMPT");
@@ -686,6 +686,11 @@ public class AuthoringViewer {
 		});
 		btnPreviousCard.setBounds(694, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnPreviousCard);
+		
+		JLabel lblCell = new JLabel("Cell:");
+		lblCell.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblCell.setBounds(70, 189, 31, 14);
+		aViewFrame.getContentPane().add(lblCell);
 
 		aViewFrame.setResizable(false);
 		aViewFrame.setBackground(new Color(255, 255, 255));
