@@ -23,6 +23,7 @@ import java.awt.Font;
 import java.awt.Component;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
+import enamel.ScenarioParser;
 
 /**
  * 

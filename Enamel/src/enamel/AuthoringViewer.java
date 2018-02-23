@@ -53,6 +53,8 @@ import javax.swing.JRadioButton;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import java.lang.Object;
+import enamel.ScenarioParser;
+
 
 /**
  * 
