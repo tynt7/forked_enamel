@@ -1,4 +1,4 @@
-# # [Authoring App](https://github.com/NS-01/forked_enamel)
+# [Authoring App](https://github.com/NS-01/forked_enamel)
 
 This workspace is dedicated to EECS 2311 [project](https://wiki.eecs.yorku.ca/course_archive/2017-18/W/2311/proj) to build a software program called Authoring App. The Authoring App allows users (including visually impaired users) to create, edit and save scenarios for their students to help them learn how to read Braille.
 
