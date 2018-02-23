@@ -4,7 +4,7 @@ This workspace is dedicated to EECS 2311 [project](https://wiki.eecs.yorku.ca/co
 
 ## Download
 You may download the runnable .jar file by clicking the link below: 
-* [Standalone Runnable Jar]()
+* [Standalone Runnable Jar](https://github.com/NS-01/forked_enamel/tree/master/Standalone%20Runnable%20Jar)
 
 ## Instruction to Run
 You may run the program after downloading the jar file above. Just double click `AuthoringApp.jar` or use `java -jar AuthoringApp.jar` to run the jar file as a Java application.
