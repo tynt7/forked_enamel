@@ -1,6 +1,6 @@
 package audioRecorder;
 
-import java.awt.BorderLayout;
+//import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -27,19 +27,29 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import javax.swing.filechooser.FileFilter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+//import java.text.DateFormat;
+//import java.text.SimpleDateFormat;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
+//import javax.swing.SwingUtilities;
 
 import java.awt.Color;
 
+/**
+ * 
+ * @author Jeremy, Nisha, Tyler
+ * 
+ *         GUI class to implement Recording feature for Authoring app This class
+ *         allows user record and save audio. User may discard the audio and
+ *         play recently saved audio. Accessibility features are implemented.
+ *
+ */
 public class RecorderFrame {
+	// Fields
 	private JFrame recorderFrame;
 
 	private JPanel contentPane;
@@ -61,7 +71,7 @@ public class RecorderFrame {
 	private JButton discardButton;
 	private final JButton btnPlay = new JButton("PLAY");
 
-	/** 
+	/**
 	 * Launch the application.
 	 */
 	public static void displayRecorder() {
@@ -106,7 +116,13 @@ public class RecorderFrame {
 		txtrPressrecordTo.setEditable(false);
 		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		txtrPressrecordTo.setBounds(10, 5, 747, 132);
-		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording \r\n -     You may play the recorded audio after you save it (you can not play a previously saved audio file yet)");
+		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n"
+				+ " -     Press \"RECORD NEW\" to start a new recording\r\n"
+				+ " -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -"
+				+ "     \"TIMER\" indicates that audio is being recorded\r\n\t- "
+				+ "(record timer will be added in next build)\r\n"
+				+ " -     You may choose to \"DISCARD\" recording \r\n "
+				+ "-     You may play the recorded audio after you save it (you can not play a previously saved audio file yet)");
 		contentPane.add(txtrPressrecordTo);
 
 		// Button for starting a new recording
@@ -124,7 +140,8 @@ public class RecorderFrame {
 
 		// Button for stopping and then saving the current recoding
 		stopRecordingButton = new JButton("STOP & SAVE");
-		stopRecordingButton.getAccessibleContext().setAccessibleDescription("Click to stop recording and save audio file");
+		stopRecordingButton.getAccessibleContext()
+				.setAccessibleDescription("Click to stop recording and save audio file");
 		stopRecordingButton.setEnabled(false);
 		stopRecordingButton.setForeground(Color.RED);
 		stopRecordingButton.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -156,14 +173,14 @@ public class RecorderFrame {
 		textField.setBounds(343, 148, 125, 29);
 		contentPane.add(textField);
 		textField.setColumns(10);
-		
-		//button for discarding current recording and resetting the recorder
+
+		// button for discarding current recording and resetting the recorder
 		discardButton = new JButton("DISCARD");
 		discardButton.getAccessibleContext().setAccessibleDescription("Click to Discard a Recording");
 		discardButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				resetRecorder();
-				//playSound(path);
+				// playSound(path);
 			}
 		});
 		discardButton.setForeground(new Color(220, 20, 60));
@@ -171,8 +188,8 @@ public class RecorderFrame {
 		discardButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		discardButton.setBounds(478, 148, 125, 29);
 		contentPane.add(discardButton);
-		
-		//button to play the recorded audio
+
+		// button to play the recorded audio
 		btnPlay.getAccessibleContext().setAccessibleDescription("Click to play recently saved audio");
 		btnPlay.setBounds(619, 148, 125, 29);
 		contentPane.add(btnPlay);
@@ -184,7 +201,7 @@ public class RecorderFrame {
 				playSound(path);
 			}
 		});
-		
+
 		if (textField.getText() == "00.00.00") {
 			recorderFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
@@ -278,7 +295,7 @@ public class RecorderFrame {
 		isRecording = false;
 		textField.setText("Recording Stopped");
 		recordNewButton.setEnabled(true);
-		//stopRecordingButton.setEnabled(false);
+		// stopRecordingButton.setEnabled(false);
 		try {
 			stop();
 			saveAudioFile();
@@ -287,7 +304,6 @@ public class RecorderFrame {
 			ex.printStackTrace();
 		}
 	}
-
 
 	/**
 	 * Stop recording and reset recorder
@@ -301,11 +317,12 @@ public class RecorderFrame {
 		try {
 			stop();
 		} catch (IOException ex) {
-			JOptionPane.showMessageDialog(null, "Error", "Error discarding sound recording!", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Error", "Error discarding sound recording!",
+					JOptionPane.ERROR_MESSAGE);
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Stop recording sound.
 	 * 
@@ -413,8 +430,7 @@ public class RecorderFrame {
 	private void playSound(String sound) {
 		try {
 			Clip clip = AudioSystem.getClip();
-			clip.open(AudioSystem.getAudioInputStream(
-					new File(sound)));
+			clip.open(AudioSystem.getAudioInputStream(new File(sound)));
 			clip.start();
 			// This while loop is to check if the audio file has played or not,
 			// and if it has not then it will
@@ -426,34 +442,27 @@ public class RecorderFrame {
 			clip.close();
 
 		} catch (Exception e) {
-			System.out.println("Exception error: " + e.toString()+
-					"Expected the name of the file (including extension) but instead got: " + sound
-							+ "\n Perhaps you forgot to include the extension of the sound file with the name? Other "
-							+ "possibilities include: \n Incorrect name of the file, the file not being in the same location "
-							+ "as the project folder, or an attempt to play an unsupported sound file. (only .wav files"
-							+ "are supported at this time)");
+			System.out.println("Exception error: " + e.toString()
+					+ "Expected the name of the file (including extension) but instead got: " + sound
+					+ "\n Perhaps you forgot to include the extension of the sound file with the name? Other "
+					+ "possibilities include: \n Incorrect name of the file, the file not being in the same location "
+					+ "as the project folder, or an attempt to play an unsupported sound file. (only .wav files"
+					+ "are supported at this time)");
 		}
 	}
-	private class Timer {
-		private DateFormat dateFormater = new SimpleDateFormat("HH:mm:ss");
-		private Boolean running;
-		private long startTime;
-		String timer;
-		/*
-		 * public Timer(String s){ this.timer = s; }
-		 */
-
-		public void main(String[] args) {
-			SwingUtilities.invokeLater(new Runnable() {
-
-				@Override
-				public void run() {
-					running = true;
-					startTime = System.currentTimeMillis();
-					System.out.println("Start Time" + startTime);
-					new Timer();
-				}
-			});
-		}
-	}
+	/*
+	 * private class Timer { private DateFormat dateFormater = new
+	 * SimpleDateFormat("HH:mm:ss"); private Boolean running; private long
+	 * startTime; String timer;
+	 * 
+	 * public Timer(String s){ this.timer = s; }
+	 * 
+	 * 
+	 * public void main(String[] args) { SwingUtilities.invokeLater(new
+	 * Runnable() {
+	 * 
+	 * @Override public void run() { running = true; startTime =
+	 * System.currentTimeMillis(); System.out.println("Start Time" + startTime);
+	 * new Timer(); } }); } }
+	 */
 }

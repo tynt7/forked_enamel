@@ -1,9 +1,10 @@
 package enamel;
 
 /**
- *
- * Class for DataButton objects. Each DataButton object has associated buttonID,
- * buttonText and Button audioFile. This class also has accessors and modifiers
+ * 
+ * @author Jeremy, Nisha, Tyler Class for DataButton objects. Each DataButton
+ *         object has associated buttonID, buttonText and Button audioFile. This
+ *         class also has accessors and modifiers
  */
 
 public class DataButton {

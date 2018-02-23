@@ -40,7 +40,13 @@ import javax.swing.JRadioButton;
 import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
-
+/**
+ * 
+ * @author Jeremy, Nisha, Tyler
+ * 
+ *         Class to set function view. Coming soon...
+ *
+ */
 @SuppressWarnings({ "unused", "rawtypes" })
 public class functionView {
 	private JFrame funcFrame;

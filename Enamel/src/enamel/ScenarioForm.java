@@ -49,6 +49,17 @@ import javax.swing.JTextPane;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
 
+/**
+ * 
+ * @author Jeremy, Nisha, Tyler
+ * 
+ *         This Class allows user to do the initial setup before creating a
+ *         scenario. The initial setup includes setting a tile, number of cells
+ *         (1-10) number of buttons (1-6). User may also record audio or insert
+ *         audio. Accessibility feature are added.
+ *
+ */
+
 @SuppressWarnings({ "unused", "rawtypes" })
 public class ScenarioForm {
 
@@ -173,7 +184,6 @@ public class ScenarioForm {
 		audioFileTextField.setBounds(224, 176, 119, 21);
 		audioFileTextField.setColumns(10);
 		sCreatorFrame.getContentPane().add(audioFileTextField);
-		
 
 		JButton btnBrowse = new JButton("Browse");
 		btnBrowse.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -209,7 +219,7 @@ public class ScenarioForm {
 			}
 		});
 		sCreatorFrame.getContentPane().add(btnBrowse);
-		
+
 		JLabel lblS = new JLabel("Record and Save a New Audio \".wav\" File");
 		lblS.setBounds(33, 212, 278, 19);
 		sCreatorFrame.getContentPane().add(lblS);
@@ -228,51 +238,57 @@ public class ScenarioForm {
 				rf.displayRecorder();
 			}
 		});
-		
-				JButton btnSaveAndCreate = new JButton("Save and Create Scenario File");
-				btnSaveAndCreate.getAccessibleContext().setAccessibleDescription("Saves information and opens editor");	
-				btnSaveAndCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnSaveAndCreate.setBounds(117, 303, 201, 29);
-				btnSaveAndCreate.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						ArrayList<Card> cards =  new ArrayList<Card>();
-						Card temp = new Card(1, "Card 1", "");
-						cards.add(temp);
-						cards.get(0).getCells().add(new BrailleCell());
-						AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex()+1, comboButtonBox.getSelectedIndex()+1, cards, "", "");
-						av.setCardList();
-						sCreatorFrame.dispose();
-					}
-				});
-				
-				/*btnSaveAndCreate.setForeground(Color.BLACK);
-				btnSaveAndCreate.setContentAreaFilled(false);
-				btnSaveAndCreate.setOpaque(true);*/
-				btnSaveAndCreate.setBackground(UIManager.getColor("CheckBox.background"));
-				sCreatorFrame.getContentPane().add(btnSaveAndCreate);
-		
-				JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
-				btnExitWithoutSaving.getAccessibleContext().setAccessibleDescription("Doesn't save and closes current window");
-				btnExitWithoutSaving.setFont(new Font("Tahoma", Font.BOLD, 11));
-				btnExitWithoutSaving.setBounds(117, 343, 201, 29);
-				/*btnExitWithoutSaving.setForeground(Color.BLACK);
-				btnExitWithoutSaving.setContentAreaFilled(false);
-				btnExitWithoutSaving.setOpaque(true);
-				btnExitWithoutSaving.setBackground(UIManager.getColor("CheckBox.background"));*/
-				btnExitWithoutSaving.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						//sCreatorFrame.setVisible(false);
-						int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!", "Confirm", JOptionPane.YES_NO_OPTION,
-								JOptionPane.QUESTION_MESSAGE);
-						if (option == JOptionPane.YES_OPTION) {
-							sCreatorFrame.dispose();
-						} else {
-							// do nothing
-							JOptionPane.getRootFrame().dispose();  
-						}
-					}
-				});
-				sCreatorFrame.getContentPane().add(btnExitWithoutSaving);
+
+		JButton btnSaveAndCreate = new JButton("Save and Create Scenario File");
+		btnSaveAndCreate.getAccessibleContext().setAccessibleDescription("Saves information and opens editor");
+		btnSaveAndCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnSaveAndCreate.setBounds(117, 303, 201, 29);
+		btnSaveAndCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Card> cards = new ArrayList<Card>();
+				Card temp = new Card(1, "Card 1", "");
+				cards.add(temp);
+				cards.get(0).getCells().add(new BrailleCell());
+				AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex() + 1,
+						comboButtonBox.getSelectedIndex() + 1, cards, "", "");
+				av.setCardList();
+				sCreatorFrame.dispose();
+			}
+		});
+
+		/*
+		 * btnSaveAndCreate.setForeground(Color.BLACK);
+		 * btnSaveAndCreate.setContentAreaFilled(false);
+		 * btnSaveAndCreate.setOpaque(true);
+		 */
+		btnSaveAndCreate.setBackground(UIManager.getColor("CheckBox.background"));
+		sCreatorFrame.getContentPane().add(btnSaveAndCreate);
+
+		JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
+		btnExitWithoutSaving.getAccessibleContext().setAccessibleDescription("Doesn't save and closes current window");
+		btnExitWithoutSaving.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnExitWithoutSaving.setBounds(117, 343, 201, 29);
+		/*
+		 * btnExitWithoutSaving.setForeground(Color.BLACK);
+		 * btnExitWithoutSaving.setContentAreaFilled(false);
+		 * btnExitWithoutSaving.setOpaque(true);
+		 * btnExitWithoutSaving.setBackground(UIManager.getColor(
+		 * "CheckBox.background"));
+		 */
+		btnExitWithoutSaving.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// sCreatorFrame.setVisible(false);
+				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
+						"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+				if (option == JOptionPane.YES_OPTION) {
+					sCreatorFrame.dispose();
+				} else {
+					// do nothing
+					JOptionPane.getRootFrame().dispose();
+				}
+			}
+		});
+		sCreatorFrame.getContentPane().add(btnExitWithoutSaving);
 	}
 
 	static private String selectedString(ItemSelectable is) {

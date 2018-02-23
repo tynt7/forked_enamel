@@ -54,6 +54,19 @@ import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import java.lang.Object;
 
+/**
+ * 
+ * @author Jeremy, Nisha, Tyler
+ * 
+ *         GUI class to that opens after setting up cells and buttons for new
+ *         scenario or after choosing to edit a scenario. This class allows user
+ *         to create flow of scenario: ask question, receive response, add
+ *         actions to each response, raise pins, record/insert/delete audio
+ *         files. User can also change the order of those question. User can
+ *         save and test the current scenario. Accessibility features are
+ *         implemented.
+ *
+ */
 @SuppressWarnings({ "unused", "rawtypes", "unchecked" })
 public class AuthoringViewer {
 
@@ -89,14 +102,13 @@ public class AuthoringViewer {
 	private boolean buttonEdit = false;
 	// non zero
 
-
 	/**
 	 * Create the application.
 	 */
 	public AuthoringViewer(int numCells, int numButtons, ArrayList<Card> cards, String initialPrompt,
 			String endingPrompt) {
 		this.numButtons = numButtons;
-		
+
 		if (initialPrompt == null || initialPrompt.equals("")) {
 			this.initialPrompt = "Hello";
 		} else {
@@ -118,7 +130,7 @@ public class AuthoringViewer {
 		this.currButton = 0;
 		this.currCell = 0;
 		this.currCard = 0;
-		
+
 	}
 
 	/**
@@ -126,7 +138,7 @@ public class AuthoringViewer {
 	 */
 	private void initialize() {
 		aViewFrame = new JFrame();
-		aViewFrame.getContentPane().setBackground(new Color(217, 217, 217));//(Color.LIGHT_GRAY.brighter());
+		aViewFrame.getContentPane().setBackground(new Color(217, 217, 217));// (Color.LIGHT_GRAY.brighter());
 		aViewFrame.getContentPane().setLayout(null);
 
 		lblCurrCell = new JLabel("1/" + this.numCells);
@@ -145,7 +157,7 @@ public class AuthoringViewer {
 		txtCardName.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				//do nothing
+				// do nothing
 			}
 
 			@Override
@@ -320,7 +332,8 @@ public class AuthoringViewer {
 		// aViewFrame.getContentPane().add(lblLetter);
 
 		JButton btnAudio = new JButton("Audio");
-		btnAudio.getAccessibleContext().setAccessibleDescription("Click to insert an audio action to the chosen button response");
+		btnAudio.getAccessibleContext()
+				.setAccessibleDescription("Click to insert an audio action to the chosen button response");
 		btnAudio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fc = new JFileChooser();
@@ -374,7 +387,8 @@ public class AuthoringViewer {
 
 		// Change the state of pin
 		JButton btnRaisePins = new JButton("Raise Pins");
-		btnRaisePins.getAccessibleContext().setAccessibleDescription("Click to insert an action to selected button response so that braille cell pins are raised");
+		btnRaisePins.getAccessibleContext().setAccessibleDescription(
+				"Click to insert an action to selected button response so that braille cell pins are raised");
 		btnRaisePins.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String inputValue = JOptionPane.showInputDialog("Please input which pins to raise");
@@ -478,7 +492,8 @@ public class AuthoringViewer {
 						JOptionPane.showMessageDialog(null, "Saved recorded sound to:\n" + path);
 
 					} catch (IOException ex) {
-						JOptionPane.showMessageDialog(null, "Error", "Error saving to sound file!", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Error", "Error saving to sound file!",
+								JOptionPane.ERROR_MESSAGE);
 						ex.printStackTrace();
 					}
 				}
@@ -693,7 +708,8 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnCardUp);
 
 		JButton btnCardDown = new JButton("Card Down");
-		btnCardDown.getAccessibleContext().setAccessibleDescription("Press to move selected card down in card list order");
+		btnCardDown.getAccessibleContext()
+				.setAccessibleDescription("Press to move selected card down in card list order");
 		btnCardDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int selected = list.getSelectedIndex();
@@ -717,7 +733,8 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnCardDown);
 
 		JButton btnNextCard = new JButton("Next Card");
-		btnNextCard.getAccessibleContext().setAccessibleDescription("Click to add a new card to the list. By doing so your view will change to next card");
+		btnNextCard.getAccessibleContext().setAccessibleDescription(
+				"Click to add a new card to the list. By doing so your view will change to next card");
 		btnNextCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (cards.size() > currCard + 1) {
@@ -736,7 +753,8 @@ public class AuthoringViewer {
 		aViewFrame.getContentPane().add(btnNextCard);
 
 		JButton btnPreviousCard = new JButton("Previous Card");
-		btnPreviousCard.getAccessibleContext().setAccessibleDescription("Click to go back to the previus card u edited. By doing so your view will change to next card");
+		btnPreviousCard.getAccessibleContext().setAccessibleDescription(
+				"Click to go back to the previus card u edited. By doing so your view will change to next card");
 		btnPreviousCard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (currCard == 0) {
@@ -749,7 +767,7 @@ public class AuthoringViewer {
 		});
 		btnPreviousCard.setBounds(694, 525, 117, 29);
 		aViewFrame.getContentPane().add(btnPreviousCard);
-		
+
 		JLabel lblCell = new JLabel("Cell:");
 		lblCell.getAccessibleContext().setAccessibleDescription("Indicates Cell number of the cell being displayed");
 		lblCell.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -778,10 +796,21 @@ public class AuthoringViewer {
 			}
 		}
 	}
+
+	/**
+	 * Method to set Prompt text
+	 * 
+	 * @param text
+	 */
 	public void setPromptText(String text) {
 		dtrpnEnterAPrompt.setText(text);
 	}
 
+	/**
+	 * Method to set the pins of braille sell
+	 * 
+	 * @param cell
+	 */
 	public void setCurrCellPins(BrailleCell cell) {
 		pOne.setSelected(cell.getPinState(0));
 		pTwo.setSelected(cell.getPinState(1));
@@ -793,9 +822,18 @@ public class AuthoringViewer {
 		pEight.setSelected(cell.getPinState(7));
 	}
 
+	/**
+	 * Method to set button text
+	 * 
+	 * @param text
+	 */
 	public void setButtonText(String text) {
 		buttonEditor.setText(text);
 	}
+
+	/**
+	 * Method to set card list
+	 */
 
 	public void setCardList() {
 		listModel.clear();
@@ -805,6 +843,11 @@ public class AuthoringViewer {
 		list.setSelectedIndex(currCard);
 	}
 
+	/**
+	 * Method to show button text
+	 * 
+	 * @param buttonNum
+	 */
 	public void showButtonText(int buttonNum) { // ButtonNum 0-5
 		if (currButton != buttonNum) {
 			try {
@@ -827,6 +870,9 @@ public class AuthoringViewer {
 		}
 	}
 
+	/**
+	 * Method to update button
+	 */
 	public void updateButton() {
 		if (cards.get(currCard).getButtonList().isEmpty()) {
 			DataButton temp = new DataButton(0);
@@ -835,10 +881,16 @@ public class AuthoringViewer {
 		cards.get(currCard).getButtonList().get(currButton).setText(buttonEditor.getText());
 	}
 
+	/**
+	 * Method to update prompt
+	 */
 	public void updatePrompt() {
 		cards.get(currCard).setText(dtrpnEnterAPrompt.getText());
 	}
 
+	/**
+	 * Method to update braille cell
+	 */
 	public void updateCell() {
 		BrailleCell temp = new BrailleCell();
 		String s = "";
@@ -854,10 +906,16 @@ public class AuthoringViewer {
 		cards.get(currCard).getCells().set(currCell, temp);
 	}
 
+	/**
+	 * Method to show prompt
+	 */
 	public void showPrompt() {
 		setPromptText(cards.get(currCard).getText());
 	}
 
+	/**
+	 * Method to go to next card
+	 */
 	public void nextCard() {
 		updateButton();
 		updatePrompt();
@@ -877,6 +935,9 @@ public class AuthoringViewer {
 		setCardList();
 	}
 
+	/**
+	 * Method to go to previous card
+	 */
 	public void prevCard() {
 		updateButton();
 		updatePrompt();
@@ -892,7 +953,10 @@ public class AuthoringViewer {
 		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
 		setCardList();
 	}
-	
+
+	/**
+	 * Method to set edited booleans
+	 */
 	public void setEdited() {
 		this.buttonEdit = true;
 		this.promptEdit = true;

@@ -5,8 +5,15 @@ import org.junit.*;
 
 import enamel.ScenarioForm;
 
-public class testScenarioForm{
-	
+/**
+ * 
+ * @author Nisha, Jeremy, Tyler Test class to test Scenario Form GUI Further to
+ *         feedback from professor, it was decided to do the GUI testing
+ *         manually as it's beyond the scope of this course
+ *
+ */
+public class testScenarioForm {
+
 	private ScenarioForm sf;
 
 	@Before
@@ -15,7 +22,7 @@ public class testScenarioForm{
 	}
 
 	/*
-	 * Test if the GUI is created 
+	 * Test if the GUI is created
 	 */
 	@Test
 	public void test() {
@@ -29,7 +36,7 @@ public class testScenarioForm{
 	public void test2() {
 		ScenarioForm temp = new ScenarioForm();
 		assertNotSame(sf, temp);
-		
+
 	}
 
 	/*
@@ -37,6 +44,6 @@ public class testScenarioForm{
 	 */
 	@Test
 	public void test3() {
-		
+
 	}
 }
