@@ -92,21 +92,21 @@ public class CardsToFileParser {
 				result += "\n/~SIXX"; break;
 			}
 			String audioPath = buttons.get(i).getAudio();
-			if (!audioPath.equals("")) {
-				int slashPos = 0;
-				for (int j = 0; j < audioPath.length(); j++) {
-					if (audioPath.charAt(j) == '\\') {
-						slashPos = j;
-					}
-				}
-				if (slashPos == 0) {
-					result += "\n/~sound:" + audioPath;
-				}
-				else {
-					result += "\n/~sound:" + audioPath.substring(slashPos + 1);
-				}
-				
-			}
+//			if (!audioPath.equals("")) {
+//				int slashPos = 0;
+//				for (int j = 0; j < audioPath.length(); j++) {
+//					if (audioPath.charAt(j) == '\\') {
+//						slashPos = j;
+//					}
+//				}
+//				if (slashPos == 0) {
+//					result += "\n/~sound:" + audioPath;
+//				}
+//				else {
+//					result += "\n/~sound:" + audioPath.substring(slashPos + 1);
+//				}
+//				
+//			}
 			String[] arr = buttons.get(i).getText().split("\n");
 			for (int j = 0; j < arr.length; j++) {
 				if ( (arr[j].length() == 20) && (arr[j].substring(0, 9).equals("/Pins on ")) ) {

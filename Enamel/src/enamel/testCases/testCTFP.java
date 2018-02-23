@@ -248,7 +248,7 @@ public class testCTFP {
 
 	@Test
 	public void testWriteCard() {
-		CardsToFileParser cTFP = new CardsToFileParser(cards, 2, 3, "Hello", "Bye");
+		CardsToFileParser cTFP = new CardsToFileParser(cards, 6, 3, "Hello", "Bye");
 		Card test = new Card(0, "Card1", "Hi");
 		test.setText("Hello World");
 
@@ -268,6 +268,18 @@ public class testCTFP {
 		DataButton b2 = new DataButton(1);
 		b2.addText("bye");
 		bList.add(b2);
+		DataButton b3 = new DataButton(2);
+		b3.addText("bye");
+		bList.add(b3);
+		DataButton b4 = new DataButton(3);
+		b4.addText("bye");
+		bList.add(b4);
+		DataButton b5 = new DataButton(4);
+		b5.addText("bye");
+		bList.add(b5);
+		DataButton b6 = new DataButton(5);
+		b6.addText("bye");
+		bList.add(b6);
 		test.setBList(bList);
 
 		String returned = cTFP.writeCard(test);
@@ -280,11 +292,27 @@ public class testCTFP {
 		result += "\n" + "Hello World";
 		result += "\n/~skip-button:" + 0 + " ONEE";
 		result += "\n/~skip-button:" + 1 + " TWOO";
+		result += "\n/~skip-button:" + 2 + " THREEE";
+		result += "\n/~skip-button:" + 3 + " FOURR";
+		result += "\n/~skip-button:" + 4 + " FIVEE";
+		result += "\n/~skip-button:" + 5 + " SIXX";
 		result += "\n/~user-input";
 		result += "\n/~ONEE";
 		result += "\nhello";
 		result += "\n/~skip:NEXTT";
 		result += "\n/~TWOO";
+		result += "\nbye";
+		result += "\n/~skip:NEXTT";
+		result += "\n/~THREEE";
+		result += "\nbye";
+		result += "\n/~skip:NEXTT";
+		result += "\n/~FOURR";
+		result += "\nbye";
+		result += "\n/~skip:NEXTT";
+		result += "\n/~FIVEE";
+		result += "\nbye";
+		result += "\n/~skip:NEXTT";
+		result += "\n/~SIXX";
 		result += "\nbye";
 		result += "\n/~skip:NEXTT";
 		result += "\n\n/~NEXTT";

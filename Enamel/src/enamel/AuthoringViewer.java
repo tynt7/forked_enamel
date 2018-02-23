@@ -363,7 +363,9 @@ public class AuthoringViewer {
 					}
 					System.out.println(inputValue.length() + " " + inputValue);
 					if (inputValue.length() == 8 && checkNumber) {
-						
+						if (!buttonEdit) {
+							buttonEditor.setText("");
+						}
 						setButtonText(buttonEditor.getText() + "\n/Pins on " + (currCell) + ": " + inputValue);
 						updateButton();
 					} else {
@@ -398,12 +400,12 @@ public class AuthoringViewer {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				if (buttEdit == false) {
-//					buttonEditor.setText("");
-//				}
-//				if (promptEdit == false) {
-//					dtrpnEnterAPrompt.setText("");
-//				}
+				if (buttonEdit == false) {
+					buttonEditor.setText("");
+				}
+				if (promptEdit == false) {
+					dtrpnEnterAPrompt.setText("");
+				}
 				JButton save = new JButton();
 				JFileChooser fc = new JFileChooser();
 				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
@@ -707,7 +709,6 @@ public class AuthoringViewer {
 		}
 	}
 	public void setPromptText(String text) {
-		promptEdit = true;
 		dtrpnEnterAPrompt.setText(text);
 	}
 
@@ -723,7 +724,6 @@ public class AuthoringViewer {
 	}
 
 	public void setButtonText(String text) {
-		buttonEdit = true;
 		buttonEditor.setText(text);
 	}
 
@@ -819,5 +819,10 @@ public class AuthoringViewer {
 		showPrompt();
 		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
 		setCardList();
+	}
+	
+	public void setEdited() {
+		this.buttonEdit = true;
+		this.promptEdit = true;
 	}
 }

@@ -116,6 +116,7 @@ public class InitialView {
 							av.setCurrCellPins(f.getCards().get(0).getCells().get(0));
 							av.setButtonText(f.getCards().get(0).getButtonList().get(0).getText());
 							av.setCardList();
+							av.setEdited();
 						}
 						
 					}
