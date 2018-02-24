@@ -2,6 +2,8 @@
 
 This workspace is dedicated to EECS 2311 [project](https://wiki.eecs.yorku.ca/course_archive/2017-18/W/2311/proj) to build a software program called Authoring App. The Authoring App allows users (including visually impaired users) to create, edit and save scenarios for their students to help them learn how to read Braille.
 
+## First Release
+Find the release Notes [here](https://github.com/NS-01/forked_enamel/blob/master/README.txt).
 ## Download
 You may download the runnable .jar or .zip file by clicking the link below: 
 * [Standalone Runnable Jar](https://github.com/NS-01/forked_enamel/tree/master/Standalone%20Runnable%20Jar)
