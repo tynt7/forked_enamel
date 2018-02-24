@@ -4,12 +4,16 @@ This workspace is dedicated to EECS 2311 [project](https://wiki.eecs.yorku.ca/co
 
 ## First Release
 Find the release Notes [here](https://github.com/NS-01/forked_enamel/blob/master/README.txt).
+
 ## Download
 You may download the runnable .jar or .zip file by clicking the link below: 
 * [Standalone Runnable Jar](https://github.com/NS-01/forked_enamel/tree/master/Standalone%20Runnable%20Jar)
 
 ## Instruction to Run
-You may run the program after downloading the jar file above. Just double click `AuthoringApp.jar` or use `java -jar AuthoringApp.jar` to run the jar file as a Java application.
+You may run the program after downloading the jar file above. Just double click `AuthoringApp.jar` or use `java -jar AuthoringApp.jar` to run the jar file as a Java application. If you had to download the AutoringApp.zip file (as mentioned in the [README.md](https://github.com/NS-01/forked_enamel/blob/master/Standalone%20Runnable%20Jar/README.md) at above link), you must unzip the content in a known directory and then run AutoringApp.jar by double clicking the Jar file in the unzipped folder.
+
+###### Note:
+Do not delete the content of the new directory created after unzipping. AutoringApp.jar must stay in that folder.
 
 ## Documentation
 You may download following documents or just click them to preview.
