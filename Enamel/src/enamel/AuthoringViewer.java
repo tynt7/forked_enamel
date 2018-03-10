@@ -446,6 +446,7 @@ public class AuthoringViewer {
 					File txtFile = new File(path);
 					updateButton();
 					updatePrompt();
+					updateCell();
 
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
 							endingPrompt);
@@ -475,6 +476,7 @@ public class AuthoringViewer {
 				} else {
 					updateButton();
 					updatePrompt();
+					updateCell();
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
 							endingPrompt);
 					a.createBody();
@@ -669,7 +671,7 @@ public class AuthoringViewer {
 					nextCard();
 				} else {
 					System.out.println(cards.size());
-					Card temp = new Card(currCard + 1, "card" + (currCard + 2), "");
+					Card temp = new Card(currCard + 1, "Card " + (currCard + 2), "");
 					cards.add(temp);
 					temp.getButtonList().add(new DataButton(0));
 					temp.getCells().add(new BrailleCell());

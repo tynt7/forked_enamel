@@ -116,7 +116,7 @@ public class FileToCardsParser {
 			currLineNum++;
 
 		}
-		Card currCard = new Card(cardNum - 1, "card" + cardNum, "notSure");
+		Card currCard = new Card(cardNum - 1, "Card " + cardNum, "notSure");
 		ArrayList<DataButton> buttons = new ArrayList<DataButton>(numButtons);
 		ArrayList<BrailleCell> cells = new ArrayList<BrailleCell>(numCells);
 		DataButton currButton = new DataButton(buttonNum);
@@ -134,7 +134,7 @@ public class FileToCardsParser {
 					currCard.setCells(cells);
 					cards.add(currCard);
 					cardNum++;
-					currCard = new Card(cardNum - 1, "card" + cardNum, "notSure");
+					currCard = new Card(cardNum - 1, "Card " + cardNum, "notSure");
 				}
 				if (fileLine.equals("/~NEXTT") || fileLine.equals("/~reset-buttons")) {
 					cardNum++;
@@ -145,7 +145,7 @@ public class FileToCardsParser {
 					currCard.setCells(new ArrayList<BrailleCell>(cells));
 					cells.clear();
 					cards.add(currCard);
-					currCard = new Card(cardNum - 1, "card" + cardNum, "notSure");
+					currCard = new Card(cardNum - 1, "Card " + cardNum, "notSure");
 				}
 
 				else if (fileLine.length() >= 17 && fileLine.substring(0, 17).equals("/~disp-cell-pins:")) {
