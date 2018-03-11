@@ -38,6 +38,13 @@ import javax.swing.JTextField;
 //import javax.swing.SwingUtilities;
 
 import java.awt.Color;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JEditorPane;
+import javax.swing.JScrollPane;
+
+///////////////////////////////////////////////////////////////////////////////////////Save as
 
 /**
  * 
@@ -54,7 +61,7 @@ public class RecorderFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	JTextArea txtrPressrecordTo;
+	JEditorPane txtrPressrecordTo;
 	JButton recordNewButton;
 	JButton stopRecordingButton;
 
@@ -68,9 +75,18 @@ public class RecorderFrame {
 	private boolean isRunning;
 
 	private String path;
-	private JButton discardButton;
+	private JButton resetButton;
 	private final JButton btnPlay = new JButton("PLAY");
-
+	
+	//Menu
+	private JMenuItem mntmRecordNew;
+	private JMenuItem mntmInstructions;
+	private JMenu mnTools;
+	private JMenuItem mntmPlay;
+	private JMenuBar menuBar;
+	private JMenu mntmHelp;
+	private JMenuItem mntmSave;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -104,29 +120,53 @@ public class RecorderFrame {
 		recorderFrame.setTitle("Audio Recorder");
 		recorderFrame.getAccessibleContext().setAccessibleDescription("Use this tool to record and save an audio file");
 		recorderFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		recorderFrame.setBounds(100, 100, 773, 224);
+		recorderFrame.setBounds(100, 100, 774, 244);
+		
+		//Menu Bar
+		menuBar = new JMenuBar();
+		recorderFrame.setJMenuBar(menuBar);
+		
+		//Tools menu
+		mnTools = new JMenu("Tools");
+		menuBar.add(mnTools);
+		
+		// MenuItem Record
+		mntmRecordNew = new JMenuItem("Record New");
+		mnTools.add(mntmRecordNew);
+		mntmRecordNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				recordAudio();
+			}
+		});
+		
+		// Menu Item Save
+		mntmSave = new JMenuItem("Save");
+		mnTools.add(mntmSave);
+		mntmSave.setEnabled(false);
+		mntmSave.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				stopRecording();
+			}
+		});
+		
+		mntmPlay = new JMenuItem("Play");
+		mnTools.add(mntmPlay);
+		mntmSave.setEnabled(false);
+		
+		mntmHelp = new JMenu("Help");
+		menuBar.add(mntmHelp);
+		
+		mntmInstructions = new JMenuItem("Instructions");
+		mntmHelp.add(mntmInstructions);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		recorderFrame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		// JTextArea for instructions
-		txtrPressrecordTo = new JTextArea();
-		txtrPressrecordTo.getAccessibleContext().setAccessibleDescription("User guide");
-		txtrPressrecordTo.setEditable(false);
-		txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		txtrPressrecordTo.setBounds(10, 5, 747, 132);
-		txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n"
-				+ " -     Press \"RECORD NEW\" to start a new recording\r\n"
-				+ " -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -"
-				+ "     \"TIMER\" indicates that audio is being recorded\r\n\t- "
-				+ "(record timer will be added in next build)\r\n"
-				+ " -     You may choose to \"DISCARD\" recording \r\n "
-				+ "-     You may play the recorded audio after you save it (you can not play a previously saved audio file yet)");
-		contentPane.add(txtrPressrecordTo);
-
 		// Button for starting a new recording
-		recordNewButton = new JButton("RECORD NEW");
+		recordNewButton = new JButton("RECORD");
 		recordNewButton.getAccessibleContext().setAccessibleDescription("Click to record a new audio");
 		recordNewButton.setForeground(Color.BLUE);
 		recordNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -175,19 +215,19 @@ public class RecorderFrame {
 		textField.setColumns(10);
 
 		// button for discarding current recording and resetting the recorder
-		discardButton = new JButton("DISCARD");
-		discardButton.getAccessibleContext().setAccessibleDescription("Click to Discard a Recording");
-		discardButton.addActionListener(new ActionListener() {
+		resetButton = new JButton("RESET");
+		resetButton.getAccessibleContext().setAccessibleDescription("Click to Discard a Recording");
+		resetButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				resetRecorder();
 				// playSound(path);
 			}
 		});
-		discardButton.setForeground(new Color(220, 20, 60));
-		discardButton.setEnabled(false);
-		discardButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		discardButton.setBounds(478, 148, 125, 29);
-		contentPane.add(discardButton);
+		resetButton.setForeground(new Color(220, 20, 60));
+		resetButton.setEnabled(false);
+		resetButton.setFont(new Font("Tahoma", Font.BOLD, 12));
+		resetButton.setBounds(478, 148, 125, 29);
+		contentPane.add(resetButton);
 
 		// button to play the recorded audio
 		btnPlay.getAccessibleContext().setAccessibleDescription("Click to play recently saved audio");
@@ -196,11 +236,25 @@ public class RecorderFrame {
 		btnPlay.setForeground(new Color(0, 100, 0));
 		btnPlay.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnPlay.setEnabled(false);
+				
+				
+		
+				// JTextArea for instructions
+				txtrPressrecordTo = new JEditorPane();
+				txtrPressrecordTo.setEditable(false);
+				txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+				txtrPressrecordTo.setBounds(109, 20, 592, 149);
+				txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording \r\n -     You may play the recorded audio after you save it (you can not play a previously saved audio file yet)");
+				contentPane.add(txtrPressrecordTo);
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				playSound(path);
 			}
 		});
+		
+		JScrollPane scrollPane = new JScrollPane(txtrPressrecordTo);
+		scrollPane.setBounds(20, 5, 719, 133);
+		contentPane.add(scrollPane);
 
 		if (textField.getText() == "00.00.00") {
 			recorderFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -234,11 +288,14 @@ public class RecorderFrame {
 				// TODO Auto-generated method stub
 				// set isRecording boolean to true
 				isRecording = true;
-				recordNewButton.setEnabled(false);
+				recordNewButton.setEnabled(false);//new button
+				mntmRecordNew.setEnabled(false);//new menu
 				textField.setText("Recording......");
 				recordNewButton.setEnabled(false);
-				stopRecordingButton.setEnabled(true);
-				discardButton.setEnabled(true);
+				stopRecordingButton.setEnabled(true);//save button
+				mntmSave.setEnabled(true);//save menu
+				resetButton.setEnabled(true);//reset button
+				//reset menu <_-------------------------------------------------------------------------
 
 				// while recording
 				while (isRecording) {
@@ -294,7 +351,7 @@ public class RecorderFrame {
 	private void stopRecording() {
 		isRecording = false;
 		textField.setText("Recording Stopped");
-		recordNewButton.setEnabled(true);
+		//recordNewButton.setEnabled(true);//-------------------------------------------------------------------------------
 		// stopRecordingButton.setEnabled(false);
 		try {
 			stop();
@@ -311,9 +368,15 @@ public class RecorderFrame {
 	private void resetRecorder() {
 		isRecording = false;
 		textField.setText("00.00.00");
+		
 		recordNewButton.setEnabled(true);
+		mntmRecordNew.setEnabled(true);
+		
 		stopRecordingButton.setEnabled(false);
+		mntmSave.setEnabled(false);
+		
 		btnPlay.setEnabled(false);
+		//mntmPlay.setEnabled(false);
 		try {
 			stop();
 		} catch (IOException ex) {
@@ -373,6 +436,10 @@ public class RecorderFrame {
 
 			try {
 				save(wavFile);
+				recordNewButton.setEnabled(true);
+				mntmRecordNew.setEnabled(true);
+				stopRecordingButton.setEnabled(false);
+				mntmSave.setEnabled(false);
 				JOptionPane.showMessageDialog(null, "Saved recorded sound to:\n" + path);
 				btnPlay.setEnabled(true);
 			} catch (IOException ex) {
@@ -407,7 +474,7 @@ public class RecorderFrame {
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
 			if (!(textField.getText().contains("00.00.00"))) {
-				int option = JOptionPane.showConfirmDialog(null, "Do want to EXIT? \nNo changes will be saved!!!",
+				int option = JOptionPane.showConfirmDialog(null, "Do you want to EXIT? \nNo changes will be saved!!!",
 						"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.YES_OPTION) {
 					// System.exit( 0 );
@@ -450,19 +517,4 @@ public class RecorderFrame {
 					+ "are supported at this time)");
 		}
 	}
-	/*
-	 * private class Timer { private DateFormat dateFormater = new
-	 * SimpleDateFormat("HH:mm:ss"); private Boolean running; private long
-	 * startTime; String timer;
-	 * 
-	 * public Timer(String s){ this.timer = s; }
-	 * 
-	 * 
-	 * public void main(String[] args) { SwingUtilities.invokeLater(new
-	 * Runnable() {
-	 * 
-	 * @Override public void run() { running = true; startTime =
-	 * System.currentTimeMillis(); System.out.println("Start Time" + startTime);
-	 * new Timer(); } }); } }
-	 */
 }

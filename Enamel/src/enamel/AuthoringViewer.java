@@ -484,6 +484,7 @@ public class AuthoringViewer {
 					File txtFile = new File(path);
 					updateButton();
 					updatePrompt();
+					updateCell();
 
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
 							endingPrompt);
