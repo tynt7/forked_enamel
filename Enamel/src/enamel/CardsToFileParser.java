@@ -5,6 +5,13 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+/**
+ * 
+ * @author Jeremy, Nisha, Tyler
+ * 
+ *         Class to parse card data to a file.
+ *
+ */
 public class CardsToFileParser {
 
 	private ArrayList<Card> cards;

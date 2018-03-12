@@ -4,6 +4,13 @@ import java.util.*;
 
 import java.io.*;
 
+/**
+ * 
+ * @author Jeremy, Nisha, Tyler
+ * 
+ *         Class to parse card data from a file.
+ *
+ */
 public class FileToCardsParser {
 
 	private Scanner fileScanner;

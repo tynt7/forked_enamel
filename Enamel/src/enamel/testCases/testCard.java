@@ -9,10 +9,16 @@ import enamel.BrailleCell;
 import enamel.Card;
 import enamel.DataButton;
 
+/**
+ * 
+ * @author Jeremy, Nisha, Tyler
+ * 
+ *         This Class tests constructors and methods of Card class.
+ *
+ */
+
 public class testCard {
-	
-	
-	
+
 	@Test
 	public void testCtorAndGets() {
 		Card test1 = new Card(10, "Card 1", "A");
@@ -23,7 +29,7 @@ public class testCard {
 		assertEquals(test1.getCells(), new ArrayList<BrailleCell>());
 		assertEquals(test1.getText(), null);
 	}
-	
+
 	@Test
 	public void testSetText() {
 		Card test1 = new Card(10, "Card 1", "A");
@@ -36,7 +42,7 @@ public class testCard {
 		test1.setText(null);
 		assertEquals(test1.getText(), null);
 	}
-	
+
 	@Test
 	public void testAddText() {
 		Card test1 = new Card(10, "Card 1", "A");
@@ -51,7 +57,7 @@ public class testCard {
 		test1.addText("Hello");
 		assertEquals(test1.getText(), "Hello");
 	}
-	
+
 	@Test
 	public void testSetSound() {
 		Card test1 = new Card(10, "Card 1", "A");
@@ -64,7 +70,7 @@ public class testCard {
 		test1.setSound("test");
 		assertEquals(test1.getSound(), "test");
 	}
-	
+
 	@Test
 	public void testSetBList() {
 		Card test1 = new Card(10, "Card 1", "A");
@@ -80,6 +86,7 @@ public class testCard {
 		test1.setBList(bList2);
 		assertEquals(test1.getButtonList(), bList2);
 	}
+
 	@Test
 	public void testSetCells() {
 		Card test1 = new Card(10, "Card 1", "A");
@@ -95,7 +102,7 @@ public class testCard {
 		test1.setCells(cellList2);
 		assertEquals(test1.getCells(), cellList2);
 	}
-	
+
 	@Test
 	public void testSetName() {
 		Card test1 = new Card(10, "Card 1", "A");
