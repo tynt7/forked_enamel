@@ -492,10 +492,10 @@ public class AuthoringViewer {
 					ScenarioWriter sW = new ScenarioWriter(path);
 					try {
 						sW.write(a.getText());
-						JOptionPane.showMessageDialog(null, "Saved recorded sound to:\n" + path);
+						JOptionPane.showMessageDialog(null, "Saved scenario file to:\n" + path);
 
 					} catch (IOException ex) {
-						JOptionPane.showMessageDialog(null, "Error", "Error saving to sound file!",
+						JOptionPane.showMessageDialog(null, "Error", "Failed to save file!",
 								JOptionPane.ERROR_MESSAGE);
 						ex.printStackTrace();
 					}
@@ -516,6 +516,7 @@ public class AuthoringViewer {
 				} else {
 					updateButton();
 					updatePrompt();
+					updateCell();
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
 							endingPrompt);
 					a.createBody();
@@ -744,7 +745,7 @@ public class AuthoringViewer {
 					nextCard();
 				} else {
 					System.out.println(cards.size());
-					Card temp = new Card(currCard + 1, "card" + (currCard + 2), "");
+					Card temp = new Card(currCard + 1, "Card " + (currCard + 2), "");
 					cards.add(temp);
 					temp.getButtonList().add(new DataButton(0));
 					temp.getCells().add(new BrailleCell());
@@ -922,6 +923,7 @@ public class AuthoringViewer {
 	public void nextCard() {
 		updateButton();
 		updatePrompt();
+		updateCell();
 		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
 		cards.get(currCard).setName(txtCardName.getText());
 		currCard++;
