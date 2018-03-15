@@ -10,12 +10,16 @@ import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.management.JMException;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+
 import enamel.ToyAuthoring;
 import java.awt.Color;
 import java.awt.Font;
@@ -252,5 +256,7 @@ public class InitialView {
 				System.exit(0);
 			}
 		});
+		
+		//exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 	}
 }

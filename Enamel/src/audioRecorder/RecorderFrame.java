@@ -522,12 +522,6 @@ public class RecorderFrame {
 		}
 	}
 	
-	
-	/**
-	 * This class counts record time/play time in the form of HH:mm:ss
-	 * @author www.codejava.net
-	 *
-	 */
 	public class RecordTimer extends Thread {
 		private DateFormat dateFormater = new SimpleDateFormat("HH:mm:ss");	
 		private boolean isRunning = false;
