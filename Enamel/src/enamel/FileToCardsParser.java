@@ -19,10 +19,10 @@ public class FileToCardsParser {
         private String initialPrompt;
         private String endingPrompt;
         private int numButtons;
-        private int numCells;
+        private int numCells; 
         private int numLines;
         private int start;
-        private boolean lastRemoved;
+        private boolean lastRemoved; 
 
         public FileToCardsParser() {
                 cards = new ArrayList<Card>();

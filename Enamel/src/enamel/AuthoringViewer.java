@@ -918,7 +918,7 @@ public class AuthoringViewer {
         }
 
         /**
-         * Method to go to next card
+         * Method to go to next card 
          */
         public void nextCard() {
                 updateButton();
