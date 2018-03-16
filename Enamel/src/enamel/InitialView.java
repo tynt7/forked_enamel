@@ -96,6 +96,9 @@ public class InitialView {
 		//.frmAutho(this.getClass().getName());
 		this.frmAuthoringApp.setLocationByPlatform(true);
 		//*****************************************************************************
+		// this methods asks the window manager to position the frame in the
+		// centre of the screen
+		this.frmAuthoringApp.setLocationRelativeTo(null);
 		
 		frmAuthoringApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAuthoringApp.getContentPane().setLayout(null);

@@ -92,6 +92,8 @@ public class AuthoringViewer {
         private JList list;
         private DefaultListModel<String> listModel;
         private static String testPins;
+        
+        private String title;
 
         private int currButton;
         private int currCell;
@@ -112,9 +114,11 @@ public class AuthoringViewer {
                 this.numButtons = numButtons;
 
                 if (initialPrompt == null || initialPrompt.equals("")) {
-                        this.initialPrompt = "Hello";
+                        this.initialPrompt = "New Scenario";
+                        this.title = this.initialPrompt;
                 } else {
                         this.initialPrompt = initialPrompt;
+                        this.title = initialPrompt;
                 }
                 if (endingPrompt == null || endingPrompt.equals("")) {
                         this.endingPrompt = "Good Bye";
@@ -456,6 +460,9 @@ public class AuthoringViewer {
                                 fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
                                 fc.setDialogTitle("Save as");
                                 fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+                                //if(!title.equals(null)){
+                                	fc.setSelectedFile(new File(title+".txt"));
+                                //}
                                 FileFilter txtFilter = new FileFilter() {
                                         @Override
                                         public String getDescription() {

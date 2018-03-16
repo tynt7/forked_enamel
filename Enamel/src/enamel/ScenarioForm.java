@@ -251,7 +251,7 @@ public class ScenarioForm {
 				cards.add(temp);
 				cards.get(0).getCells().add(new BrailleCell());
 				AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex() + 1,
-						comboButtonBox.getSelectedIndex() + 1, cards, "", "");
+						comboButtonBox.getSelectedIndex() + 1, cards, getTitle(), "");
 				av.setCardList();
 				sCreatorFrame.dispose();
 			}
@@ -299,6 +299,10 @@ public class ScenarioForm {
 		return ((selected.length == 0) ? "null" : (String) selected[0]);
 	}
 
+	public String getTitle(){
+		System.out.println(this.titleTextField.getText());
+		return this.titleTextField.getText();
+	}
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
 			int option = JOptionPane.showConfirmDialog(null, "Do you want to EXIT? \nNo changes will be saved!!!",
