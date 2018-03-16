@@ -26,8 +26,11 @@ import javax.swing.KeyStroke;
 import enamel.ToyAuthoring;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import enamel.ScenarioParser;
@@ -80,16 +83,28 @@ public class InitialView {
 		frmAuthoringApp.setBackground(new Color(240, 240, 240));
 		frmAuthoringApp.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
 		frmAuthoringApp.setBounds(150, 150, 275, 375);
-		frmAuthoringApp.setResizable(false); // fix window dimensions
-
+		//frmAuthoringApp.setResizable(false); // fix window dimensions
+		
+		//*****************************************************************************
+		Dimension thisScreen = Toolkit.getDefaultToolkit().getScreenSize();
+		
+		// find the dimensions of the screen and a dimension that is derive one
+		// quarter of the size
+		Dimension targetSize = new Dimension((int) thisScreen.getWidth() / 4, (int) thisScreen.getHeight() / 4);
+		frmAuthoringApp.setPreferredSize(targetSize);
+		frmAuthoringApp.setSize((int) thisScreen.getWidth() / 2, (int) thisScreen.getHeight() / 2);
+		//.frmAutho(this.getClass().getName());
+		this.frmAuthoringApp.setLocationByPlatform(true);
+		//*****************************************************************************
+		
 		frmAuthoringApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAuthoringApp.getContentPane().setLayout(null);
-		;
 
 		JLabel lblNewLabel = new JLabel("AUTHORING APP");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 21));
 		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setBounds(45, 11, 185, 70);
+		lblNewLabel.setBounds(379, 60, 185, 70);
 		frmAuthoringApp.getContentPane().add(lblNewLabel);
 
 		JButton newButton = new JButton("New");
@@ -102,7 +117,7 @@ public class InitialView {
 
 		newButton.setForeground(new Color(0, 0, 205));
 		newButton.setToolTipText("Create New Scenario");
-		newButton.setBounds(85, 90, 85, 50);
+		newButton.setBounds(389, 139, 165, 50);
 		frmAuthoringApp.getContentPane().add(newButton);
 
 		JButton editButton = new JButton("Edit");
@@ -114,7 +129,7 @@ public class InitialView {
 		// editButton.setBackground(Color.WHITE);
 		editButton.setToolTipText("Edit a Scenario");
 		editAction(editButton);
-		editButton.setBounds(85, 150, 85, 50);
+		editButton.setBounds(389, 200, 165, 50);
 		frmAuthoringApp.getContentPane().add(editButton);
 
 		JButton testButton = new JButton("Test");
@@ -127,7 +142,7 @@ public class InitialView {
 		testButton.setToolTipText("Test a Scenario");
 		testAction(testButton);
 
-		testButton.setBounds(85, 210, 85, 50);
+		testButton.setBounds(389, 259, 165, 50);
 		frmAuthoringApp.getContentPane().add(testButton);
 
 		JButton exitButton = new JButton("Exit");
@@ -138,7 +153,7 @@ public class InitialView {
 		// exitButton.setOpaque(true);
 		// exitButton.setBackground(Color.WHITE);
 		exitButton.setToolTipText("Exit the App");
-		exitButton.setBounds(85, 270, 85, 50);
+		exitButton.setBounds(389, 319, 165, 50);
 		frmAuthoringApp.getContentPane().add(exitButton);
 		// frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new
 		// Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton,
