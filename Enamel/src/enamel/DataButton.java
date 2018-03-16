@@ -12,6 +12,7 @@ public class DataButton {
 	private int bID;
 	private String text;
 	private String audioFile;
+	private String link;
 
 	// Constructors
 	/**
@@ -23,6 +24,7 @@ public class DataButton {
 		this.bID = id;
 		this.audioFile = "";
 		this.text = "";
+		this.link = "";
 	}
 
 	/**
@@ -34,6 +36,7 @@ public class DataButton {
 		this.bID = other.bID;
 		this.text = other.text;
 		this.audioFile = other.audioFile;
+		this.link = other.link;
 	}
 
 	// utility methods
@@ -63,6 +66,15 @@ public class DataButton {
 	public String getText() {
 		return this.text;
 	}
+	
+	/**
+	 * Method to get the link
+	 * 
+	 *  @return link to next card
+	 */
+	public String getLink() {
+		return this.link;
+	}
 
 	// change methods
 	/**
@@ -78,6 +90,15 @@ public class DataButton {
 		} else {
 			text += "\n" + newText;
 		}
+	}
+	
+	/**
+	 * Method to set the new link
+	 * 
+	 * @param the card to link to
+	 */
+	public void setLink(String link) {
+		this.link = link;
 	}
 
 	/**

@@ -37,8 +37,10 @@ public class CardsToFileParser {
 		body += "\nButton " + numButtons;
 		body += "\n" + initialPrompt;
 		for (Card currCard : cards) {
+			body += "\n\n/~" + currCard.getName();
 			body += "\n" + writeCard(currCard);
 		}
+		body += "\n\n/~NEXTT";
 		body += "\n" + endingPrompt;
 		for (int i = 0; i < this.numCells; i++) {
 			body += "\n/~disp-cell-clear:" + i + "";
@@ -140,9 +142,9 @@ public class CardsToFileParser {
 					result += "\n" + arr[j];
 				}
 			}
-			result += "\n/~skip:NEXTT";
+			result += "\n/~skip:" + buttons.get(i).getLink();
 		}
-		result += "\n\n/~NEXTT";
+		
 		return result;
 	}
 

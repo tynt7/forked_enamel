@@ -113,6 +113,7 @@ public class FileToCardsParser {
 
 	public void parse() {
 		boolean inButton = false;
+		boolean firstCard = true;
 		String fileLine;
 		int cardNum = 1;
 		int buttonNum = 1;
@@ -154,7 +155,9 @@ public class FileToCardsParser {
 					cards.add(currCard);
 					currCard = new Card(cardNum - 1, "Card " + cardNum, "notSure");
 				}
-
+				else if (fileLine.length() >= 7 && fileLine.substring(0, 7).equals("/~skip:")) {
+					currButton.setLink("Card " + (cardNum+1));
+				}
 				else if (fileLine.length() >= 17 && fileLine.substring(0, 17).equals("/~disp-cell-pins:")) {
 					if (!inButton) {
 						currCell = new BrailleCell();
@@ -220,6 +223,27 @@ public class FileToCardsParser {
 					buttonNum = 6;
 					buttons.add(new DataButton(currButton));
 					currButton = new DataButton(buttonNum);
+				} 
+				else if (fileLine.length() >=18 && fileLine.substring(0, 18).equals("/~disp-cell-clear:")); // do nothing
+				else if (fileLine.length() >= 14 && fileLine.substring(0, 14).equals("/~skip-button:")); // do nothing
+				else {
+					if (!firstCard) {
+						System.out.println(fileLine);
+						System.out.println("Hi");
+						cardNum++;
+						buttons.add(new DataButton(currButton));
+						inButton = false;
+						currCard.setBList(new ArrayList<DataButton>(buttons));
+						buttons.clear();
+						currCard.setCells(new ArrayList<BrailleCell>(cells));
+						cells.clear();
+						cards.add(currCard);
+						currCard = new Card(cardNum - 1, "Card " + cardNum, "notSure");
+					}
+					else {
+						firstCard = false;
+					}
+					
 				}
 
 			} else {

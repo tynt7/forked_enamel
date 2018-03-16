@@ -485,6 +485,7 @@ public class AuthoringViewer {
 					updateButton();
 					updatePrompt();
 					updateCell();
+					updateEndButtonLinks();
 
 					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
 							endingPrompt);
@@ -514,24 +515,29 @@ public class AuthoringViewer {
 				if (path.equals("")) {
 					JOptionPane.showMessageDialog(null, "Please save first", "Alert", JOptionPane.ERROR_MESSAGE);
 				} else {
-					updateButton();
-					updatePrompt();
-					updateCell();
-					CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
-							endingPrompt);
-					a.createBody();
-					ScenarioWriter sW = new ScenarioWriter(path);
-					try {
-						sW.write(a.getText());
-						new Thread(new Runnable() {
-							public void run() {
-								ScenarioParser s = new ScenarioParser(true);
-								s.setScenarioFile(path);
-							}
-						}).start();
-					} catch (IOException e1) {
-						System.out.println("failed to print");
+					int temp = JOptionPane.showConfirmDialog(null, "This will overwrite the file. Do you want to continue?", "hi", JOptionPane.YES_NO_OPTION);
+					if (temp == JOptionPane.YES_OPTION) {
+						updateButton();
+						updatePrompt();
+						updateCell();
+						updateEndButtonLinks();
+						CardsToFileParser a = new CardsToFileParser(cards, numButtons, numCells, initialPrompt,
+								endingPrompt);
+						a.createBody();
+						ScenarioWriter sW = new ScenarioWriter(path);
+						try {
+							sW.write(a.getText());
+							new Thread(new Runnable() {
+								public void run() {
+									ScenarioParser s = new ScenarioParser(true);
+									s.setScenarioFile(path);
+								}
+							}).start();
+						} catch (IOException e1) {
+							System.out.println("failed to print");
+						}
 					}
+					
 				}
 
 			}
@@ -749,6 +755,11 @@ public class AuthoringViewer {
 					cards.add(temp);
 					temp.getButtonList().add(new DataButton(0));
 					temp.getCells().add(new BrailleCell());
+					for (DataButton buttons : cards.get(currCard).getButtonList()) {
+						if (buttons.getLink().equals("")) {
+							buttons.setLink(temp.getName());
+						}
+					}
 					nextCard();
 				}
 			}
@@ -875,7 +886,7 @@ public class AuthoringViewer {
 	}
 
 	/**
-	 * Method to update button
+	 * Method to save button text
 	 */
 	public void updateButton() {
 		if (cards.get(currCard).getButtonList().isEmpty()) {
@@ -886,14 +897,14 @@ public class AuthoringViewer {
 	}
 
 	/**
-	 * Method to update prompt
+	 * Method to save prompt text
 	 */
 	public void updatePrompt() {
 		cards.get(currCard).setText(dtrpnEnterAPrompt.getText());
 	}
 
 	/**
-	 * Method to update braille cell
+	 * Method to save braille cell pins
 	 */
 	public void updateCell() {
 		BrailleCell temp = new BrailleCell();
@@ -909,7 +920,16 @@ public class AuthoringViewer {
 		temp.setPins(s);
 		cards.get(currCard).getCells().set(currCell, temp);
 	}
-
+	
+	/**
+	 * Method to save the last cards button links to NEXTT
+	 */
+	public void updateEndButtonLinks() {
+		for (DataButton buttons : cards.get(cards.size()-1).getButtonList()) {
+			buttons.setLink("NEXTT");
+		}
+	}
+	
 	/**
 	 * Method to show prompt
 	 */
@@ -946,6 +966,7 @@ public class AuthoringViewer {
 	public void prevCard() {
 		updateButton();
 		updatePrompt();
+		updateCell();
 		setCurrCellPins(cards.get(currCard).getCells().get(currCell));
 		cards.get(currCard).setName(txtCardName.getText());
 		currCard--;
