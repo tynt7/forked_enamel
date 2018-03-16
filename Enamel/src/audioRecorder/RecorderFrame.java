@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.ByteArrayInputStream;
@@ -40,6 +41,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JTextField;
 //import javax.swing.SwingUtilities;
+import javax.swing.KeyStroke;
 
 import java.awt.Color;
 import javax.swing.JMenuBar;
@@ -248,7 +250,7 @@ public class RecorderFrame {
 				txtrPressrecordTo.setEditable(false);
 				txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 				txtrPressrecordTo.setBounds(109, 20, 592, 149);
-				txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD NEW\" to start a new recording\r\n -     Press \"STOP & SAVE\" to save audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You may choose to \"DISCARD\" recording \r\n -     You may play the recorded audio after you save it (you can not play a previously saved audio file yet)");
+				txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD\" or \"CTRL+SHIFT+R\" to start a new recording\r\n -     Press \"STOP & SAVE\" or  \"CTRL+SHIFT+S\" to save recorded audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You can \"RESET\" the recorder to start a new recording\r\n\t- NOTE: Unsaved Recording will be deiscarded, while the saved files will not be deleted\r\n -     Press \"PLAY\" or \"CTRL+SHIFT+P\" to play the recently saved audio file \r\n\t- (you can not play a previously saved audio file yet)");
 				contentPane.add(txtrPressrecordTo);
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -265,6 +267,11 @@ public class RecorderFrame {
 		}
 		recorderFrame.addWindowListener(new confirmClose());
 		// pop up before exit
+		
+		mntmRecordNew.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, ActionEvent.CTRL_MASK+ActionEvent.SHIFT_MASK));
+		mntmSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK+ActionEvent.SHIFT_MASK));
+		mntmPlay.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK+ActionEvent.SHIFT_MASK));
+		mntmInstructions.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H, ActionEvent.CTRL_MASK+ActionEvent.SHIFT_MASK));
 	}
 
 	/**
@@ -300,7 +307,7 @@ public class RecorderFrame {
 				mntmSave.setEnabled(true);//save menu
 				resetButton.setEnabled(true);//reset button
 				//reset menu <_-------------------------------------------------------------------------
-
+				mntmPlay.setEnabled(false);//************
 				// while recording
 				while (isRecording) {
 					try {
@@ -380,7 +387,7 @@ public class RecorderFrame {
 		mntmSave.setEnabled(false);
 		
 		btnPlay.setEnabled(false);
-		//mntmPlay.setEnabled(false);
+		mntmPlay.setEnabled(false);////////*******************
 		try {
 			stop();
 		} catch (IOException ex) {
@@ -446,6 +453,7 @@ public class RecorderFrame {
 				mntmSave.setEnabled(false);
 				JOptionPane.showMessageDialog(null, "Saved recorded sound to:\n" + path);
 				btnPlay.setEnabled(true);
+				mntmPlay.setEnabled(true);
 			} catch (IOException ex) {
 				JOptionPane.showMessageDialog(null, "Error", "Error saving to sound file!", JOptionPane.ERROR_MESSAGE);
 				ex.printStackTrace();

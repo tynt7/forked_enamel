@@ -11,10 +11,13 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.management.JMException;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -34,7 +37,7 @@ import enamel.ScenarioParser;
  * @author Jeremy, Nisha, Tyler
  * 
  *         GUI class to display initial view of Authoring app. This class allows
- *         user to creat new scenario, edit saved scenario, test saved scenario.
+ *         user to create new scenario, edit saved scenario, test saved scenario.
  *         Accessibility features are implemented.
  *
  */
@@ -91,12 +94,7 @@ public class InitialView {
 
 		JButton newButton = new JButton("New");
 		newButton.getAccessibleContext().setAccessibleDescription("Creates a new file");
-		newButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ScenarioForm sf = new ScenarioForm();
-				sf.displayForm();
-			}
-		});
+		newAction(newButton);
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		// newButton.setBackground(Color.WHITE);
 		// newButton.setContentAreaFilled(false);
@@ -115,6 +113,61 @@ public class InitialView {
 		// editButton.setOpaque(true);
 		// editButton.setBackground(Color.WHITE);
 		editButton.setToolTipText("Edit a Scenario");
+		editAction(editButton);
+		editButton.setBounds(85, 150, 85, 50);
+		frmAuthoringApp.getContentPane().add(editButton);
+
+		JButton testButton = new JButton("Test");
+		testButton.getAccessibleContext().setAccessibleDescription("Tests a file");
+		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		// testButton.setBackground(Color.WHITE);
+		// testButton.setContentAreaFilled(false);
+		// testButton.setOpaque(true);
+		testButton.setForeground(new Color(0, 128, 0));
+		testButton.setToolTipText("Test a Scenario");
+		testAction(testButton);
+
+		testButton.setBounds(85, 210, 85, 50);
+		frmAuthoringApp.getContentPane().add(testButton);
+
+		JButton exitButton = new JButton("Exit");
+		exitButton.getAccessibleContext().setAccessibleDescription("Closes the application");
+		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+		exitButton.setForeground(new Color(255, 0, 0));
+		// exitButton.setContentAreaFilled(false);
+		// exitButton.setOpaque(true);
+		// exitButton.setBackground(Color.WHITE);
+		exitButton.setToolTipText("Exit the App");
+		exitButton.setBounds(85, 270, 85, 50);
+		frmAuthoringApp.getContentPane().add(exitButton);
+		// frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new
+		// Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton,
+		// btnEdit, testButton, exitButton}));
+		exitAction(exitButton);
+		/*//frmAuthoringApp.setFocusable(true);
+		Action exAction = new AbstractAction() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				testExtract(exitButton);
+			}
+		};
+		exitButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK), "exiting");
+		exitButton.getActionMap().put("exiting", exAction);
+		//exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+*/	}
+
+	private void newAction(JButton newButton) {
+		newButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ScenarioForm sf = new ScenarioForm();
+				sf.displayForm();
+			}
+		});
+	}
+
+	private void editAction(JButton editButton) {
 		editButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Thread(new Runnable() {
@@ -164,17 +217,9 @@ public class InitialView {
 				}).start();
 			}
 		});
-		editButton.setBounds(85, 150, 85, 50);
-		frmAuthoringApp.getContentPane().add(editButton);
+	}
 
-		JButton testButton = new JButton("Test");
-		testButton.getAccessibleContext().setAccessibleDescription("Tests a file");
-		testButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		// testButton.setBackground(Color.WHITE);
-		// testButton.setContentAreaFilled(false);
-		// testButton.setOpaque(true);
-		testButton.setForeground(new Color(0, 128, 0));
-		testButton.setToolTipText("Test a Scenario");
+	private void testAction(JButton testButton) {
 		testButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// ToyAuthoring ta = new ToyAuthoring();
@@ -232,23 +277,9 @@ public class InitialView {
 			}
 
 		});
+	}
 
-		testButton.setBounds(85, 210, 85, 50);
-		frmAuthoringApp.getContentPane().add(testButton);
-
-		JButton exitButton = new JButton("Exit");
-		exitButton.getAccessibleContext().setAccessibleDescription("Closes the application");
-		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		exitButton.setForeground(new Color(255, 0, 0));
-		// exitButton.setContentAreaFilled(false);
-		// exitButton.setOpaque(true);
-		// exitButton.setBackground(Color.WHITE);
-		exitButton.setToolTipText("Exit the App");
-		exitButton.setBounds(85, 270, 85, 50);
-		frmAuthoringApp.getContentPane().add(exitButton);
-		// frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new
-		// Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton,
-		// btnEdit, testButton, exitButton}));
+	private void exitAction(JButton exitButton) {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmAuthoringApp.setVisible(false);
@@ -256,7 +287,5 @@ public class InitialView {
 				System.exit(0);
 			}
 		});
-		
-		//exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 	}
 }
