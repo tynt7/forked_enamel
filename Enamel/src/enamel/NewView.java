@@ -684,7 +684,7 @@ public class NewView {
                        }
                }
        }
-       /**
+       /** 
         * Method to update button
         */
        public void updateButton() {
