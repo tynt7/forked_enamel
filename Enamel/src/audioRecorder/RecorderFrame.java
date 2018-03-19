@@ -39,11 +39,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 //import javax.swing.SwingUtilities;
 import javax.swing.KeyStroke;
 
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
@@ -67,7 +71,7 @@ public class RecorderFrame {
 
 	private JPanel contentPane;
 	private JTextField textField;
-	JEditorPane txtrPressrecordTo;
+	JEditorPane tViewHelp;
 	JButton recordNewButton;
 	JButton stopRecordingButton;
 
@@ -126,7 +130,7 @@ public class RecorderFrame {
 		recorderFrame.setTitle("Audio Recorder");
 		recorderFrame.getAccessibleContext().setAccessibleDescription("Use this tool to record and save an audio file");
 		recorderFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		recorderFrame.setBounds(100, 100, 774, 244);
+		recorderFrame.setBounds(100, 100, 913, 245);
 		
 		//Menu Bar
 		menuBar = new JMenuBar();
@@ -171,17 +175,33 @@ public class RecorderFrame {
 		recorderFrame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		
+		//*****************************************************************************
+		Dimension thisScreen = Toolkit.getDefaultToolkit().getScreenSize();
+
+		// find the dimensions of the screen and a dimension that is derive one
+		// quarter of the size
+		Dimension targetSize = new Dimension((int) thisScreen.getWidth() / 4, (int) thisScreen.getHeight() / 4);
+		recorderFrame.setPreferredSize(targetSize);
+		//recorderFrame.setSize((int) thisScreen.getWidth() / 2, (int) thisScreen.getHeight() / 2);
+		//.frmAutho(this.getClass().getName());
+		this.recorderFrame.setLocationByPlatform(true);
+		//*****************************************************************************
+		// this methods asks the window manager to position the frame in the
+		// centre of the screen
+		this.recorderFrame.setLocationRelativeTo(null);
+		
 		// Button for starting a new recording
 		recordNewButton = new JButton("RECORD");
 		recordNewButton.getAccessibleContext().setAccessibleDescription("Click to record a new audio");
-		recordNewButton.setForeground(Color.BLUE);
+		recordNewButton.setForeground(new Color(0, 0, 128));
 		recordNewButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		recordNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				recordAudio();
 			}
 		});
-		recordNewButton.setBounds(20, 148, 125, 29);
+		recordNewButton.setBounds(20, 148, 125, 36);
 		contentPane.add(recordNewButton);
 
 		// Button for stopping and then saving the current recoding
@@ -189,7 +209,7 @@ public class RecorderFrame {
 		stopRecordingButton.getAccessibleContext()
 				.setAccessibleDescription("Click to stop recording and save audio file");
 		stopRecordingButton.setEnabled(false);
-		stopRecordingButton.setForeground(Color.RED);
+		stopRecordingButton.setForeground(new Color(139, 0, 0));
 		stopRecordingButton.setFont(new Font("Tahoma", Font.BOLD, 12));
 		stopRecordingButton.addActionListener(new ActionListener() {
 
@@ -199,14 +219,14 @@ public class RecorderFrame {
 				stopRecording();
 			}
 		});
-		stopRecordingButton.setBounds(155, 148, 125, 29);
+		stopRecordingButton.setBounds(197, 148, 125, 36);
 		contentPane.add(stopRecordingButton);
 
 		// Label for record timer
-		JLabel lblTimer = new JLabel("TIMER:");
+		JLabel lblTimer = new JLabel("STATUS:");
 		lblTimer.getAccessibleContext().setAccessibleDescription("Indicates whether the recorder is recording or not");
 		lblTimer.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblTimer.setBounds(290, 148, 54, 29);
+		lblTimer.setBounds(350, 152, 54, 29);
 		contentPane.add(lblTimer);
 
 		// textField to display the record time
@@ -216,7 +236,7 @@ public class RecorderFrame {
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		textField.setText("00.00.00");
 		textField.setEditable(false);
-		textField.setBounds(343, 148, 125, 29);
+		textField.setBounds(412, 148, 137, 36);
 		contentPane.add(textField);
 		textField.setColumns(10);
 
@@ -229,15 +249,15 @@ public class RecorderFrame {
 				// playSound(path);
 			}
 		});
-		resetButton.setForeground(new Color(220, 20, 60));
+		resetButton.setForeground(new Color(0, 128, 128));
 		resetButton.setEnabled(false);
 		resetButton.setFont(new Font("Tahoma", Font.BOLD, 12));
-		resetButton.setBounds(478, 148, 125, 29);
+		resetButton.setBounds(592, 148, 125, 36);
 		contentPane.add(resetButton);
 
 		// button to play the recorded audio
 		btnPlay.getAccessibleContext().setAccessibleDescription("Click to play recently saved audio");
-		btnPlay.setBounds(619, 148, 125, 29);
+		btnPlay.setBounds(772, 148, 125, 36);
 		contentPane.add(btnPlay);
 		btnPlay.setForeground(new Color(0, 100, 0));
 		btnPlay.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -246,20 +266,20 @@ public class RecorderFrame {
 				
 		
 				// JTextArea for instructions
-				txtrPressrecordTo = new JEditorPane();
-				txtrPressrecordTo.setEditable(false);
-				txtrPressrecordTo.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-				txtrPressrecordTo.setBounds(109, 20, 592, 149);
-				txtrPressrecordTo.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD\" or \"CTRL+SHIFT+R\" to start a new recording\r\n -     Press \"STOP & SAVE\" or  \"CTRL+SHIFT+S\" to save recorded audio as \".wav\" file\r\n -     \"TIMER\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You can \"RESET\" the recorder to start a new recording\r\n\t- NOTE: Unsaved Recording will be deiscarded, while the saved files will not be deleted\r\n -     Press \"PLAY\" or \"CTRL+SHIFT+P\" to play the recently saved audio file \r\n\t- (you can not play a previously saved audio file yet)");
-				contentPane.add(txtrPressrecordTo);
+				tViewHelp = new JEditorPane();
+				tViewHelp.setEditable(false);
+				tViewHelp.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+				tViewHelp.setBounds(109, 20, 592, 149);
+				tViewHelp.setText("Welcome to \"Audio Recorder\". Below are the instructions to use it: \r\n -     Press \"RECORD\" or \"CTRL+SHIFT+R\" to start a new recording\r\n -     Press \"STOP & SAVE\" or  \"CTRL+SHIFT+S\" to save recorded audio as \".wav\" file\r\n -     \"STATUS\" indicates that audio is being recorded\r\n\t- (record timer will be added in next build)\r\n -     You can \"RESET\" the recorder to start a new recording\r\n\t- NOTE: Unsaved Recording will be deiscarded, while the saved files will not be deleted\r\n -     Press \"PLAY\" or \"CTRL+SHIFT+P\" to play the recently saved audio file \r\n\t- (you can not play a previously saved audio file yet)");
+				contentPane.add(tViewHelp);
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				playSound(path);
 			}
 		});
 		
-		JScrollPane scrollPane = new JScrollPane(txtrPressrecordTo);
-		scrollPane.setBounds(20, 5, 719, 133);
+		JScrollPane scrollPane = new JScrollPane(tViewHelp);
+		scrollPane.setBounds(20, 5, 877, 132);
 		contentPane.add(scrollPane);
 
 		if (textField.getText() == "00.00.00") {
@@ -507,6 +527,7 @@ public class RecorderFrame {
 	 * file.
 	 */
 	private void playSound(String sound) {
+		//btnPlay.setEnabled(false);
 		try {
 			Clip clip = AudioSystem.getClip();
 			clip.open(AudioSystem.getAudioInputStream(new File(sound)));
@@ -516,9 +537,28 @@ public class RecorderFrame {
 			// continue to wait until it does.
 			while (!clip.isRunning())
 				Thread.sleep(10);
-			while (clip.isRunning())
+			while (clip.isRunning()){
 				Thread.sleep(10);
+				/*btnPlay.repaint();
+				btnPlay.setText("Stop");
+				btnPlay.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						btnPlay.setText("Play");
+						try {
+							clip.close();
+							stop();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+					}
+				});*/
+			}
 			clip.close();
+			
 
 		} catch (Exception e) {
 			System.out.println("Exception error: " + e.toString()

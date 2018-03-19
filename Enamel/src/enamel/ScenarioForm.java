@@ -244,18 +244,7 @@ public class ScenarioForm {
 		btnSaveAndCreate.getAccessibleContext().setAccessibleDescription("Saves information and opens editor");
 		btnSaveAndCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnSaveAndCreate.setBounds(117, 303, 201, 29);
-		btnSaveAndCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<Card> cards = new ArrayList<Card>();
-				Card temp = new Card(1, "Card 1", "");
-				cards.add(temp);
-				cards.get(0).getCells().add(new BrailleCell());
-				AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex() + 1,
-						comboButtonBox.getSelectedIndex() + 1, cards, getTitle(), "");
-				av.setCardList();
-				sCreatorFrame.dispose();
-			}
-		});
+		saveButtonListener(comboCellBox, comboButtonBox, btnSaveAndCreate);
 
 		/*
 		 * btnSaveAndCreate.setForeground(Color.BLACK);
@@ -292,6 +281,21 @@ public class ScenarioForm {
 		sCreatorFrame.getContentPane().add(btnExitWithoutSaving);
 		//sCreatorFrame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblNewLabel, lblNumberOfCells, comboCellBox, lblNumberOfButtons, comboButtonBox, lblScenarioTitle, titleTextField, lblAddAudioFile, btnBrowse, audioFileTextField, lblS, btnRecordAudio, btnSaveAndCreate, btnExitWithoutSaving}));
 		sCreatorFrame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblNewLabel, lblNumberOfCells, comboCellBox, lblNumberOfButtons, comboButtonBox, lblScenarioTitle, titleTextField, lblAddAudioFile, btnBrowse, audioFileTextField, btnSaveAndCreate, btnExitWithoutSaving}));
+	}
+
+	private void saveButtonListener(JComboBox comboCellBox, JComboBox comboButtonBox, JButton btnSaveAndCreate) {
+		btnSaveAndCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ArrayList<Card> cards = new ArrayList<Card>();
+				Card temp = new Card(1, "Card 1", "");
+				cards.add(temp);
+				cards.get(0).getCells().add(new BrailleCell());
+				NewView av = new NewView(comboCellBox.getSelectedIndex() + 1,
+						comboButtonBox.getSelectedIndex() + 1, cards, getTitle(), "");
+				av.setCardList();
+				sCreatorFrame.dispose();
+			}
+		});
 	}
 
 	static private String selectedString(ItemSelectable is) {

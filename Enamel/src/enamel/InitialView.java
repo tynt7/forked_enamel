@@ -141,7 +141,7 @@ public class InitialView {
 		// testButton.setBackground(Color.WHITE);
 		// testButton.setContentAreaFilled(false);
 		// testButton.setOpaque(true);
-		testButton.setForeground(new Color(0, 128, 0));
+		testButton.setForeground(new Color(0, 128, 128));
 		testButton.setToolTipText("Test a Scenario");
 		testAction(testButton);
 
@@ -151,7 +151,7 @@ public class InitialView {
 		JButton exitButton = new JButton("Exit");
 		exitButton.getAccessibleContext().setAccessibleDescription("Closes the application");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
-		exitButton.setForeground(new Color(255, 0, 0));
+		exitButton.setForeground(new Color(139, 0, 0));
 		// exitButton.setContentAreaFilled(false);
 		// exitButton.setOpaque(true);
 		// exitButton.setBackground(Color.WHITE);
