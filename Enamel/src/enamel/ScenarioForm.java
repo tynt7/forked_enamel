@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.TextField;
+import java.awt.Toolkit;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.ItemEvent;
@@ -42,6 +43,8 @@ import java.awt.ItemSelectable;
 
 //import org.eclipse.wb.swing.FocusTraversalOnArray;
 import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -102,29 +105,45 @@ public class ScenarioForm {
 	private void initialize() {
 		sCreatorFrame = new JFrame();
 		sCreatorFrame.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
-		//sCreatorFrame.setResizable(false);
+		// sCreatorFrame.setResizable(false);
 		sCreatorFrame.setBackground(new Color(255, 255, 255));
 		sCreatorFrame.setTitle("Scenario Creator");
 		sCreatorFrame.setBounds(100, 100, 490, 455);
 		sCreatorFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		sCreatorFrame.addWindowListener(new confirmClose());
 		sCreatorFrame.getContentPane().setLayout(null);
+
+		// *****************************************************************************
+		Dimension thisScreen = Toolkit.getDefaultToolkit().getScreenSize();
+
+		// find the dimensions of the screen and a dimension that is derive one
+		// quarter of the size
+		Dimension targetSize = new Dimension((int) thisScreen.getWidth() / 4, (int) thisScreen.getHeight() / 4);
+		sCreatorFrame.setPreferredSize(targetSize);
+		sCreatorFrame.setSize((int) thisScreen.getWidth() / 2, (int) thisScreen.getHeight() / 2);
+		// .frmAutho(this.getClass().getName());
+		this.sCreatorFrame.setLocationByPlatform(true);
+		// *****************************************************************************
+		// this methods asks the window manager to position the frame in the
+		// centre of the screen
+		this.sCreatorFrame.setLocationRelativeTo(null);
+
 		// exit
 
 		JLabel lblNewLabel = new JLabel("Initial Set Up");
-		lblNewLabel.setBounds(117, 21, 119, 27);
-		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 15));
+		lblNewLabel.setBounds(456, 30, 151, 27);
+		lblNewLabel.setFont(new Font("Cambria", Font.BOLD, 16));
 		sCreatorFrame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNumberOfCells = new JLabel("Number of Cells");
 		lblNumberOfCells.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNumberOfCells.setBounds(33, 77, 102, 16);
+		lblNumberOfCells.setBounds(322, 100, 181, 16);
 		sCreatorFrame.getContentPane().add(lblNumberOfCells);
 
 		JComboBox comboCellBox = new JComboBox();
 		comboCellBox.getAccessibleContext().setAccessibleDescription("Select number of cells");
-		comboCellBox.setFont(new Font("Tahoma", Font.BOLD, 11));
-		comboCellBox.setBounds(224, 76, 64, 21);
+		comboCellBox.setFont(new Font("Tahoma", Font.BOLD, 12));
+		comboCellBox.setBounds(513, 98, 64, 21);
 		comboCellBox
 				.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
 		sCreatorFrame.getContentPane().add(comboCellBox);
@@ -139,13 +158,13 @@ public class ScenarioForm {
 		});
 		JLabel lblNumberOfButtons = new JLabel("Number of Buttons");
 		lblNumberOfButtons.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNumberOfButtons.setBounds(33, 109, 119, 16);
+		lblNumberOfButtons.setBounds(322, 152, 181, 16);
 		sCreatorFrame.getContentPane().add(lblNumberOfButtons);
 		lblNumberOfCells.setLabelFor(comboCellBox);
 		JComboBox comboButtonBox = new JComboBox();
 		comboButtonBox.getAccessibleContext().setAccessibleDescription("Select number of buttons");
-		comboButtonBox.setFont(new Font("Tahoma", Font.BOLD, 11));
-		comboButtonBox.setBounds(224, 108, 64, 21);
+		comboButtonBox.setFont(new Font("Tahoma", Font.BOLD, 12));
+		comboButtonBox.setBounds(513, 150, 64, 21);
 		comboButtonBox.setBackground(new Color(238, 238, 238));
 
 		comboButtonBox.setModel(new DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6" }));
@@ -162,88 +181,86 @@ public class ScenarioForm {
 
 		JLabel lblScenarioTitle = new JLabel("Scenario Title");
 		lblScenarioTitle.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblScenarioTitle.setBounds(33, 142, 85, 16);
+		lblScenarioTitle.setBounds(322, 200, 181, 16);
 		sCreatorFrame.getContentPane().add(lblScenarioTitle);
 
 		titleTextField = new JTextField();
 		titleTextField.getAccessibleContext().setAccessibleDescription("Title of the scenario");
 		titleTextField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		titleTextField.setBounds(224, 140, 130, 21);
+		titleTextField.setBounds(513, 195, 130, 27);
 		titleTextField.setToolTipText("Enter a Title for your Scenario");
 		sCreatorFrame.getContentPane().add(titleTextField);
 		titleTextField.setColumns(10);
+		titleTextField.setText("New Scenario");
 
-		JLabel lblAddAudioFile = new JLabel("Add Audio File (Optional)");
-		lblAddAudioFile.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblAddAudioFile.setBounds(33, 177, 160, 16);
-		sCreatorFrame.getContentPane().add(lblAddAudioFile);
+		/*
+		 * JLabel lblAddAudioFile = new JLabel("Add Audio File (Optional)");
+		 * lblAddAudioFile.setFont(new Font("Tahoma", Font.BOLD, 12));
+		 * lblAddAudioFile.setBounds(321, 248, 182, 16);
+		 * sCreatorFrame.getContentPane().add(lblAddAudioFile);
+		 */
 
-		audioFileTextField = new JTextField();
+		/*
+		 * audioFileTextField = new JTextField(); audioFileTextField.setFont(new
+		 * Font("Tahoma", Font.PLAIN, 12));
+		 * 
+		 * audioFileTextField.setEditable(false);
+		 * audioFileTextField.getAccessibleContext().
+		 * setAccessibleDescription("Selected audio file");
+		 * audioFileTextField.setBounds(513, 243, 130, 27);
+		 * audioFileTextField.setColumns(10);
+		 * sCreatorFrame.getContentPane().add(audioFileTextField);
+		 */
 
-		audioFileTextField.setEditable(false);
-		audioFileTextField.getAccessibleContext().setAccessibleDescription("Selected audio file");
-		audioFileTextField.setBounds(224, 176, 119, 21);
-		audioFileTextField.setColumns(10);
-		sCreatorFrame.getContentPane().add(audioFileTextField);
+		/*
+		 * JButton btnBrowse = new JButton("Browse"); btnBrowse.setFont(new
+		 * Font("Tahoma", Font.BOLD, 12)); btnBrowse.getAccessibleContext().
+		 * setAccessibleDescription("Search for sound file");
+		 * btnBrowse.setBounds(680, 243, 94, 27);
+		 * btnBrowse.addActionListener(new ActionListener() { public void
+		 * actionPerformed(ActionEvent e) { JFileChooser fc = new
+		 * JFileChooser(); FileFilter wavFilter = new FileFilter() {
+		 * 
+		 * @Override public String getDescription() { return
+		 * "Sound file (*.WAV)"; }
+		 * 
+		 * @Override public boolean accept(File file) { if (file.isDirectory())
+		 * { return true; } else { return
+		 * file.getName().toLowerCase().endsWith(".wav"); } } };
+		 * 
+		 * fc.setFileFilter(wavFilter); fc.setAcceptAllFileFilterUsed(false);
+		 * fc.setCurrentDirectory(new
+		 * java.io.File("./FactoryScenarios/AudioFiles"));
+		 * fc.setDialogTitle("Please Choose File to Open");
+		 * fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); if
+		 * (fc.showOpenDialog(btnBrowse) == JFileChooser.APPROVE_OPTION) {
+		 * audioFileTextField.setText(fc.getSelectedFile().getName().toString())
+		 * ; } } }); sCreatorFrame.getContentPane().add(btnBrowse);
+		 */
 
-		JButton btnBrowse = new JButton("Browse");
-		btnBrowse.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnBrowse.getAccessibleContext().setAccessibleDescription("Search for sound file");
-		btnBrowse.setBounds(350, 176, 82, 21);
-		btnBrowse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fc = new JFileChooser();
-				FileFilter wavFilter = new FileFilter() {
-					@Override
-					public String getDescription() {
-						return "Sound file (*.WAV)";
-					}
-
-					@Override
-					public boolean accept(File file) {
-						if (file.isDirectory()) {
-							return true;
-						} else {
-							return file.getName().toLowerCase().endsWith(".wav");
-						}
-					}
-				};
-
-				fc.setFileFilter(wavFilter);
-				fc.setAcceptAllFileFilterUsed(false);
-				fc.setCurrentDirectory(new java.io.File("./FactoryScenarios/AudioFiles"));
-				fc.setDialogTitle("Please Choose File to Open");
-				fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				if (fc.showOpenDialog(btnBrowse) == JFileChooser.APPROVE_OPTION) {
-					audioFileTextField.setText(fc.getSelectedFile().getName().toString());
-				}
-			}
-		});
-		sCreatorFrame.getContentPane().add(btnBrowse);
-
-		/*JLabel lblS = new JLabel("Record and Save a New Audio \".wav\" File");
-		lblS.setBounds(33, 212, 278, 19);
-		sCreatorFrame.getContentPane().add(lblS);
-		lblS.setFont(new Font("Tahoma", Font.BOLD, 12));
-
-		JButton btnRecordAudio = new JButton("Record Audio");
-		btnRecordAudio.getAccessibleContext().setAccessibleDescription("Click to record new audio");
-		btnRecordAudio.setBounds(321, 210, 111, 21);
-		sCreatorFrame.getContentPane().add(btnRecordAudio);
-		btnRecordAudio.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnRecordAudio.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				RecorderFrame rf = new RecorderFrame();
-				rf.displayRecorder();
-			}
-		});*/
+		/*
+		 * JLabel lblS = new
+		 * JLabel("Record and Save a New Audio \".wav\" File");
+		 * lblS.setBounds(33, 212, 278, 19);
+		 * sCreatorFrame.getContentPane().add(lblS); lblS.setFont(new
+		 * Font("Tahoma", Font.BOLD, 12));
+		 * 
+		 * JButton btnRecordAudio = new JButton("Record Audio");
+		 * btnRecordAudio.getAccessibleContext().
+		 * setAccessibleDescription("Click to record new audio");
+		 * btnRecordAudio.setBounds(321, 210, 111, 21);
+		 * sCreatorFrame.getContentPane().add(btnRecordAudio);
+		 * btnRecordAudio.setFont(new Font("Tahoma", Font.BOLD, 11));
+		 * btnRecordAudio.addActionListener(new ActionListener() {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent e) { RecorderFrame
+		 * rf = new RecorderFrame(); rf.displayRecorder(); } });
+		 */
 
 		JButton btnSaveAndCreate = new JButton("Create a Scenario");
 		btnSaveAndCreate.getAccessibleContext().setAccessibleDescription("Saves information and opens editor");
-		btnSaveAndCreate.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnSaveAndCreate.setBounds(117, 303, 201, 29);
+		btnSaveAndCreate.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnSaveAndCreate.setBounds(406, 336, 201, 29);
 		saveButtonListener(comboCellBox, comboButtonBox, btnSaveAndCreate);
 
 		/*
@@ -256,8 +273,8 @@ public class ScenarioForm {
 
 		JButton btnExitWithoutSaving = new JButton("Exit Without Saving");
 		btnExitWithoutSaving.getAccessibleContext().setAccessibleDescription("Doesn't save and closes current window");
-		btnExitWithoutSaving.setFont(new Font("Tahoma", Font.BOLD, 11));
-		btnExitWithoutSaving.setBounds(117, 343, 201, 29);
+		btnExitWithoutSaving.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnExitWithoutSaving.setBounds(406, 376, 201, 29);
 		/*
 		 * btnExitWithoutSaving.setForeground(Color.BLACK);
 		 * btnExitWithoutSaving.setContentAreaFilled(false);
@@ -279,8 +296,20 @@ public class ScenarioForm {
 			}
 		});
 		sCreatorFrame.getContentPane().add(btnExitWithoutSaving);
-		//sCreatorFrame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblNewLabel, lblNumberOfCells, comboCellBox, lblNumberOfButtons, comboButtonBox, lblScenarioTitle, titleTextField, lblAddAudioFile, btnBrowse, audioFileTextField, lblS, btnRecordAudio, btnSaveAndCreate, btnExitWithoutSaving}));
-		sCreatorFrame.getContentPane().setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{lblNewLabel, lblNumberOfCells, comboCellBox, lblNumberOfButtons, comboButtonBox, lblScenarioTitle, titleTextField, lblAddAudioFile, btnBrowse, audioFileTextField, btnSaveAndCreate, btnExitWithoutSaving}));
+		// sCreatorFrame.getContentPane().setFocusTraversalPolicy(new
+		// FocusTraversalOnArray(new Component[]{lblNewLabel, lblNumberOfCells,
+		// comboCellBox, lblNumberOfButtons, comboButtonBox, lblScenarioTitle,
+		// titleTextField, lblAddAudioFile, btnBrowse, audioFileTextField, lblS,
+		// btnRecordAudio, btnSaveAndCreate, btnExitWithoutSaving}));
+		// sCreatorFrame.getContentPane().setFocusTraversalPolicy(new
+		// FocusTraversalOnArray(new Component[]{lblNewLabel, lblNumberOfCells,
+		// comboCellBox, lblNumberOfButtons, comboButtonBox, lblScenarioTitle,
+		// titleTextField, lblAddAudioFile, btnBrowse, audioFileTextField,
+		// btnSaveAndCreate, btnExitWithoutSaving}));
+		sCreatorFrame.getContentPane()
+				.setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[] { lblNewLabel, lblNumberOfCells,
+						comboCellBox, lblNumberOfButtons, comboButtonBox, lblScenarioTitle, titleTextField,
+						btnSaveAndCreate, btnExitWithoutSaving }));
 	}
 
 	private void saveButtonListener(JComboBox comboCellBox, JComboBox comboButtonBox, JButton btnSaveAndCreate) {
@@ -290,7 +319,7 @@ public class ScenarioForm {
 				Card temp = new Card(1, "Card 1", "");
 				cards.add(temp);
 				cards.get(0).getCells().add(new BrailleCell());
-				NewView av = new NewView(comboCellBox.getSelectedIndex() + 1,
+				AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex() + 1,
 						comboButtonBox.getSelectedIndex() + 1, cards, getTitle(), "");
 				av.setCardList();
 				sCreatorFrame.dispose();
@@ -303,10 +332,11 @@ public class ScenarioForm {
 		return ((selected.length == 0) ? "null" : (String) selected[0]);
 	}
 
-	public String getTitle(){
+	public String getTitle() {
 		System.out.println(this.titleTextField.getText());
 		return this.titleTextField.getText();
 	}
+
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
 			int option = JOptionPane.showConfirmDialog(null, "Do you want to EXIT? \nNo changes will be saved!!!",

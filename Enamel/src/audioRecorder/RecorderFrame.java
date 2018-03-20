@@ -234,7 +234,7 @@ public class RecorderFrame {
 		textField.getAccessibleContext().setAccessibleDescription("Recording or not");
 		textField.setForeground(Color.BLUE);
 		textField.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		textField.setText("00.00.00");
+		textField.setText("Ready");
 		textField.setEditable(false);
 		textField.setBounds(412, 148, 137, 36);
 		contentPane.add(textField);
@@ -259,7 +259,7 @@ public class RecorderFrame {
 		btnPlay.getAccessibleContext().setAccessibleDescription("Click to play recently saved audio");
 		btnPlay.setBounds(772, 148, 125, 36);
 		contentPane.add(btnPlay);
-		btnPlay.setForeground(new Color(0, 100, 0));
+		btnPlay.setForeground(new Color(85, 107, 47));
 		btnPlay.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnPlay.setEnabled(false);
 				
@@ -282,7 +282,7 @@ public class RecorderFrame {
 		scrollPane.setBounds(20, 5, 877, 132);
 		contentPane.add(scrollPane);
 
-		if (textField.getText() == "00.00.00") {
+		if (textField.getText() == "Ready") {
 			recorderFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}
 		recorderFrame.addWindowListener(new confirmClose());
@@ -398,7 +398,7 @@ public class RecorderFrame {
 	 */
 	private void resetRecorder() {
 		isRecording = false;
-		textField.setText("00.00.00");
+		textField.setText("Ready");
 		
 		recordNewButton.setEnabled(true);
 		mntmRecordNew.setEnabled(true);
@@ -505,7 +505,7 @@ public class RecorderFrame {
 	// close the JFrame
 	private class confirmClose extends WindowAdapter {
 		public void windowClosing(WindowEvent e) {
-			if (!(textField.getText().contains("00.00.00"))) {
+			if (!(textField.getText().contains("Ready"))) {
 				int option = JOptionPane.showConfirmDialog(null, "Do you want to EXIT? \nNo changes will be saved!!!",
 						"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				if (option == JOptionPane.YES_OPTION) {

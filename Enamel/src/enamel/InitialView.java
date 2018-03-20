@@ -174,7 +174,10 @@ public class InitialView {
 		exitButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK), "exiting");
 		exitButton.getActionMap().put("exiting", exAction);
 		//exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
-*/	}
+*/	
+		System.out.println(Thread.currentThread().getName().toString());
+
+	}
 
 	private void newAction(JButton newButton) {
 		newButton.addActionListener(new ActionListener() {
@@ -295,6 +298,7 @@ public class InitialView {
 			}
 
 		});
+		System.out.println(Thread.currentThread().getName().toString());
 	}
 
 	private void exitAction(JButton exitButton) {
