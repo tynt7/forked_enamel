@@ -82,7 +82,7 @@ public class InitialView {
 		frmAuthoringApp.setTitle("Authoring App");
 		frmAuthoringApp.setBackground(new Color(240, 240, 240));
 		frmAuthoringApp.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
-		frmAuthoringApp.setBounds(150, 150, 275, 375);
+		frmAuthoringApp.setBounds(150, 150, 975, 575);
 		//frmAuthoringApp.setResizable(false); // fix window dimensions
 		
 		//*****************************************************************************
@@ -90,8 +90,8 @@ public class InitialView {
 		
 		// find the dimensions of the screen and a dimension that is derive one
 		// quarter of the size
-		Dimension targetSize = new Dimension((int) thisScreen.getWidth() / 4, (int) thisScreen.getHeight() / 4);
-		frmAuthoringApp.setPreferredSize(targetSize);
+		//Dimension targetSize = new Dimension((int) thisScreen.getWidth() / 4, (int) thisScreen.getHeight() / 4);
+		//frmAuthoringApp.setPreferredSize(targetSize);
 		frmAuthoringApp.setSize((int) thisScreen.getWidth() / 2, (int) thisScreen.getHeight() / 2);
 		//.frmAutho(this.getClass().getName());
 		this.frmAuthoringApp.setLocationByPlatform(true);
