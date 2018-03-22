@@ -9,6 +9,7 @@ import java.awt.FlowLayout;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.management.JMException;
 import javax.swing.AbstractAction;
@@ -40,15 +41,17 @@ import enamel.ScenarioParser;
  * @author Jeremy, Nisha, Tyler
  * 
  *         GUI class to display initial view of Authoring app. This class allows
- *         user to create new scenario, edit saved scenario, test saved scenario.
- *         Accessibility features are implemented.
+ *         user to create new scenario, edit saved scenario, test saved
+ *         scenario. Accessibility features are implemented.
  *
  */
 @SuppressWarnings({ "unused", "static-access" })
-public class InitialView {
+public class InitialView implements KeyListener {
 
+	private boolean ctrlPressed = false;
 	private JFrame frmAuthoringApp;
 	private Thread starterCodeThread;// thread to run visual player
+	private JButton exitButton;
 
 	/**
 	 * Launch the application.
@@ -83,23 +86,24 @@ public class InitialView {
 		frmAuthoringApp.setBackground(new Color(240, 240, 240));
 		frmAuthoringApp.getContentPane().setBackground(UIManager.getColor("CheckBox.background"));
 		frmAuthoringApp.setBounds(150, 150, 975, 575);
-		//frmAuthoringApp.setResizable(false); // fix window dimensions
-		
-		//*****************************************************************************
+		// frmAuthoringApp.setResizable(false); // fix window dimensions
+
+		// *****************************************************************************
 		Dimension thisScreen = Toolkit.getDefaultToolkit().getScreenSize();
-		
+
 		// find the dimensions of the screen and a dimension that is derive one
 		// quarter of the size
-		//Dimension targetSize = new Dimension((int) thisScreen.getWidth() / 4, (int) thisScreen.getHeight() / 4);
-		//frmAuthoringApp.setPreferredSize(targetSize);
+		// Dimension targetSize = new Dimension((int) thisScreen.getWidth() / 4, (int)
+		// thisScreen.getHeight() / 4);
+		// frmAuthoringApp.setPreferredSize(targetSize);
 		frmAuthoringApp.setSize((int) thisScreen.getWidth() / 2, (int) thisScreen.getHeight() / 2);
-		//.frmAutho(this.getClass().getName());
+		// .frmAutho(this.getClass().getName());
 		this.frmAuthoringApp.setLocationByPlatform(true);
-		//*****************************************************************************
+		// *****************************************************************************
 		// this methods asks the window manager to position the frame in the
 		// centre of the screen
 		this.frmAuthoringApp.setLocationRelativeTo(null);
-		
+
 		frmAuthoringApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAuthoringApp.getContentPane().setLayout(null);
 
@@ -114,6 +118,8 @@ public class InitialView {
 		newButton.getAccessibleContext().setAccessibleDescription("Creates a new file");
 		newAction(newButton);
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
+
+		// newButton.getActionMap().put(key, buttonAction);
 		// newButton.setBackground(Color.WHITE);
 		// newButton.setContentAreaFilled(false);
 		// newButton.setOpaque(true);
@@ -130,8 +136,9 @@ public class InitialView {
 		// editButton.setContentAreaFilled(false);
 		// editButton.setOpaque(true);
 		// editButton.setBackground(Color.WHITE);
-		editButton.setToolTipText("Edit a Scenario");
+		
 		editAction(editButton);
+		editButton.setToolTipText("Edit a Scenario");
 		editButton.setBounds(389, 200, 165, 50);
 		frmAuthoringApp.getContentPane().add(editButton);
 
@@ -142,81 +149,68 @@ public class InitialView {
 		// testButton.setContentAreaFilled(false);
 		// testButton.setOpaque(true);
 		testButton.setForeground(new Color(0, 128, 128));
-		testButton.setToolTipText("Test a Scenario");
+		
 		testAction(testButton);
-
+		testButton.setToolTipText("Test a Scenario");
 		testButton.setBounds(389, 259, 165, 50);
 		frmAuthoringApp.getContentPane().add(testButton);
 
-		JButton exitButton = new JButton("Exit");
+		exitButton = new JButton("Exit");
 		exitButton.getAccessibleContext().setAccessibleDescription("Closes the application");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		exitButton.setForeground(new Color(139, 0, 0));
 		// exitButton.setContentAreaFilled(false);
 		// exitButton.setOpaque(true);
 		// exitButton.setBackground(Color.WHITE);
-		exitButton.setToolTipText("Exit the App");
+		
 		exitButton.setBounds(389, 319, 165, 50);
 		frmAuthoringApp.getContentPane().add(exitButton);
 		// frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new
 		// Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton,
 		// btnEdit, testButton, exitButton}));
 		exitAction(exitButton);
-		/*//frmAuthoringApp.setFocusable(true);
-		Action exAction = new AbstractAction() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				testExtract(exitButton);
-			}
-		};
-		exitButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK), "exiting");
-		exitButton.getActionMap().put("exiting", exAction);
-		//exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
-*/	
+		exitButton.setToolTipText("Exit the App");
+		/*
+		 * //frmAuthoringApp.setFocusable(true); Action exAction = new AbstractAction()
+		 * {
+		 * 
+		 * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
+		 * method stub testExtract(exitButton); } };
+		 * exitButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
+		 * ActionEvent.CTRL_MASK), "exiting"); exitButton.getActionMap().put("exiting",
+		 * exAction); //exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
+		 * ActionEvent.CTRL_MASK));
+		 */
 		System.out.println(Thread.currentThread().getName().toString());
 
 	}
 
 	private void newAction(JButton newButton) {
-		newButton.addActionListener(new ActionListener() {
+		Action buttonAction = new AbstractAction("New") {
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				ScenarioForm sf = new ScenarioForm();
 				sf.displayForm();
 			}
-		});
+		};
+		newButton.setAction(buttonAction);
+		newButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK), "New");
+		newButton.getActionMap().put("New", buttonAction);
 	}
 
 	private void editAction(JButton editButton) {
-		editButton.addActionListener(new ActionListener() {
+
+		Action buttonAction = new AbstractAction("Edit") {
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				new Thread(new Runnable() {
 					public void run() {
 						JButton open = new JButton();
-
 						JFileChooser fc = new JFileChooser();
-						FileFilter txtFilter = new FileFilter() {
-							@Override
-							public String getDescription() {
-								return "Text file (*.TXT)";
-							}
-
-							@Override
-							public boolean accept(File file) {
-								if (file.isDirectory()) {
-									return true;
-								} else {
-									return file.getName().toLowerCase().endsWith(".txt");
-								}
-							}
-						};
-
-						fc.setFileFilter(txtFilter);
-						fc.setAcceptAllFileFilterUsed(false);
-						fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
-						fc.setDialogTitle("Please Choose File to Open");
-						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						makeFileChooser(fc, open);
 						if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
 							FileToCardsParser f = new FileToCardsParser();
 							f.setFile(fc.getSelectedFile().getPath());
@@ -233,61 +227,30 @@ public class InitialView {
 							av.setCardList();
 							av.setEdited();
 						}
-
 					}
+
+					
 				}).start();
 			}
-		});
+		};
+		editButton.setAction(buttonAction);
+		editButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_E, ActionEvent.CTRL_MASK), "Edit");
+		editButton.getActionMap().put("Edit", buttonAction);
 	}
 
 	private void testAction(JButton testButton) {
-		testButton.addActionListener(new ActionListener() {
+		
+		
+		Action buttonAction = new AbstractAction("Test") {
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
-				// ToyAuthoring ta = new ToyAuthoring();
-				// ta.launchToyAuthoring();
-				// ta.main(null);
-
-				// frame.dispose();
-				/*
-				 * JButton open = new JButton();
-				 * 
-				 * JFileChooser fc = new JFileChooser();
-				 * fc.setCurrentDirectory(new
-				 * java.io.File("./FactoryScenarios"));
-				 * fc.setDialogTitle("Please Choose File to Open");
-				 * fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-				 * if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
-				 * 
-				 * } ScenarioParser s = new ScenarioParser(true);
-				 * s.setScenarioFile(fc.getSelectedFile().getPath());
-				 */
-
-				// Running Starter code as separate thread
 				starterCodeThread = new Thread("Starter Code Thread") {
 					public void run() {
 						JButton open = new JButton();
-
 						JFileChooser fc = new JFileChooser();
-						FileFilter txtFilter = new FileFilter() {
-							@Override
-							public String getDescription() {
-								return "Text file (*.TXT)";
-							}
-
-							@Override
-							public boolean accept(File file) {
-								if (file.isDirectory()) {
-									return true;
-								} else {
-									return file.getName().toLowerCase().endsWith(".txt");
-								}
-							}
-						};
-
-						fc.setFileFilter(txtFilter);
-						fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
-						fc.setDialogTitle("Please Choose File to Open");
-						fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+						makeFileChooser(fc, open);
 						if (fc.showOpenDialog(open) == JFileChooser.APPROVE_OPTION) {
 							ScenarioParser s = new ScenarioParser(true);
 							s.setScenarioFile(fc.getSelectedFile().getPath());
@@ -295,19 +258,74 @@ public class InitialView {
 					}
 				};// ).start();
 				starterCodeThread.start();
+				//System.out.println(Thread.currentThread().getName().toString());
 			}
-
-		});
-		System.out.println(Thread.currentThread().getName().toString());
+		};
+		testButton.setAction(buttonAction);
+		testButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK), "Test");
+		testButton.getActionMap().put("Test", buttonAction);
 	}
 
 	private void exitAction(JButton exitButton) {
-		exitButton.addActionListener(new ActionListener() {
+		Action buttonAction = new AbstractAction("Exit") {
+
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				frmAuthoringApp.setVisible(false);
 				frmAuthoringApp.dispose();
 				System.exit(0);
 			}
-		});
+		};
+		exitButton.setAction(buttonAction);
+		exitButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK), "Exit");
+		exitButton.getActionMap().put("Exit", buttonAction);
+	}
+	
+	private void makeFileChooser(JFileChooser fc, JButton open) {
+		FileFilter txtFilter = new FileFilter() {
+			@Override
+			public String getDescription() {
+				return "Text file (*.TXT)";
+			}
+
+			@Override
+			public boolean accept(File file) {
+				if (file.isDirectory()) {
+					return true;
+				} else {
+					return file.getName().toLowerCase().endsWith(".txt");
+				}
+			}
+		};
+
+		fc.setFileFilter(txtFilter);
+		fc.setAcceptAllFileFilterUsed(false);
+		fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
+		fc.setDialogTitle("Please Choose File to Open");
+		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.CTRL_DOWN_MASK) {
+			this.ctrlPressed = true;
+		} else if (e.getKeyCode() == KeyEvent.VK_X && this.ctrlPressed) {
+			// this.exitButton.
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// ignore
+
 	}
 }
