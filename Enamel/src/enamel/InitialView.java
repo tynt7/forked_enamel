@@ -45,8 +45,8 @@ import enamel.ScenarioParser;
  *         scenario. Accessibility features are implemented.
  *
  */
-@SuppressWarnings({ "unused", "static-access" })
-public class InitialView implements KeyListener {
+@SuppressWarnings({ "unused", "static-access", "serial" })
+public class InitialView {
 
 	private boolean ctrlPressed = false;
 	private JFrame frmAuthoringApp;
@@ -136,7 +136,7 @@ public class InitialView implements KeyListener {
 		// editButton.setContentAreaFilled(false);
 		// editButton.setOpaque(true);
 		// editButton.setBackground(Color.WHITE);
-		
+
 		editAction(editButton);
 		editButton.setToolTipText("Edit a Scenario");
 		editButton.setBounds(389, 200, 165, 50);
@@ -149,7 +149,7 @@ public class InitialView implements KeyListener {
 		// testButton.setContentAreaFilled(false);
 		// testButton.setOpaque(true);
 		testButton.setForeground(new Color(0, 128, 128));
-		
+
 		testAction(testButton);
 		testButton.setToolTipText("Test a Scenario");
 		testButton.setBounds(389, 259, 165, 50);
@@ -162,7 +162,7 @@ public class InitialView implements KeyListener {
 		// exitButton.setContentAreaFilled(false);
 		// exitButton.setOpaque(true);
 		// exitButton.setBackground(Color.WHITE);
-		
+
 		exitButton.setBounds(389, 319, 165, 50);
 		frmAuthoringApp.getContentPane().add(exitButton);
 		// frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new
@@ -174,7 +174,7 @@ public class InitialView implements KeyListener {
 		 * //frmAuthoringApp.setFocusable(true); Action exAction = new AbstractAction()
 		 * {
 		 * 
-		 * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
+		 * @Override public void actionPerformed(ActionEvent e) {
 		 * method stub testExtract(exitButton); } };
 		 * exitButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
 		 * ActionEvent.CTRL_MASK), "exiting"); exitButton.getActionMap().put("exiting",
@@ -196,7 +196,7 @@ public class InitialView implements KeyListener {
 		};
 		newButton.setAction(buttonAction);
 		newButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-				.put(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK), "New");
+				.put(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK), "New");
 		newButton.getActionMap().put("New", buttonAction);
 	}
 
@@ -215,12 +215,8 @@ public class InitialView implements KeyListener {
 							FileToCardsParser f = new FileToCardsParser();
 							f.setFile(fc.getSelectedFile().getPath());
 							AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons(), f.getCards(),
-									f.getInitial(), f.getEnding()); // new
-																	// ActionListener()
-																	// {public
-																	// void
-																	// actionPerformed(ActionEvent
-																	// e2) {}});
+									f.getInitial(), f.getEnding()); // newActionListener(){public void
+																	// actionPerformed(ActionEvente2) {}});
 							av.setPromptText(f.getCards().get(0).getText());
 							av.setCurrCellPins(f.getCards().get(0).getCells().get(0));
 							av.setButtonText(f.getCards().get(0).getButtonList().get(0).getText());
@@ -229,7 +225,6 @@ public class InitialView implements KeyListener {
 						}
 					}
 
-					
 				}).start();
 			}
 		};
@@ -240,8 +235,7 @@ public class InitialView implements KeyListener {
 	}
 
 	private void testAction(JButton testButton) {
-		
-		
+
 		Action buttonAction = new AbstractAction("Test") {
 
 			@Override
@@ -258,7 +252,7 @@ public class InitialView implements KeyListener {
 					}
 				};// ).start();
 				starterCodeThread.start();
-				//System.out.println(Thread.currentThread().getName().toString());
+				// System.out.println(Thread.currentThread().getName().toString());
 			}
 		};
 		testButton.setAction(buttonAction);
@@ -282,7 +276,7 @@ public class InitialView implements KeyListener {
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK), "Exit");
 		exitButton.getActionMap().put("Exit", buttonAction);
 	}
-	
+
 	private void makeFileChooser(JFileChooser fc, JButton open) {
 		FileFilter txtFilter = new FileFilter() {
 			@Override
@@ -305,27 +299,6 @@ public class InitialView implements KeyListener {
 		fc.setCurrentDirectory(new java.io.File("./FactoryScenarios"));
 		fc.setDialogTitle("Please Choose File to Open");
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		
-	}
-
-	@Override
-	public void keyPressed(KeyEvent e) {
-		if (e.getKeyCode() == KeyEvent.CTRL_DOWN_MASK) {
-			this.ctrlPressed = true;
-		} else if (e.getKeyCode() == KeyEvent.VK_X && this.ctrlPressed) {
-			// this.exitButton.
-		}
-	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		// ignore
 
 	}
 }
