@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
@@ -53,7 +54,7 @@ public class InitialView {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) {        
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -64,7 +65,6 @@ public class InitialView {
 				}
 			}
 		});
-
 	}
 
 	/**
@@ -175,9 +175,20 @@ public class InitialView {
 		exitButton.getActionMap().put("exiting", exAction);
 		//exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
 */	
-		System.out.println(Thread.currentThread().getName().toString());
+		//System.out.println(Thread.currentThread().getName().toString());
+/*		if( Thread.getAllStackTraces().containsKey(starterCodeThread)==true){
+			//Thread c = Thread.getAllStackTraces().containsValue(starterCodeThread);
+			System.out.println(""+  Thread.getAllStackTraces().get(starterCodeThread).toString());
+		}
+		*/
+//		Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		// Walk up all the way to the root thread group
+		
+	      
+        
 
 	}
+	
 
 	private void newAction(JButton newButton) {
 		newButton.addActionListener(new ActionListener() {
@@ -295,10 +306,22 @@ public class InitialView {
 					}
 				};// ).start();
 				starterCodeThread.start();
+				ThreadGroup currentGroup = Thread.currentThread().getThreadGroup();
+			      int noThreads = currentGroup.activeCount();
+			      Thread[] lstThreads = new Thread[noThreads];
+			      currentGroup.enumerate(lstThreads);
+			      
+			      for (int i = 0; i < noThreads; i++) System.out.println("Thread No:" + i + " = " + lstThreads[i].getName());
 			}
 
 		});
-		System.out.println(Thread.currentThread().getName().toString());
+		//System.out.println(Thread.currentThread().getName().toString());
+		/*ThreadGroup rootGroup = Thread.currentThread().getThreadGroup();
+        ThreadGroup parent;
+        while ((parent = rootGroup.getParent()) != null) {
+            rootGroup = parent;
+            listThreads(rootGroup, "");
+        }*/
 	}
 
 	private void exitAction(JButton exitButton) {
@@ -310,4 +333,31 @@ public class InitialView {
 			}
 		});
 	}
+	
+
+
+	    // List all threads and recursively list all subgroup
+	    public static void listThreads(ThreadGroup group, String indent) {
+	        System.out.println(indent + "Group[" + group.getName() + 
+	                ":" + group.getClass()+"]");
+	        int nt = group.activeCount();
+	        Thread[] threads = new Thread[nt*2 + 10]; //nt is not accurate
+	        nt = group.enumerate(threads, false);
+
+	        // List every thread in the group
+	        for (int i=0; i<nt; i++) {
+	            Thread t = threads[i];
+	            System.out.println(indent + "  Thread[" + t.getName() 
+	                    + ":" + t.getClass() + "]");
+	        }
+
+	        // Recursively list all subgroups
+	        int ng = group.activeGroupCount();
+	        ThreadGroup[] groups = new ThreadGroup[ng*2 + 10];
+	        ng = group.enumerate(groups, false);
+
+	        for (int i=0; i<ng; i++) {
+	            listThreads(groups[i], indent + "  ");
+	        }
+	    }
 }
