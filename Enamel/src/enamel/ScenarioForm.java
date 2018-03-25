@@ -352,7 +352,7 @@ public class ScenarioForm {
 					Card temp = new Card(1, "Card 1", "");
 					cards.add(temp);
 					cards.get(0).getCells().add(new BrailleCell());
-					AuthoringViewer av = new AuthoringViewer(comboCellBox.getSelectedIndex() + 1,
+					AuthoringApp av = new AuthoringApp(comboCellBox.getSelectedIndex() + 1,
 							comboButtonBox.getSelectedIndex() + 1, cards, getTitle(), "");
 					av.setCardList();
 					sCreatorFrame.dispose();

@@ -149,6 +149,7 @@ public class AuthoringApp {
 	private String path;
 	private boolean promptEdit = false;
 	private boolean buttonEdit = false;
+	private JScrollPane listScroller;
 	// non zero
 
 	/**
@@ -192,13 +193,13 @@ public class AuthoringApp {
 		aViewFrame.getContentPane().setBackground(new Color(217, 217, 217));
 		aViewFrame.getContentPane().setLayout(new BorderLayout(0, 0));
 		aViewFrame.setResizable(true);
-		aViewFrame.setBackground(new Color(255, 255, 255));
+		aViewFrame.setBackground(new Color(255, 255, 5));
 		aViewFrame.setTitle("Authoring App Editor");
 		aViewFrame.getAccessibleContext().setAccessibleDescription("Authoring App Editor");
 		aViewFrame.setBounds(100, 100, 1000, 612);
 		aViewFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-		listModel = new DefaultListModel();
+		
 
 		JMenuBar menuBar = new JMenuBar();
 		aViewFrame.setJMenuBar(menuBar);
@@ -531,14 +532,14 @@ public class AuthoringApp {
 		JLabel lblResponses = new JLabel("RESPONSES");
 		lblResponses.setVerticalAlignment(SwingConstants.BOTTOM);
 		center_south.add(lblResponses);
-		
+
 		JPanel buttonPanel = new JPanel();
 		center_south.add(buttonPanel);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
 		JLabel label = new JLabel("");
 		buttonPanel.add(label);
-		
+
 		buttonEditor = new JEditorPane();
 		buttonEditor.getAccessibleContext().setAccessibleDescription("Enter a response for this button");
 		buttonEditor.setText("Enter a response for this button");
@@ -640,7 +641,7 @@ public class AuthoringApp {
 
 			}
 		});
-		
+
 		JPanel center_east = new JPanel();
 		center.add(center_east, BorderLayout.EAST);
 		center_east.setLayout(new GridLayout(3, 1, 0, 0));
@@ -730,6 +731,10 @@ public class AuthoringApp {
 		});
 		button_7.setToolTipText("Right Cell Button");
 		cellPane.add(button_7);
+		
+		lblCurrCell = new JLabel("1/" + this.numCells);
+		cellPane.add(lblCurrCell);
+		lblCurrCell.setBounds(105, 189, 31, 16);
 		Component verticalStrut = Box.createVerticalStrut(20);
 		center_east.add(verticalStrut);
 
@@ -792,17 +797,24 @@ public class AuthoringApp {
 		aViewFrame.getContentPane().add(east, BorderLayout.EAST);
 		east.setLayout(new GridLayout(4, 0, 0, 0));
 
-		JScrollPane listScroller = new JScrollPane((Component) null);
+		listModel = new DefaultListModel();
+		list = new JList();
+		list = new JList(listModel);
+		list.getAccessibleContext().setAccessibleDescription("Card Order List");
+		list.setToolTipText("Card Order List");
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list.setLayoutOrientation(JList.VERTICAL);
+		list.setVisibleRowCount(-1);
+		listScroller = new JScrollPane(list);
+		listScroller = new JScrollPane(list);
+		listScroller.setViewportView(list);
 		listScroller.setAlignmentX(0.0f);
 		east.add(listScroller);
-
+		
 		JLabel lblOrder = new JLabel("ORDER");
 		listScroller.setColumnHeaderView(lblOrder);
 		lblOrder.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblOrder.setHorizontalAlignment(SwingConstants.CENTER);
-
-		JList list = new JList();
-		listScroller.setViewportView(list);
 
 		JPanel east_buttons = new JPanel();
 		east.add(east_buttons);
@@ -1051,7 +1063,7 @@ public class AuthoringApp {
 			}
 		}
 	}
-	
+
 	/**
 	 * Action for settings button
 	 * 
@@ -1073,7 +1085,7 @@ public class AuthoringApp {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							ScenarioForm window = new ScenarioForm(cards);
+							ScenarioForm window = new ScenarioForm(cards, numCells, numButtons);
 							window.sCreatorFrame.setVisible(true);
 						} catch (Exception e) {
 							e.printStackTrace();
@@ -1088,7 +1100,6 @@ public class AuthoringApp {
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_N, KeyEvent.CTRL_DOWN_MASK), "Settings");
 		settingsButton.getActionMap().put("Settings", buttonAction);
 	}
-
 
 	/**
 	 * Method to set Prompt text
@@ -1133,7 +1144,7 @@ public class AuthoringApp {
 		for (Card cards : this.cards) {
 			listModel.addElement(cards.getName());
 		}
-		list.setSelectedIndex(currCard);
+		// list.setSelectedIndex(currCard);
 	}
 
 	/**
