@@ -253,6 +253,12 @@ public class InitialView {
 				};// ).start();
 				starterCodeThread.start();
 				// System.out.println(Thread.currentThread().getName().toString());
+				ThreadGroup currentGroup = Thread.currentThread().getThreadGroup();
+			      int noThreads = currentGroup.activeCount();
+			      Thread[] lstThreads = new Thread[noThreads];
+			      currentGroup.enumerate(lstThreads);
+			      
+			      for (int i = 0; i < noThreads; i++) System.out.println("Thread No:" + i + " = " + lstThreads[i].getName());
 			}
 		};
 		testButton.setAction(buttonAction);
