@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
+import java.util.Set;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
@@ -37,9 +38,9 @@ import javax.swing.filechooser.FileFilter;
 import enamel.ScenarioParser;
 
 /**
- * 
+ *
  * @author Jeremy, Nisha, Tyler
- * 
+ *
  *         GUI class to display initial view of Authoring app. This class allows
  *         user to create new scenario, edit saved scenario, test saved
  *         scenario. Accessibility features are implemented.
@@ -174,14 +175,22 @@ public class InitialView {
 		 * //frmAuthoringApp.setFocusable(true); Action exAction = new AbstractAction()
 		 * {
 		 * 
-		 * @Override public void actionPerformed(ActionEvent e) {
+		 * @Override public void actionPerformed(ActionEvent e) { // TODO Auto-generated
 		 * method stub testExtract(exitButton); } };
 		 * exitButton.getInputMap().put(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
 		 * ActionEvent.CTRL_MASK), "exiting"); exitButton.getActionMap().put("exiting",
 		 * exAction); //exitButton.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
 		 * ActionEvent.CTRL_MASK));
 		 */
-		System.out.println(Thread.currentThread().getName().toString());
+		// System.out.println(Thread.currentThread().getName().toString());
+		/*
+		 * if( Thread.getAllStackTraces().containsKey(starterCodeThread)==true){
+		 * //Thread c = Thread.getAllStackTraces().containsValue(starterCodeThread);
+		 * System.out.println(""+
+		 * Thread.getAllStackTraces().get(starterCodeThread).toString()); }
+		 */
+		// Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
+		// Walk up all the way to the root thread group
 
 	}
 
@@ -216,7 +225,7 @@ public class InitialView {
 							f.setFile(fc.getSelectedFile().getPath());
 							AuthoringViewer av = new AuthoringViewer(f.getCells(), f.getButtons(), f.getCards(),
 									f.getInitial(), f.getEnding()); // newActionListener(){public void
-																	// actionPerformed(ActionEvente2) {}});
+							// actionPerformed(ActionEvente2) {}});
 							av.setPromptText(f.getCards().get(0).getText());
 							av.setCurrCellPins(f.getCards().get(0).getCells().get(0));
 							av.setButtonText(f.getCards().get(0).getButtonList().get(0).getText());
@@ -252,15 +261,22 @@ public class InitialView {
 					}
 				};// ).start();
 				starterCodeThread.start();
-				// System.out.println(Thread.currentThread().getName().toString());
 				ThreadGroup currentGroup = Thread.currentThread().getThreadGroup();
-			      int noThreads = currentGroup.activeCount();
-			      Thread[] lstThreads = new Thread[noThreads];
-			      currentGroup.enumerate(lstThreads);
-			      
-			      for (int i = 0; i < noThreads; i++) System.out.println("Thread No:" + i + " = " + lstThreads[i].getName());
+				int noThreads = currentGroup.activeCount();
+				Thread[] lstThreads = new Thread[noThreads];
+				currentGroup.enumerate(lstThreads);
+
+				for (int i = 0; i < noThreads; i++)
+					System.out.println("Thread No:" + i + " = " + lstThreads[i].getName());
 			}
+
 		};
+		// System.out.println(Thread.currentThread().getName().toString());
+		/*
+		 * ThreadGroup rootGroup = Thread.currentThread().getThreadGroup(); ThreadGroup
+		 * parent; while ((parent = rootGroup.getParent()) != null) { rootGroup =
+		 * parent; listThreads(rootGroup, ""); }
+		 */
 		testButton.setAction(buttonAction);
 		testButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
 				.put(KeyStroke.getKeyStroke(KeyEvent.VK_T, ActionEvent.CTRL_MASK), "Test");
@@ -306,5 +322,28 @@ public class InitialView {
 		fc.setDialogTitle("Please Choose File to Open");
 		fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 
+	}
+
+	// List all threads and recursively list all subgroup
+	public static void listThreads(ThreadGroup group, String indent) {
+		System.out.println(indent + "Group[" + group.getName() + ":" + group.getClass() + "]");
+		int nt = group.activeCount();
+		Thread[] threads = new Thread[nt * 2 + 10]; // nt is not accurate
+		nt = group.enumerate(threads, false);
+
+		// List every thread in the group
+		for (int i = 0; i < nt; i++) {
+			Thread t = threads[i];
+			System.out.println(indent + "  Thread[" + t.getName() + ":" + t.getClass() + "]");
+		}
+
+		// Recursively list all subgroups
+		int ng = group.activeGroupCount();
+		ThreadGroup[] groups = new ThreadGroup[ng * 2 + 10];
+		ng = group.enumerate(groups, false);
+
+		for (int i = 0; i < ng; i++) {
+			listThreads(groups[i], indent + "  ");
+		}
 	}
 }
