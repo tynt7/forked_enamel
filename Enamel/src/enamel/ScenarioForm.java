@@ -358,7 +358,7 @@ public class ScenarioForm {
 					sCreatorFrame.dispose();
 				} else {
 					System.out.println("Cells: " + numCells + " Buttons: " + numButtons + " " + selectedCells + " " + selectedButtons + " ");
-					if ( selectedCells >= numCells
+					if ( selectedCells >= numCells 
 							&& selectedButtons >= numButtons) {
 						createAuthoringViewer(comboCellBox, comboButtonBox);
 					} else {
