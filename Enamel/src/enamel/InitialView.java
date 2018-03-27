@@ -36,6 +36,7 @@ import java.awt.Dimension;
 import javax.swing.UIManager;
 import javax.swing.filechooser.FileFilter;
 import enamel.ScenarioParser;
+import java.awt.GridLayout;
 
 /**
  *
@@ -106,17 +107,28 @@ public class InitialView {
 		this.frmAuthoringApp.setLocationRelativeTo(null);
 
 		frmAuthoringApp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmAuthoringApp.getContentPane().setLayout(null);
+		frmAuthoringApp.getContentPane().setLayout(new GridLayout(0, 1, 0, 0));
 
 		JLabel lblNewLabel = new JLabel("AUTHORING APP");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 21));
 		lblNewLabel.setForeground(Color.BLACK);
-		lblNewLabel.setBounds(379, 60, 185, 70);
 		frmAuthoringApp.getContentPane().add(lblNewLabel);
 
 		JButton newButton = new JButton("New");
 		newButton.getAccessibleContext().setAccessibleDescription("Creates a new file");
+		
+		JLabel label = new JLabel("");
+		frmAuthoringApp.getContentPane().add(label);
+		
+		JLabel label_1 = new JLabel("");
+		frmAuthoringApp.getContentPane().add(label_1);
+		
+		JLabel label_2 = new JLabel("");
+		frmAuthoringApp.getContentPane().add(label_2);
+		
+		JLabel label_3 = new JLabel("");
+		frmAuthoringApp.getContentPane().add(label_3);
 		newAction(newButton);
 		newButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 
@@ -127,7 +139,6 @@ public class InitialView {
 
 		newButton.setForeground(new Color(0, 0, 205));
 		newButton.setToolTipText("Create New Scenario");
-		newButton.setBounds(389, 139, 165, 50);
 		frmAuthoringApp.getContentPane().add(newButton);
 
 		JButton editButton = new JButton("Edit");
@@ -140,7 +151,6 @@ public class InitialView {
 
 		editAction(editButton);
 		editButton.setToolTipText("Edit a Scenario");
-		editButton.setBounds(389, 200, 165, 50);
 		frmAuthoringApp.getContentPane().add(editButton);
 
 		JButton testButton = new JButton("Test");
@@ -153,18 +163,12 @@ public class InitialView {
 
 		testAction(testButton);
 		testButton.setToolTipText("Test a Scenario");
-		testButton.setBounds(389, 259, 165, 50);
 		frmAuthoringApp.getContentPane().add(testButton);
 
 		exitButton = new JButton("Exit");
 		exitButton.getAccessibleContext().setAccessibleDescription("Closes the application");
 		exitButton.setFont(new Font("Tahoma", Font.BOLD, 16));
 		exitButton.setForeground(new Color(139, 0, 0));
-		// exitButton.setContentAreaFilled(false);
-		// exitButton.setOpaque(true);
-		// exitButton.setBackground(Color.WHITE);
-
-		exitButton.setBounds(389, 319, 165, 50);
 		frmAuthoringApp.getContentPane().add(exitButton);
 		// frmAuthoringApp.setFocusTraversalPolicy(new FocusTraversalOnArray(new
 		// Component[]{frmAuthoringApp.getContentPane(), lblNewLabel, newButton,
